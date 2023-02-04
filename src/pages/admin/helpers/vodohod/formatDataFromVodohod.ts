@@ -7,7 +7,7 @@ export const formatDataFromVodohod = (
 
   return data.map((item) => {
     return {
-      exId: item?.id,
+      exId: `${item?.id}-v`,
       loadFrom: 'vodohod',
       dateStart: item.dateStart,
       dateEnd: item.dateEnd,

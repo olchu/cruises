@@ -20,7 +20,7 @@ export type CruiseListResponseData = {
 };
 
 export interface CruiseList {
-  exId: number;
+  exId: string;
   loadFrom: Providers;
   dateStart: string;
   dateEnd: string;
