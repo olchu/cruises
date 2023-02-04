@@ -2,6 +2,7 @@ import AdminLayout from '@/components/layouts/admin';
 import {
   Box,
   Button,
+  Progress,
   Table,
   TableContainer,
   Tbody,
@@ -13,21 +14,18 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useGetCruiseList } from './api/vodohod/useGetCruiseList';
-import { useGetToken } from './api/vodohod/useGetToken';
 import { formatDataFromVodohod } from './helpers/vodohod/formatDataFromVodohod';
 import { supabase } from '@/config/supabaseClient';
 import { CruiseList } from './api/types';
 
 const Vodohod = () => {
   const [error, setError] = useState<string | null>(null);
-  const { token, getToken, tokenError } = useGetToken();
-  const { cruiseListError, getCruiseList, cruiseData } = useGetCruiseList();
+  const { cruiseListError, getCruiseList, cruiseData, isFetchingCruiseList } =
+    useGetCruiseList();
   const [syncData, setSyncData] = useState<CruiseList[] | null>(null);
 
-  const handleSyncCruise = () => {
-    if (token) {
-      getCruiseList(token);
-    }
+  const handleGetCuiseList = () => {
+    getCruiseList();
   };
 
   const handleSync = async () => {
@@ -41,9 +39,8 @@ const Vodohod = () => {
   };
 
   useEffect(() => {
-    if (tokenError) setError(tokenError);
     if (cruiseListError) setError(cruiseListError);
-  }, [cruiseListError, tokenError]);
+  }, [cruiseListError]);
 
   useEffect(() => {
     if (cruiseData) {
@@ -55,17 +52,18 @@ const Vodohod = () => {
 
   return (
     <div>
-      <Button bg="red.100" onClick={getToken}>
-        получить токен
-      </Button>
-      <Button bg="blue.200" onClick={handleSyncCruise}>
-        Выгрузить
-      </Button>
+      <Box>
+        Выгрузить круизы из Водохода
+        <Button ml={8} bg="blue.200" onClick={handleGetCuiseList}>
+          Выгрузить
+        </Button>
+        {isFetchingCruiseList && <Progress mt={8} size="xs" isIndeterminate />}
+      </Box>
 
       {syncData && (
         <Box my={8}>
           Будет вставлено или обновлено {syncData.length} круизов
-          <Button ml={8} bg="blue.200"  onClick={handleSync}>
+          <Button ml={8} bg="blue.200" onClick={handleSync}>
             Синхронизировать
           </Button>
         </Box>
