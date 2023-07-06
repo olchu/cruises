@@ -17,6 +17,10 @@ const adminsMenu = [
     title: 'api Водоход',
     href: adminUrl + '/vodohod',
   },
+  {
+    title: 'api Князь',
+    href: adminUrl + '/knyaz',
+  },
 ];
 
 const AdminLayout: LayoutProps = ({ children }) => {

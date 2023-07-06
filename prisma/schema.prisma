@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures= ["createMany"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cruises {
+  exId       Int      @unique
+  loadFrom   String   @db.VarChar(255)
+  dateStart  String   @db.VarChar(255)
+  dateEnd    String   @db.VarChar(255)
+  cityStart  String   @db.VarChar(255)
+  cityEnd    String   @db.VarChar(255)
+  days       Int
+  title      String   @db.Text
+  shortRoute String   @db.Text
+  route      String   @db.Text
+  shipId     Int
+  shipName   String   @db.VarChar(255)
+  id         Int      @unique @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamp(0)
+
+  @@id([id, exId])
+}

@@ -27,7 +27,7 @@ export const useGetCruiseList = () => {
       });
       const data = await res.json();
       setIsFetchingCruiseList(false)
-      setCruiseData(data);
+      setCruiseData(data?.result?.data);
     } catch (error) {
       setIsFetchingCruiseList(false)
       setCruiseListError('Ошибка при получении списка круизов');

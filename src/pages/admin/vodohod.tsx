@@ -1,54 +1,55 @@
 import AdminLayout from '@/components/layouts/admin';
-import {
-  Box,
-  Button,
-  Progress,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react';
+import { Box, Button, Progress } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useGetCruiseList } from './api/vodohod/useGetCruiseList';
 import { formatDataFromVodohod } from './helpers/vodohod/formatDataFromVodohod';
-import { supabase } from '@/config/supabaseClient';
 import { CruiseList } from './api/types';
+import { syncCruise } from './api/db/syncCruise';
+import { useGetCruisePrice } from './api/vodohod/useGetCruisePrice';
 
 const Vodohod = () => {
   const [error, setError] = useState<string | null>(null);
   const { cruiseListError, getCruiseList, cruiseData, isFetchingCruiseList } =
     useGetCruiseList();
   const [syncData, setSyncData] = useState<CruiseList[] | null>(null);
+  const { error: priceError, getCruisePrice, price } = useGetCruisePrice();
 
   const handleGetCuiseList = () => {
     getCruiseList();
   };
 
-  const handleSync = async () => {
-    if (syncData && syncData.length > 0) {
-      const { data, error } = await supabase
-        .from('cruises2')
-        .upsert(syncData, { onConflict: 'exId' });
-      console.log('error', error);
-      console.log('data', data);
-    }
+  const handleGetPrice = () => {
+    getCruisePrice(syncData || []);
   };
+
+  const handleSync = async () => {
+    console.log('syncData', syncData);
+    // const res = await syncCruise(syncData || []);
+    // console.log(res);
+    // if (syncData && syncData.length > 0) {
+    //   const { data, error } = await supabase
+    //     .from('cruises2')
+    //     .upsert(syncData, { onConflict: 'exId' });
+    //   console.log('error', error);
+    //   console.log('data', data);
+    // }
+  };
+
+  useEffect(() => {
+    console.log('price', price);
+  }, [price]);
 
   useEffect(() => {
     if (cruiseListError) setError(cruiseListError);
   }, [cruiseListError]);
 
   useEffect(() => {
-    if (cruiseData) {
-      const temp = formatDataFromVodohod(cruiseData?.result?.data);
+    if (cruiseData && price.length > 0) {
+      const temp = formatDataFromVodohod(cruiseData, price);
       console.log('prepareData', temp);
       setSyncData(temp);
     }
-  }, [cruiseData]);
+  }, [cruiseData, price]);
 
   return (
     <div>
@@ -60,14 +61,23 @@ const Vodohod = () => {
         {isFetchingCruiseList && <Progress mt={8} size="xs" isIndeterminate />}
       </Box>
 
+      <Button ml={8} bg="blue.200" onClick={handleGetPrice}>
+        Загрузить цены к куризам
+      </Button>
       {syncData && (
         <Box my={8}>
           Будет вставлено или обновлено {syncData.length} круизов
-          <Button ml={8} bg="blue.200" onClick={handleSync}>
+        </Box>
+      )}
+      {price.length > 0 && (
+        <Box my={8}>
+          Цены загружены
+          <Button ml={8} bg="blue.200" onClick={handleGetPrice}>
             Синхронизировать
           </Button>
         </Box>
       )}
+
       {error && <p>Ошибка - {error}</p>}
     </div>
   );

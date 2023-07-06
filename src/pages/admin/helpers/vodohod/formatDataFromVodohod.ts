@@ -1,13 +1,14 @@
 import { CruiseList, CruiseListResponseData } from '../../api/types';
 
 export const formatDataFromVodohod = (
-  data: CruiseListResponseData[]
+  data: CruiseListResponseData[],
+  price: any[] //TODO поправить типы
 ): CruiseList[] | null => {
   if (data?.length === 0) return null;
 
   return data.map((item) => {
     return {
-      exId: `${item?.id}-v`,
+      exId: item?.id,
       loadFrom: 'vodohod',
       dateStart: item.dateStart,
       dateEnd: item.dateEnd,
@@ -15,10 +16,14 @@ export const formatDataFromVodohod = (
       cityStart: item.cityStart.name,
       cityEnd: item.cityEnd.name,
       title: item.name,
-      shortRoute: item.route.filter((i:any)=>i.name!=='День на борту').map((i: any) => i.name).join(' → '),
+      shortRoute: item.route
+        .filter((i: any) => i.name !== 'День на борту')
+        .map((i: any) => i.name)
+        .join(' → '),
       route: JSON.stringify(item.route),
       shipId: item.motorship.id,
       shipName: item.motorship.name,
+      // TODO что включено в круиз
     };
   });
 };
