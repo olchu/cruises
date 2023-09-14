@@ -10,7 +10,7 @@ export const GetShipsFromProvider = () => {
   const handleSync = async() => {
     if (!prepareData) return;
 
-    const res = await fetch('/api/syncShips', {
+    const res = await fetch('/api/vodohod/syncShips', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ships: prepareData }),
