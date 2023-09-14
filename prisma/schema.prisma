@@ -7,20 +7,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ships {
+  id        Int     @id @default(autoincrement())
+  extId     Int
+  name      String  @db.VarChar(255)
+  img       String? @db.VarChar(255)
+  anotation String? @db.Text
+  about     String? @db.Text
+  services  String? @db.Text
+  images    String? @db.Text   
+  loadFrom  String  @db.VarChar(255)
+  scheme    String? @db.VarChar(255)
+}
+
 model cruises {
-  exId       Int      @unique
-  loadFrom   String   @db.VarChar(255)
+  id         Int      @unique @default(autoincrement())
+  exId       Int
+  title      String   @db.Text
   dateStart  String   @db.VarChar(255)
   dateEnd    String   @db.VarChar(255)
   cityStart  String   @db.VarChar(255)
   cityEnd    String   @db.VarChar(255)
   days       Int
-  title      String   @db.Text
-  shortRoute String   @db.Text
   route      String   @db.Text
+  shortRoute String   @db.Text
   shipId     Int
   shipName   String   @db.VarChar(255)
-  id         Int      @unique @default(autoincrement())
+  type       String   @db.VarChar(255)
+  loadFrom   String   @db.VarChar(255)
   created_at DateTime @default(now()) @db.Timestamp(0)
 
   @@id([id, exId])
