@@ -1,6 +1,5 @@
 import { Providers } from '@/constants/providers';
 import { ShipsData } from '@/components/vodohod/api/useGetShips';
-import { Ultra } from '@next/font/google';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 export interface DBShipsData {
