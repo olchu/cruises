@@ -1,0 +1,90 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { Providers } from '@/constants/providers';
+import { DBShipsData } from '@/components/vodohod/ui/ships/utils/prepareShips';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import prisma from 'prisma/client';
+import { DBCruiseData } from '@/components/vodohod/ui/cruises/utils/getCruiseInfo';
+import { Prisma } from '@prisma/client';
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  try {
+    let response: { id: number; status: string }[] = [];
+
+    req.body?.cruises.forEach(async (cruise: DBCruiseData) => {
+      const selectCruise = await prisma.cruises.findFirst({
+        where: {
+          loadFrom: Providers.vodohod,
+          extId: cruise.extId,
+        },
+      });
+
+      if (selectCruise?.id) {
+        console.log('update', selectCruise?.id);
+        await prisma.cruises.update({
+          where: {
+            id: selectCruise.id,
+          },
+          data: {
+            extId: cruise.extId,
+            title: cruise.title,
+            dateStart: cruise.dateStart,
+            dateEnd: cruise.dateEnd,
+            cityStart: cruise.cityStart,
+            cityEnd: cruise.cityEnd,
+            days: cruise.days,
+            route: cruise.route as unknown as Prisma.JsonArray,
+            citiesInRoute: cruise.citiesInRoute,
+            shortRoute: cruise.shortRoute,
+            extShipId: cruise.extShipId,
+            shipId: cruise.shipId,
+            shipName: cruise.shipName,
+            loadFrom: cruise.loadFrom,
+            minPrice: cruise.minPrice,
+            minDiscountPrice: cruise.minDiscountPrice,
+            prices: cruise.prices,
+            description: cruise.description,
+            restaurants: cruise.restaurants,
+            included: cruise.included,
+            excluded: cruise.excluded,
+            image: cruise.image,
+          },
+        });
+      } else {
+        await prisma.cruises.create({
+          data: {
+            extId: cruise.extId,
+            title: cruise.title,
+            dateStart: cruise.dateStart,
+            dateEnd: cruise.dateEnd,
+            cityStart: cruise.cityStart,
+            cityEnd: cruise.cityEnd,
+            days: cruise.days,
+            route: cruise.route as unknown as Prisma.JsonArray,
+            citiesInRoute: cruise.citiesInRoute,
+            shortRoute: cruise.shortRoute,
+            extShipId: cruise.extShipId,
+            shipId: cruise.shipId,
+            shipName: cruise.shipName,
+            loadFrom: cruise.loadFrom,
+            minPrice: cruise.minPrice,
+            minDiscountPrice: cruise.minDiscountPrice,
+            prices: cruise.prices,
+            description: cruise.description,
+            restaurants: cruise.restaurants,
+            included: cruise.included,
+            excluded: cruise.excluded,
+            image: cruise.image,
+          },
+        });
+      }
+
+      response.push({ id: cruise.extId, status: 'ok' });
+    });
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}

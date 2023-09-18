@@ -6,10 +6,12 @@ type Price = {
 };
 
 type Class = Record<string, Price>;
-type Tarif = Record<string, Class>;
+export type Tarif = Record<string, Class>;
 
 export const prepareTarifs = (decks: Deck[]) => {
   let tarifs: Tarif = {};
+  let minPrice: null | number = null;
+  let minPriceDiscont: null | number = null;
 
   decks.forEach((deck) => {
     deck.roomClasses.forEach((room) => {
@@ -28,13 +30,16 @@ export const prepareTarifs = (decks: Deck[]) => {
             price.dicountedVal = p.price.discountedValue;
             price.val = p.price.value;
           }
+          if (!minPrice || minPrice > p.price.value) {
+            minPrice = p.price.value;
+            minPriceDiscont = p.price.discountedValue;
+          }
         });
       }
       const tmpRooms = { ...tarifs[deck.name] };
-      const tmpRoomPrices = { ...tmpRooms[room.name] };
 
       tarifs[deck.name] = { ...tmpRooms, [room.name]: price };
     });
   });
-  return tarifs;
+  return { tarifs, minimum: { minPrice, minPriceDiscont } };
 };

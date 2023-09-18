@@ -12,20 +12,19 @@ export default async function handler(
     req.body?.cruises.forEach(async (cruise: CruiseList) => {
       const result = await prisma.cruises.upsert({
         where: {
-          exId: cruise.exId,
+          extId: cruise.extId,
         },
         update: cruise,
         create: cruise,
       });
       // console.log('result', result);
-      response.push({ id: cruise.exId, status: 'ok' });
+      response.push({ id: cruise.extId, status: 'ok' });
     });
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
   }
 }
-
 
 // export default async function handler(
 //   req: NextApiRequest,

@@ -1,37 +1,24 @@
 import { useState } from 'react';
-import { DBCruiseData } from '../ui/cruises/utils/getCruiseInfo';
+import { DBCruiseData } from '../ui/cruises/utils/prepareCruises';
 import { prepareTarifs } from '../ui/cruises/utils/prepareTarifs';
 
 const endPoint = 'https://api-crs.vodohod.com/json/v3/cruise/room-tariffs';
 
-export const useGetTarifs = () => {
-  const getTarif = async (id: number, token: any) => {
-    const url = `${endPoint}?id=${id}`;
-    try {
-      const res = await fetch(url, {
-        method: 'Get',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data: Main = await res.json();
-      return data.result.decks;
-    } catch (error) {}
-  };
-
-  const getTarifs = async (cruises: DBCruiseData[], token: any) => {
-    let tarifs = {};
-    for (const item of cruises) {
-      const tarifsres = (await getTarif(item.extId, token)) as Deck[]; // TODO переделать на promise.all
-      console.log('cruise', item);
-      console.log('tarifsres', prepareTarifs(tarifsres));
-    }
-    return tarifs;
-  };
-  return { getTarifs };
+export const getTarif = async (id: number, token: any) => {
+  const url = `${endPoint}?id=${id}`;
+  try {
+    const res = await fetch(url, {
+      method: 'Get',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data: TarifResponce = await res.json();
+    return prepareTarifs(data.result.decks);
+  } catch (error) {}
 };
 
-interface Main {
+interface TarifResponce {
   code: number;
   message: string;
   result: Result;
