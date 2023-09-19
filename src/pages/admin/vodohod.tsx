@@ -31,7 +31,7 @@ const Vodohod = ({
         <TabList>
           <Tab>Теплоходы</Tab>
           <Tab>Круизы</Tab>
-          <Tab>Типы кают</Tab>
+          <Tab>Справочники</Tab>
         </TabList>
 
         <TabPanels>

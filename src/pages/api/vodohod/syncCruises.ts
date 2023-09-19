@@ -3,8 +3,8 @@ import { Providers } from '@/constants/providers';
 import { DBShipsData } from '@/components/vodohod/ui/ships/utils/prepareShips';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
-import { DBCruiseData } from '@/components/vodohod/ui/cruises/utils/getCruiseInfo';
 import { Prisma } from '@prisma/client';
+import { DBCruiseData } from '@/components/vodohod/types/dbDataTypes';
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,7 @@ export default async function handler(
   try {
     let response: { id: number; status: string }[] = [];
 
-    req.body?.cruises.forEach(async (cruise: DBCruiseData) => {
+    for (let cruise of req.body?.cruises) {
       const selectCruise = await prisma.cruises.findFirst({
         where: {
           loadFrom: Providers.vodohod,
@@ -52,6 +52,8 @@ export default async function handler(
             image: cruise.image,
           },
         });
+        response.push({ id: cruise.extId, status: 'ok' });
+        console.log(response);
       } else {
         await prisma.cruises.create({
           data: {
@@ -79,12 +81,19 @@ export default async function handler(
             image: cruise.image,
           },
         });
+        response.push({ id: cruise.extId, status: 'ok' });
       }
-
-      response.push({ id: cruise.extId, status: 'ok' });
-    });
+    }
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '150mb', // Set desired value here
+    },
+  },
+};

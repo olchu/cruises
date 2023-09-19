@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import { getCruiseList } from '../../api/getCruiseList';
 import { useGetToken } from '../../api/useGetToken';
-import { DBCruiseData } from './utils/getCruiseInfo';
+import { DBCruiseData } from '../../types/dbDataTypes';
 
 type DataTypeItem = {
   isLoading: boolean;
@@ -62,10 +62,10 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
     }
   };
 
-  const handleGetCruiseList = () => {
-    ships.forEach((item) => {
-      handleGetCruise(item.extId, item.id);
-    });
+  const handleGetCruiseList = async () => {
+    for (let ship of ships) {
+      await handleGetCruise(ship.extId, ship.id);
+    }
   };
 
   const handleSync = async () => {
@@ -107,6 +107,13 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
           // isLoading={isFetchingCruiseList}
         >
           Синхранизировать
+        </Button>
+        <Button
+         
+          colorScheme="red"
+          // isLoading={isFetchingCruiseList}
+        >
+          Удалить старые
         </Button>
       </Stack>
 

@@ -1,4 +1,4 @@
-import { DBCruiseData, getCruiseInfo } from '../ui/cruises/utils/getCruiseInfo';
+import { DBCruiseData, getCruiseInfo } from './getCruiseInfo';
 
 const URL = 'https://api-crs.vodohod.com/json/v3/cruises';
 const LIMIT = 500;
