@@ -2,6 +2,7 @@ import { ShipsDataType } from '@/pages/admin/vodohod';
 import {
   Box,
   Button,
+  Center,
   Stack,
   Table,
   TableContainer,
@@ -16,9 +17,11 @@ import { useEffect, useState } from 'react';
 import { getCruiseList } from '../../api/getCruiseList';
 import { useGetToken } from '../../api/useGetToken';
 import { DBCruiseData } from '../../types/dbDataTypes';
+import { ImCheckmark } from 'react-icons/im';
 
 type DataTypeItem = {
   isLoading: boolean;
+  isLoaded: boolean;
   cruises: DBCruiseData[];
   cruisesCount: number;
 };
@@ -54,6 +57,7 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
           [extId]: {
             ...prevSate[extId],
             isLoading: false,
+            isLoaded: true,
             cruises: data?.preparedData || [],
             cruisesCount: data?.count || 0,
           },
@@ -64,7 +68,9 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
 
   const handleGetCruiseList = async () => {
     for (let ship of ships) {
-      await handleGetCruise(ship.extId, ship.id);
+      if (!data[ship.extId]?.isLoaded) {
+        await handleGetCruise(ship.extId, ship.id);
+      }
     }
   };
 
@@ -109,7 +115,6 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
           Синхранизировать
         </Button>
         <Button
-         
           colorScheme="red"
           // isLoading={isFetchingCruiseList}
         >
@@ -125,8 +130,12 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
                 <Th>Id</Th>
                 <Th>extId</Th>
                 <Th>Теплоход</Th>
-                <Th>Кол-во круизов</Th>
-                <Th>Загрузить</Th>
+                <Th>
+                  <Center alignItems="center">Кол-во круизов</Center>
+                </Th>
+                <Th>
+                  <Center alignItems="center">Загрузить</Center>
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -136,16 +145,28 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
                     <Td>{ship.id}</Td>
                     <Td>{ship.extId}</Td>
                     <Td>{ship.name}</Td>
-                    <Td>{data[ship.extId]?.cruisesCount || 'не загружено'}</Td>
                     <Td>
-                      <Button
-                        colorScheme="yellow"
-                        size="xs"
-                        onClick={() => handleGetCruise(ship.extId, ship.id)}
-                        isLoading={data[ship.extId]?.isLoading}
-                      >
-                        загрузить
-                      </Button>
+                      <Center alignItems="center">
+                        {data[ship.extId]?.cruisesCount || 'не загружено'}
+                      </Center>
+                    </Td>
+                    <Td>
+                      <Center alignItems="center" color="green">
+                        {data[ship.extId]?.isLoaded ? (
+                          <Text fontSize="xl">
+                            <ImCheckmark />
+                          </Text>
+                        ) : (
+                          <Button
+                            colorScheme="yellow"
+                            size="xs"
+                            onClick={() => handleGetCruise(ship.extId, ship.id)}
+                            isLoading={data[ship.extId]?.isLoading}
+                          >
+                            загрузить
+                          </Button>
+                        )}
+                      </Center>
                     </Td>
                   </Tr>
                 );
