@@ -1,4 +1,4 @@
-import { LayoutProps } from "@/types/pageWithLayouts"
+import { LayoutProps } from "@/shared/types/pageWithLayouts"
 
 const MainLayout: LayoutProps = ({ children }) => {
   return (

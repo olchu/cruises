@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import type { AppProps } from 'next/app'
-import PageWithLayoutType from '@/types/pageWithLayouts'
+import PageWithLayoutType from '@/shared/types/pageWithLayouts'
 type AppLayoutProps = AppProps & {
   Component: PageWithLayoutType
   pageProps: any

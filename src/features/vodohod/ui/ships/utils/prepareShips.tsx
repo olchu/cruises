@@ -1,5 +1,5 @@
 import { Providers } from '@/constants/providers';
-import { ShipsData } from '@/components/vodohod/api/useGetShips';
+import { ShipsData } from '@/features/vodohod/api/useGetShips';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 export interface DBShipsData {

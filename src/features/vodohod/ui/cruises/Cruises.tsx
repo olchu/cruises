@@ -18,6 +18,7 @@ import { getCruiseList } from '../../api/getCruiseList';
 import { useGetToken } from '../../api/useGetToken';
 import { DBCruiseData } from '../../types/dbDataTypes';
 import { ImCheckmark } from 'react-icons/im';
+import { useToast } from '@chakra-ui/react';
 
 type DataTypeItem = {
   isLoading: boolean;
@@ -31,6 +32,7 @@ type DataType = Record<number, DataTypeItem>;
 export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
   const [data, setData] = useState<DataType>({});
   const { getToken, token } = useGetToken();
+  const toast = useToast();
 
   useEffect(() => {
     if (token) return;
@@ -72,6 +74,19 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
         await handleGetCruise(ship.extId, ship.id);
       }
     }
+  };
+
+  const handleDel = async () => {
+    const res = await fetch('/api/vodohod/delOldCruises');
+    const data = await res.json();
+    toast({
+      title: 'Круизы удалены',
+      description: 'Удалено ' + data.count + ' круизов',
+      status: 'success',
+      duration: 99999999,
+      isClosable: true,
+      position: 'bottom-right',
+    });
   };
 
   const handleSync = async () => {
@@ -117,6 +132,7 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
         <Button
           colorScheme="red"
           // isLoading={isFetchingCruiseList}
+          onClick={handleDel}
         >
           Удалить старые
         </Button>

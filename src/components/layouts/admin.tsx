@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { LayoutProps } from '@/types/pageWithLayouts';
+import { LayoutProps } from '@/shared/types/pageWithLayouts';
 import { Box, Button, ChakraProvider } from '@chakra-ui/react';
 
 const adminUrl = '/admin';
