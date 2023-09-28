@@ -1,4 +1,4 @@
-import MainLayout from '@/components/layouts/main';
+import MainLayout from '@/layouts/main';
 import { CruiseCard } from '@/entities/cruiseCard';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { GetStaticProps } from 'next';

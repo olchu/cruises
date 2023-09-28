@@ -1,4 +1,4 @@
-import AdminLayout from '@/components/layouts/admin';
+import AdminLayout from '@/layouts/admin';
 
 const Ship = () => {
   return (

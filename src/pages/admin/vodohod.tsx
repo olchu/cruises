@@ -1,4 +1,4 @@
-import AdminLayout from '@/components/layouts/admin';
+import AdminLayout from '@/layouts/admin';
 import { Cruises, Ships } from '@/features/vodohod/ui';
 import { DBShipsData } from '@/features/vodohod/ui/ships/utils/prepareShips';
 import { Providers } from '@/constants/providers';

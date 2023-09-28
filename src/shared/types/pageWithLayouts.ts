@@ -1,5 +1,5 @@
-import AdminLayout from '@/components/layouts/admin';
-import MainLayout from '@/components/layouts/main';
+import AdminLayout from '@/layouts/admin';
+import MainLayout from '@/layouts/main';
 import { NextPage } from 'next';
 import { ReactElement } from 'react';
 
