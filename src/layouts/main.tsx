@@ -3,7 +3,7 @@ import { LayoutProps } from '@/shared/types/pageWithLayouts';
 const MainLayout: LayoutProps = ({ children }) => {
   return (
     <>
-      <header>edfdsfdsfdf</header>
+      <header>Тут будет меню</header>
       <main>{children}</main>
     </>
   );

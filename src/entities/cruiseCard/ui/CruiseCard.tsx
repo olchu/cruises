@@ -2,6 +2,7 @@ import { CruiseType } from '@/shared/types/prismaResponse';
 import { Box, Button, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import moment from 'moment';
 import NextImage from 'next/image';
+import Link from 'next/link';
 
 interface CreuseCardProps {
   cruise: CruiseType;
@@ -17,6 +18,7 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
     minPrice,
     minDiscountPrice,
     image,
+    id,
   } = cruise;
   const formatedStart = moment(dateStart);
   const formatedEnd = moment(dateEnd);
@@ -36,7 +38,7 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
           <Text>{minPrice}</Text>
           <Text>{minDiscountPrice}</Text>
         </Box>
-        <Button>Подробнее</Button>
+        <Link href={`/cruise/${id}`}>Подробнее</Link>
       </HStack>
     </VStack>
   );
