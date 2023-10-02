@@ -1,4 +1,4 @@
-import { Providers } from '@/constants/providers';
+import { Providers } from '@/shared/constants/providers';
 import { ShipsData } from '@/features/vodohod/api/useGetShips';
 import { renderToStaticMarkup } from 'react-dom/server';
 

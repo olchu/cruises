@@ -1,11 +1,14 @@
+import { TopMenu } from '@/features/topMenu';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
+import { ChakraProvider, HStack } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const MainLayout: LayoutProps = ({ children }) => {
   return (
-    <>
-      <header>Тут будет меню</header>
+    <ChakraProvider>
+      <TopMenu />
       <main>{children}</main>
-    </>
+    </ChakraProvider>
   );
 };
 export default MainLayout;

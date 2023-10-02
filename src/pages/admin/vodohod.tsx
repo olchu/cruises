@@ -1,7 +1,7 @@
 import AdminLayout from '@/layouts/admin';
 import { Cruises, Ships } from '@/features/vodohod/ui';
 import { DBShipsData } from '@/features/vodohod/ui/ships/utils/prepareShips';
-import { Providers } from '@/constants/providers';
+import { Providers } from '@/shared/constants/providers';
 import {
   Heading,
   Tab,
@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 import prisma from 'prisma/client';
+import { ReactElement } from 'react';
 
 export interface ShipsDataType extends DBShipsData {
   id: number;
@@ -48,7 +49,10 @@ const Vodohod = ({
   );
 };
 
-Vodohod.layout = AdminLayout;
+Vodohod.getLayout = function getLayout(page: ReactElement) {
+  return <AdminLayout>{page}</AdminLayout>;
+};
+
 export default Vodohod;
 
 export const getStaticProps: GetStaticProps<{

@@ -1,19 +1,17 @@
 import MainLayout from '@/layouts/main';
 import { CruiseCard } from '@/entities/cruiseCard';
 import { CruiseType } from '@/shared/types/prismaResponse';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
+import { ReactElement } from 'react';
 
 interface HomeProps {
-  data: {
-    cruises: CruiseType[];
-  };
+  cruises: CruiseType[];
 }
 
-const Home = ({ data }: HomeProps) => {
-  const { cruises } = data;
-  console.log('Data', data);
+const Home = ({ cruises }: HomeProps) => {
+  console.log('Data', cruises);
   return (
     <>
       <Head>
@@ -43,12 +41,8 @@ const Home = ({ data }: HomeProps) => {
     </>
   );
 };
-Home.layout = MainLayout;
-export default Home;
 
-export const getStaticProps: GetStaticProps<{
-  data: any;
-}> = async () => {
+export const getServerSideProps = (async () => {
   const cruisesSelect = await prisma.cruises.findMany({
     orderBy: {
       dateStart: 'asc',
@@ -61,9 +55,15 @@ export const getStaticProps: GetStaticProps<{
     take: 20,
   });
 
-  const cruises = JSON.parse(JSON.stringify(cruisesSelect));
+  const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
 
-  return {
-    props: { data: { cruises: cruises || [] } },
-  };
+  return { props: { cruises: cruises } };
+}) satisfies GetServerSideProps<{
+  cruises: CruiseType[];
+}>;
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
 };
+
+export default Home;

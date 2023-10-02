@@ -1,4 +1,4 @@
-import { Providers } from '@/constants/providers';
+import { Providers } from '@/shared/constants/providers';
 import moment from 'moment';
 
 const endPoint = 'https://api-crs.vodohod.com/json/v3/cruise';

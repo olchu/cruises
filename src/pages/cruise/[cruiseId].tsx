@@ -2,17 +2,21 @@ import MainLayout from '@/layouts/main';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
+import { ReactElement } from 'react';
 
 interface CruiseDetailsPageProps {
   cruise: CruiseType | null;
 }
 
-export const CtuiseDetails = ({ cruise }: CruiseDetailsPageProps) => {
+const CtuiseDetails = ({ cruise }: CruiseDetailsPageProps) => {
   console.log('cruise', cruise);
   return <>{cruise?.title}</>;
 };
 
-CtuiseDetails.layout = MainLayout;
+CtuiseDetails.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+
 export default CtuiseDetails;
 
 export const getServerSideProps = (async (context) => {
