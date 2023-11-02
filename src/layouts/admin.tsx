@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { ProtectedRoute } from '@/app/providers/ProtectedProvider';
+import { ProtectedRoute } from '@/app/providers/protectedProvider';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
 import { Box, Button, ChakraProvider } from '@chakra-ui/react';
 

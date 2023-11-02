@@ -1,10 +1,11 @@
 import MainLayout from '@/layouts/main';
 import { CruiseCard } from '@/entities/cruiseCard';
 import { CruiseType } from '@/shared/types/prismaResponse';
-import { GetServerSideProps, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
+import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -30,13 +31,15 @@ const Home = ({ cruises }: HomeProps) => {
       </Head>
 
       <section>
-        {cruises.map((cruise) => {
-          return (
-            <div key={cruise.id}>
-              <CruiseCard cruise={cruise} />
-            </div>
-          );
-        })}
+        <MainContainer>
+          {/* {cruises.map((cruise) => {
+            return (
+              <div key={cruise.id}>
+                <CruiseCard cruise={cruise} />
+              </div>
+            );
+          })} */}
+        </MainContainer>
       </section>
     </>
   );

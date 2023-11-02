@@ -1,9 +1,5 @@
 import { ReactNode } from 'react';
-import { useAuth } from './hooks/useAuth';
-
-type ProtectedRouteProps = {
-  children: ReactNode;
-};
+import { useAuth } from '../hooks/useAuth';
 
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { session } = useAuth();
