@@ -32,13 +32,13 @@ const Home = ({ cruises }: HomeProps) => {
 
       <section>
         <MainContainer>
-          {/* {cruises.map((cruise) => {
+          {cruises.map((cruise) => {
             return (
               <div key={cruise.id}>
                 <CruiseCard cruise={cruise} />
               </div>
             );
-          })} */}
+          })}
         </MainContainer>
       </section>
     </>

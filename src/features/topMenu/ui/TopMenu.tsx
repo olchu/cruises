@@ -100,7 +100,13 @@ export const TopMenu = () => {
           <Social />
         </HStack>
       ) : (
-        <HStack bg="white" height="60px" gap="10px" alignContent="center" boxShadow="0px 4px 16px 0px rgba(0, 0, 0, 0.05)">
+        <HStack
+          bg="white"
+          height="60px"
+          gap="10px"
+          alignContent="center"
+          boxShadow="0px 4px 16px 0px rgba(0, 0, 0, 0.05)"
+        >
           <MobileMenu />
           <Spacer />
           <Logo />
