@@ -1,12 +1,26 @@
 import { CruiseType } from '@/shared/types/prismaResponse';
-import { Box, Button, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  VStack,
+  Link,
+  Spacer,
+} from '@chakra-ui/react';
+import styled from '@emotion/styled';
 import moment from 'moment';
-import NextImage from 'next/image';
-import Link from 'next/link';
+import NextLink from 'next/link';
+import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
 
 interface CreuseCardProps {
   cruise: CruiseType;
 }
+
+const Trunceted = styled(Flex)`
+  color: red;
+`;
 
 export const CruiseCard = ({ cruise }: CreuseCardProps) => {
   const {
@@ -24,21 +38,103 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
   const formatedEnd = moment(dateEnd);
 
   return (
-    <VStack w="370px" h="450px">
-      <Box w="100%" h="190px" bg="">
+    <VStack
+      w="370px"
+      alignItems="flex-start"
+      color="blue"
+      height="100%"
+      bg="white"
+    >
+      <Box w="370px" h="190px">
         <Image boxSize="100%" objectFit="cover" src={image} alt="Dan Abramov" />
       </Box>
-      <Text>{shipName}</Text>
-      <Text>{shortRoute}</Text>
-      <Text>{formatedEnd.diff(formatedStart, 'days')}</Text>
-      <Text>{formatedStart.format('DD.MM.YYYY')}</Text>
-      <Text>{formatedEnd.format('DD.MM.YYYY')}</Text>
-      <HStack>
+
+      <VStack w="370px" gap="10px" alignItems="flex-start" p="12px">
+        <Flex alignItems="center" fontSize="25px" fontWeight="bold">
+          <Box w="25px" opacity={0.9}>
+            <FaShip />
+          </Box>
+          <Text fontSize="20px" ml="14px">
+            {shipName}
+          </Text>
+        </Flex>
+
+        <Flex
+          alignItems="center"
+          fontSize="25px"
+          
+        >
+          <Box w="25px" opacity={0.9}>
+            <FaRoute />
+          </Box>
+          <Text fontSize="12px" ml="14px"  noOfLines={3}>
+            {shortRoute}
+          </Text>
+        </Flex>
+
+        <Flex alignItems="center" fontSize="25px">
+          <Box w="25px" opacity={0.9}>
+            <FaCalendarDays />
+          </Box>
+          <Text fontSize="16px" ml="14px">
+            {formatedStart.format('DD.MM.YYYY')} -{' '}
+            {formatedEnd.format('DD.MM.YYYY')}
+          </Text>
+        </Flex>
+
+        <Flex alignItems="center" fontSize="25px">
+          <Box w="25px" opacity={0.9}>
+            <FaSun />
+          </Box>
+          <Text fontSize="16px" ml="14px">
+            Дней: {days}
+          </Text>
+        </Flex>
+      </VStack>
+
+      <Spacer />
+
+      <HStack
+        alignItems="flex-start"
+        justifyContent="space-between"
+        w="full"
+        px="12px"
+      >
         <Box>
-          <Text>{minPrice}</Text>
-          <Text>{minDiscountPrice}</Text>
+          <Text color="accent" fontWeight="bold" fontSize="16px">
+            от{' '}
+            <Text fontSize="24px" as="span">
+              {(minDiscountPrice / 100)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+            </Text>{' '}
+            руб./чел
+          </Text>
+          <Text fontSize="12px" fontWeight="normal">
+            без скидки{' '}
+            <Text as="span" textDecoration="line-through">
+              {(minPrice / 100)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+              руб./чел
+            </Text>
+          </Text>
         </Box>
-        <Link href={`/cruise/${id}`}>Подробнее</Link>
+        <Link
+          bg="accent"
+          color="white"
+          fontWeight="bold"
+          as={NextLink}
+          h="50px"
+          w="120px"
+          href={`/cruise/${id}`}
+          alignItems="center"
+          justifyContent="center"
+          display="flex"
+          _hover={{ textDecoration: 'none' }}
+        >
+          Подробнее
+        </Link>
       </HStack>
     </VStack>
   );

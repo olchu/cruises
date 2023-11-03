@@ -6,6 +6,7 @@ import Head from 'next/head';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
+import { HStack } from '@chakra-ui/react';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -32,6 +33,7 @@ const Home = ({ cruises }: HomeProps) => {
 
       <section>
         <MainContainer>
+          <HStack gap="14px">
           {cruises.map((cruise) => {
             return (
               <div key={cruise.id}>
@@ -39,6 +41,7 @@ const Home = ({ cruises }: HomeProps) => {
               </div>
             );
           })}
+          </HStack>
         </MainContainer>
       </section>
     </>

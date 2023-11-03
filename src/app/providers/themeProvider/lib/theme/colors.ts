@@ -6,5 +6,5 @@ export const colors = {
   warning: '#EAB361',
   text: '#1A1A17',
   blueGrey: '#EEF1F4',
-  
+  blue: '#165D9F',
 };
