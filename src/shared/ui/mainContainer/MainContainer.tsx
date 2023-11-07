@@ -1,15 +1,10 @@
-import { Container } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { Container, ContainerProps } from '@chakra-ui/react';
+import { FC, ReactNode } from 'react';
 
-export const MainContainer = ({
-  children,
-  as = 'div',
-}: {
-  children: ReactNode;
-  as?: any;
-}) => {
+export const MainContainer: FC<ContainerProps> = (props) => {
+  const { children } = props;
   return (
-    <Container as={as} maxW="1400px" p={0}>
+    <Container {...props} maxW="1400px" p={0}>
       {children}
     </Container>
   );

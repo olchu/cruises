@@ -67,7 +67,7 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
           <Box w="25px" opacity={0.9}>
             <FaRoute />
           </Box>
-          <Text fontSize="12px" ml="14px"  noOfLines={3}>
+          <Text title={shortRoute} fontSize="12px" ml="14px"  noOfLines={3}>
             {shortRoute}
           </Text>
         </Flex>

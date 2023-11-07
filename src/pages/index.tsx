@@ -7,6 +7,7 @@ import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { HStack } from '@chakra-ui/react';
+import { HeroBlock } from '@/features/hero';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -31,19 +32,17 @@ const Home = ({ cruises }: HomeProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section>
+      <HeroBlock />
+
+      {/* <section>
         <MainContainer>
           <HStack gap="14px">
-          {cruises.map((cruise) => {
-            return (
-              <div key={cruise.id}>
-                <CruiseCard cruise={cruise} />
-              </div>
-            );
-          })}
+            {cruises.map((cruise) => {
+              return <CruiseCard key={cruise.id} cruise={cruise} />;
+            })}
           </HStack>
         </MainContainer>
-      </section>
+      </section> */}
     </>
   );
 };
