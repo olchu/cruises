@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
-import MainLayout from '@/layouts/main';
 import { CruiseCard } from '@/entities/cruiseCard';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { GetServerSideProps } from 'next';
@@ -7,15 +5,10 @@ import Head from 'next/head';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack, Text,
-  VStack
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { HeroBlock } from '@/features/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
+import { MainLayout } from '@/layouts/main';
 
 interface HomeProps {
   cruises: CruiseType[];

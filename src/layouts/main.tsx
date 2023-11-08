@@ -4,7 +4,7 @@ import { TopMenu } from '@/features/topMenu';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
 import { Box, Spacer, VStack } from '@chakra-ui/react';
 
-const MainLayout: LayoutProps = ({ children }) => {
+export const MainLayout: LayoutProps = ({ children }) => {
   return (
     <ThemeProvider>
       <Box height="100%">
@@ -16,4 +16,3 @@ const MainLayout: LayoutProps = ({ children }) => {
     </ThemeProvider>
   );
 };
-export default MainLayout;
