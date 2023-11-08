@@ -1,23 +1,5 @@
-'use client';
 import { menuList } from '@/shared/constants/menuList';
-import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  HStack,
-  Input,
-  Spacer,
-  Text,
-  textDecoration,
-  useDisclosure,
-  VStack,
-} from '@chakra-ui/react';
+import { Flex, HStack, Spacer, useMediaQuery } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Link } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
@@ -25,11 +7,10 @@ import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 
 import { Logo } from './Logo';
 import { TopMenuContacts } from './TopMenuContacts';
-import { useMedia } from '@/shared/hooks/useMedia';
 import { socials } from '@/shared/constants/socialContacts';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MobileMenu } from './MobileMenu';
 import { AiFillPhone } from 'react-icons/ai';
+import { useEffect, useState } from 'react';
 
 export const MenuList = () => {
   const router = useRouter();
@@ -76,15 +57,10 @@ const Social = () => {
 };
 
 export const TopMenu = () => {
-  const [domLoaded, setDomLoaded] = useState(false);
-  const isShowMobileMenu = useMedia('(max-width: 1060px)');
+  const [isShowMobileMenu] = useMediaQuery('(max-width: 1060px)');
 
-  useLayoutEffect(() => {
-    setDomLoaded(true);
-  }, []);
-
-  return domLoaded ? (
-    <MainContainer as="header">
+  return (
+    <MainContainer as="div">
       {!isShowMobileMenu ? (
         <HStack
           bg="white"
@@ -126,7 +102,5 @@ export const TopMenu = () => {
         </HStack>
       )}
     </MainContainer>
-  ) : (
-    <></>
   );
 };

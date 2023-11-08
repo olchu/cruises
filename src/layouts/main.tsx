@@ -7,12 +7,10 @@ import { Box, Spacer, VStack } from '@chakra-ui/react';
 export const MainLayout: LayoutProps = ({ children }) => {
   return (
     <ThemeProvider>
-      <Box height="100%">
-        <TopMenu />
-        <VStack as="main">{children}</VStack>
-        <Spacer />
-        <Footer />
-      </Box>
+      <TopMenu />
+      <VStack as="main">{children}</VStack>
+      <Spacer />
+      <Footer />
     </ThemeProvider>
   );
 };
