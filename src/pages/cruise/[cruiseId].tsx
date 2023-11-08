@@ -1,4 +1,4 @@
-import MainLayout from '@/layouts/main';
+import {MainLayout} from '@/layouts/main';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
