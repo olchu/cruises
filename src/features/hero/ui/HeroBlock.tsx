@@ -3,7 +3,6 @@ import { SearchBar } from '@/features/searchBar';
 import { useMedia } from '@/shared/hooks/useMedia';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Box, HStack, Spacer, Text, VStack } from '@chakra-ui/react';
-import bg from '../lib/assets/hero_bg.png';
 
 export const HeroBlock = () => {
   const isShowMobile = useMedia('(max-width: 1060px)');
@@ -14,7 +13,7 @@ export const HeroBlock = () => {
       w="full"
       py="60px"
       position="relative"
-      background={`linear-gradient(180deg, rgba(1, 42, 81, 0.70) 27.6%, rgba(255, 255, 255, 0.00) 100%), url(${bg.src}), lightgray 50% / cover no-repeat;`}
+      background={`linear-gradient(180deg, rgba(1, 42, 81, 0.70) 27.6%, rgba(255, 255, 255, 0.00) 100%), url("/img/hero_bg.png"), lightgray 50% / cover no-repeat;`}
       bgSize="cover"
     >
       <MainContainer h="100%">

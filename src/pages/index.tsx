@@ -18,11 +18,6 @@ import {
 } from '@chakra-ui/react';
 import { HeroBlock } from '@/features/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
-import bg1 from '../features/infoBox/img/1.jpeg';
-import bg2 from '../features/infoBox/img/2.jpeg';
-import bg3 from '../features/infoBox/img/3.jpeg';
-import bg4 from '../features/infoBox/img/4.jpeg';
-import bg5 from '../features/infoBox/img/5.jpeg';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -55,14 +50,14 @@ const Home = ({ cruises }: HomeProps) => {
             <HStack gap="20px" flex={1} w="full">
               <InfoBox
                 w="60%"
-                img={bg2.src}
+                img="/img/2.jpeg"
                 title="Круизы по черному морю"
                 description="Рассписание на 2023 год"
                 url="#"
               />
               <InfoBox
                 w="40%"
-                img={bg3.src}
+                img="/img/3.jpeg"
                 title="Скидка 11% + 5%"
                 description="Сезонная скидка до 15 марта"
                 url="#"
@@ -71,14 +66,14 @@ const Home = ({ cruises }: HomeProps) => {
             <HStack gap="20px" flex={1} w="full">
               <InfoBox
                 w="40%"
-                img={bg4.src}
+                img="/img/4.jpeg"
                 title="Эконом класс стал еще дешевле"
                 description="Скидка 20% до 31 января"
                 url="#"
               />
               <InfoBox
                 w="60%"
-                img={bg5.src}
+                img="/img/5.jpeg"
                 title="Супер Акция!!!"
                 description="Тут будет название акции"
                 url="#"
@@ -87,7 +82,7 @@ const Home = ({ cruises }: HomeProps) => {
           </VStack>
           <InfoBox
             w="35%"
-            img={bg1.src}
+            img="/img/1.jpeg"
             title="Акция “дети бесплатно”"
             description="Семейные круизы по рекам России"
             url="#"
