@@ -40,7 +40,7 @@ export const getCruiseList = async (
   }
 };
 
-interface CruiseListResponce {
+export interface CruiseListResponce {
   code: number;
   message: string;
   result: Result;

@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { DBCruiseData } from '../ui/cruises/utils/prepareCruises';
 import { prepareTarifs } from '../ui/cruises/utils/prepareTarifs';
 
 const endPoint = 'https://api-crs.vodohod.com/json/v3/cruise/room-tariffs';

@@ -6,7 +6,6 @@ export const WhiteTransparent: FC<BoxProps> = (props) => {
 
   return (
     <Box
-     
       position="relative"
       backdropFilter="blur(2px)"
       display="flex"

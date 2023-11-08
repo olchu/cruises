@@ -28,7 +28,7 @@ export const SearchBar = () => {
         />
         <SearchBarInput placeholder="От куда" icon={<IoLocationSharp />} />
         <SearchBarInput placeholder="Куда" icon={<IoLocationSharp />} />
-        <Button w="200px" bg="accent" color="white">
+        <Button w="190px" maxW="190px" bg="accent" color="white">
           Поиск
         </Button>
       </HStack>

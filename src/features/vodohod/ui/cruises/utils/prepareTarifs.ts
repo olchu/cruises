@@ -1,4 +1,4 @@
-import { Deck } from '@/components/vodohod/api/useGetTarifs';
+import { Deck } from '@/features/vodohod/api/getTarif';
 
 type Price = {
   dicountedVal: null | number;
@@ -15,7 +15,11 @@ export const prepareTarifs = (decks: Deck[]) => {
 
   decks.forEach((deck) => {
     deck.roomClasses.forEach((room) => {
-      const tarif = room.tariffs.find((t) => t.meta_name === 'Тариф Взрослый' ||t.meta_name === 'Тариф Лайт Взрослый (завтрак)');
+      const tarif = room.tariffs.find(
+        (t) =>
+          t.meta_name === 'Тариф Взрослый' ||
+          t.meta_name === 'Тариф Лайт Взрослый (завтрак)'
+      );
       let price: Price = {
         dicountedVal: null,
         val: null,

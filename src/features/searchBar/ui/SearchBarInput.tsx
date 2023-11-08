@@ -15,8 +15,8 @@ interface SearchBarInputProps {
 export const SearchBarInput: FC<SearchBarInputProps> = (props) => {
   const { icon, placeholder, type } = props;
   return (
-    <InputGroup bg="white" >
-      <Input placeholder={placeholder} type={type} borderRadius="none"/>
+    <InputGroup bg="white" maxW="190px">
+      <Input  placeholder={placeholder} type={type} borderRadius="none"/>
       <InputRightElement>{icon}</InputRightElement>
     </InputGroup>
   );
