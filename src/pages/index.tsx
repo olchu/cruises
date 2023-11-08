@@ -11,10 +11,8 @@ import {
   Box,
   Flex,
   Heading,
-  HStack,
-  Image,
-  Text,
-  VStack,
+  HStack, Text,
+  VStack
 } from '@chakra-ui/react';
 import { HeroBlock } from '@/features/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
