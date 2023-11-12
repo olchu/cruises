@@ -9,9 +9,11 @@ import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { HeroBlock } from '@/features/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
 import { MainLayout } from '@/layouts/main';
+import UAParser from 'ua-parser-js';
 
 interface HomeProps {
   cruises: CruiseType[];
+  isMobileDevice: boolean;
 }
 
 const Home = ({ cruises }: HomeProps) => {
@@ -182,7 +184,7 @@ const Home = ({ cruises }: HomeProps) => {
   );
 };
 
-export const getServerSideProps = (async () => {
+export const getServerSideProps = (async ({ req }) => {
   const cruisesSelect = await prisma.cruises.findMany({
     orderBy: {
       dateStart: 'asc',
@@ -197,13 +199,20 @@ export const getServerSideProps = (async () => {
 
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
 
-  return { props: { cruises: cruises } };
+  const parser = new UAParser();
+  const userAgentString = req?.headers['user-agent'] || '';
+  const userAgent = parser.setUA(userAgentString).getResult();
+
+  const isMobileDevice = userAgent.device.type === 'mobile';
+
+  return { props: { cruises: cruises, isMobileDevice } };
 }) satisfies GetServerSideProps<{
   cruises: CruiseType[];
+  isMobileDevice: boolean;
 }>;
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
+Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
+  return <MainLayout isMobileDevice={props.isMobileDevice}>{page}</MainLayout>;
 };
 
 export default Home;

@@ -10,7 +10,7 @@ import { TopMenuContacts } from './TopMenuContacts';
 import { socials } from '@/shared/constants/socialContacts';
 import { MobileMenu } from './MobileMenu';
 import { AiFillPhone } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 export const MenuList = () => {
   const router = useRouter();
@@ -56,12 +56,24 @@ const Social = () => {
   );
 };
 
-export const TopMenu = () => {
-  const [isShowMobileMenu] = useMediaQuery('(max-width: 1060px)');
+interface TopMenuProps {
+  isMobileDevice?: boolean;
+}
+
+export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
+  const [isMatchMedia] = useMediaQuery('(max-width: 1060px)');
+  const [isMobile, setIsMobile] = useState(isMobileDevice);
+
+  useEffect(() => {
+    setIsMobile(isMatchMedia);
+  }, [isMatchMedia]);
+
+  console.log('isMobileDevice', isMobileDevice);
+  console.log('isMobile', isMobile);
 
   return (
     <MainContainer as="div">
-      {!isShowMobileMenu ? (
+      {!isMobile ? (
         <HStack
           bg="white"
           height="65px"

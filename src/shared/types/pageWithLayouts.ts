@@ -1,5 +1,5 @@
 import AdminLayout from '@/layouts/admin';
-import {MainLayout} from '@/layouts/main';
+import { MainLayout } from '@/layouts/main';
 import { NextPage } from 'next';
 import { ReactElement } from 'react';
 
@@ -10,7 +10,9 @@ export type PageWithLayoutType =
   | PageWithAdminLayoutType;
 export type LayoutProps = ({
   children,
+  isMobileDevice,
 }: {
   children: ReactElement;
+  isMobileDevice?: boolean;
 }) => ReactElement;
 export default PageWithLayoutType;
