@@ -5,14 +5,15 @@ import Head from 'next/head';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import { HeroBlock } from '@/widgets/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
 import { MainLayout } from '@/layouts/main';
 import UAParser from 'ua-parser-js';
 import { StockWidget } from '@/widgets/stock';
-import { BlueBlock } from '@/features/blueBlock';
+import { BlueBlock } from '@/entities/blueBlock';
 import { ProviderLogos } from '@/entities/providerLogos';
+import { Heading } from '@/shared/ui/heading';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -41,18 +42,16 @@ const Home = ({ cruises, isMobileDevice }: HomeProps) => {
 
       <StockWidget />
 
-      {/* <Box as="section" py="60px" bg="lightBlue" w="100%">
+      <Box as="section" py="60px" bg="lightBlue" w="100%">
         <MainContainer>
-          <Heading as="h2" size="xl" textAlign="center" mb="60px">
-            Ближайшие круизы
-          </Heading>
+          <Heading>Ближайшие круизы</Heading>
           <HStack gap="14px" w="full" overflow="scroll">
             {cruises.map((cruise) => {
               return <CruiseCard key={cruise.id} cruise={cruise} />;
             })}
           </HStack>
         </MainContainer>
-      </Box> */}
+      </Box>
 
       <BlueBlock />
 

@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@/app/providers/themeProvider';
-import { Footer } from '@/features/footer';
+import { Footer } from '@/entities/footer';
 import { TopMenu } from '@/features/topMenu';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
 import { Box, Spacer, VStack } from '@chakra-ui/react';

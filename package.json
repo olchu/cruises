@@ -16,6 +16,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
     "sharp": "^0.32.6",
+    "swiper": "^11.0.4",
     "ua-parser-js": "^1.0.37"
   },
   "devDependencies": {
