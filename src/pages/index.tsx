@@ -10,6 +10,7 @@ import { HeroBlock } from '@/widgets/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
 import { MainLayout } from '@/layouts/main';
 import UAParser from 'ua-parser-js';
+import { StockWidget } from '@/widgets/stock';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -36,53 +37,9 @@ const Home = ({ cruises, isMobileDevice }: HomeProps) => {
 
       <HeroBlock />
 
-      {/* <MainContainer as="section" px="30px" py="60px" h="550px">
-        <HStack gap="20px" justifyContent="stretch" h="full">
-          <VStack gap="20px" flex={1} h="full">
-            <HStack gap="20px" flex={1} w="full">
-              <InfoBox
-                w="60%"
-                img="/img/2.jpeg"
-                title="Круизы по черному морю"
-                description="Рассписание на 2023 год"
-                url="#"
-              />
-              <InfoBox
-                w="40%"
-                img="/img/3.jpeg"
-                title="Скидка 11% + 5%"
-                description="Сезонная скидка до 15 марта"
-                url="#"
-              />
-            </HStack>
-            <HStack gap="20px" flex={1} w="full">
-              <InfoBox
-                w="40%"
-                img="/img/4.jpeg"
-                title="Эконом класс стал еще дешевле"
-                description="Скидка 20% до 31 января"
-                url="#"
-              />
-              <InfoBox
-                w="60%"
-                img="/img/5.jpeg"
-                title="Супер Акция!!!"
-                description="Тут будет название акции"
-                url="#"
-              />
-            </HStack>
-          </VStack>
-          <InfoBox
-            w="35%"
-            img="/img/1.jpeg"
-            title="Акция “дети бесплатно”"
-            description="Семейные круизы по рекам России"
-            url="#"
-          />
-        </HStack>
-      </MainContainer>
+      <StockWidget />
 
-      <Box as="section" py="60px" bg="lightBlue" w="100%">
+      {/* <Box as="section" py="60px" bg="lightBlue" w="100%">
         <MainContainer>
           <Heading as="h2" size="xl" textAlign="center" mb="60px">
             Ближайшие круизы

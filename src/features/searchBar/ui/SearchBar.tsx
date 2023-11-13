@@ -8,7 +8,7 @@ import { FC } from 'react';
 export const SearchBar: FC<BoxProps> = (props) => {
   return (
     <WhiteTransparent
-      p={{ base: '18px', lg: '12px' }}
+      p={{ base: 'section.mobile', lg: '12px' }}
       display="flex"
       flexDirection="column"
       alignItems="flex-end"
