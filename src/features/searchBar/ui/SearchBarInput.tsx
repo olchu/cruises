@@ -1,8 +1,6 @@
 import {
-  InputGroup,
-  InputLeftElement,
-  Input,
-  InputRightElement,
+  InputGroup, Input,
+  InputRightElement
 } from '@chakra-ui/react';
 import { FC, ReactNode } from 'react';
 
@@ -15,8 +13,13 @@ interface SearchBarInputProps {
 export const SearchBarInput: FC<SearchBarInputProps> = (props) => {
   const { icon, placeholder, type } = props;
   return (
-    <InputGroup bg="white" maxW="190px">
-      <Input  placeholder={placeholder} type={type} borderRadius="none"/>
+    <InputGroup bg="white" w="full" minW={{ lg: '160px' }}>
+      <Input
+       
+        placeholder={placeholder}
+        type={type}
+        borderRadius="none"
+      />
       <InputRightElement>{icon}</InputRightElement>
     </InputGroup>
   );

@@ -9,24 +9,29 @@ export const HeroBlock = () => {
   return (
     <Box
       as="section"
-      h="534px"
+      h={{ lg: '534px' }}
       w="full"
-      py="60px"
+      py={{ base: '20px', lg: '60px' }}
+      px={{ base: '20px', md: '0' }}
       position="relative"
       background={`linear-gradient(180deg, rgba(1, 42, 81, 0.70) 27.6%, rgba(255, 255, 255, 0.00) 100%), url("/img/hero_bg.png"), lightgray 50% / cover no-repeat;`}
       bgSize="cover"
     >
       <MainContainer h="100%">
         <VStack h="100%">
-          <HStack
+          {/* <HStack
             justifyContent="space-between"
             alignItems="flex-start"
             width="100%"
           >
-            <VStack gap="30px" justifyContent="end" alignItems="flex-end">
+            <VStack
+              gap="30px"
+              justifyContent={'end'}
+              alignItems={['flex-start', 'flex-end']}
+            >
               <WhiteTransparent>
                 <Text
-                  fontSize="40px"
+                  fontSize={['', '16px', '40px']}
                   fontWeight="bold"
                   whiteSpace="pre-wrap"
                   color="white"
@@ -37,7 +42,7 @@ export const HeroBlock = () => {
               </WhiteTransparent>
               <WhiteTransparent>
                 <Text
-                  fontSize="26px"
+                  fontSize={['12px', '26px']}
                   whiteSpace="pre-wrap"
                   color="white"
                   px="30px"
@@ -61,7 +66,7 @@ export const HeroBlock = () => {
                 всего круизов
               </Text>
             </WhiteTransparent>
-          </HStack>
+          </HStack> */}
           <Spacer />
           <SearchBar />
         </VStack>

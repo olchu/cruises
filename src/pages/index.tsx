@@ -6,7 +6,7 @@ import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { HeroBlock } from '@/features/hero';
+import { HeroBlock } from '@/widgets/hero';
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
 import { MainLayout } from '@/layouts/main';
 import UAParser from 'ua-parser-js';
@@ -17,7 +17,6 @@ interface HomeProps {
 }
 
 const Home = ({ cruises }: HomeProps) => {
-  console.log('Data', cruises);
   return (
     <>
       <Head>
@@ -34,9 +33,10 @@ const Home = ({ cruises }: HomeProps) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <HeroBlock />
 
-      <MainContainer as="section" px="30px" py="60px" h="550px">
+      {/* <MainContainer as="section" px="30px" py="60px" h="550px">
         <HStack gap="20px" justifyContent="stretch" h="full">
           <VStack gap="20px" flex={1} h="full">
             <HStack gap="20px" flex={1} w="full">
@@ -129,7 +129,7 @@ const Home = ({ cruises }: HomeProps) => {
         </Heading>
         <Flex alignItems="center" justifyContent="center" gap="40px">
           <Box
-            w="190px"
+            w="120px"
             h="120px"
             bgImage="/logos/cesar.png"
             bgPosition="center"
@@ -137,7 +137,7 @@ const Home = ({ cruises }: HomeProps) => {
             bgRepeat="no-repeat"
           />
           <Box
-            w="190px"
+            w="120px"
             h="120px"
             bgImage="/logos/lebed.png"
             bgPosition="center"
@@ -145,7 +145,7 @@ const Home = ({ cruises }: HomeProps) => {
             bgRepeat="no-repeat"
           />
           <Box
-            w="190px"
+            w="120px"
             h="120px"
             bgImage="/logos/mosturflot.png"
             bgPosition="center"
@@ -155,7 +155,7 @@ const Home = ({ cruises }: HomeProps) => {
         </Flex>
         <Flex alignItems="center" justifyContent="center" gap="40px" mt="40px">
           <Box
-            w="294px"
+            w="160px"
             h="120px"
             bgImage="/logos/vodohod.svg"
             bgPosition="center"
@@ -163,7 +163,7 @@ const Home = ({ cruises }: HomeProps) => {
             bgRepeat="no-repeat"
           />
           <Box
-            w="270px"
+            w="160px"
             h="120px"
             bgImage="/logos/infoflot.png"
             bgPosition="center"
@@ -171,7 +171,7 @@ const Home = ({ cruises }: HomeProps) => {
             bgRepeat="no-repeat"
           />
           <Box
-            w="280px"
+            w="160px"
             h="120px"
             bgImage="/logos/knyaz.png"
             bgPosition="center"
@@ -179,7 +179,7 @@ const Home = ({ cruises }: HomeProps) => {
             bgRepeat="no-repeat"
           />
         </Flex>
-      </MainContainer>
+      </MainContainer> */}
     </>
   );
 };
