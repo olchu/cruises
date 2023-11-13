@@ -16,7 +16,7 @@ interface HomeProps {
   isMobileDevice: boolean;
 }
 
-const Home = ({ cruises }: HomeProps) => {
+const Home = ({ cruises, isMobileDevice }: HomeProps) => {
   return (
     <>
       <Head>

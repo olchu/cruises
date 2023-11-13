@@ -1,17 +1,19 @@
 import { WhiteTransparent } from '@/entities/whiteTransparent/WhiteTransparent';
-import { HStack, Button, Text, Flex } from '@chakra-ui/react';
+import { HStack, Button, Text, Flex, BoxProps } from '@chakra-ui/react';
 import { SearchBarInput } from './SearchBarInput';
 import { BiCalendar } from 'react-icons/bi';
 import { IoLocationSharp } from 'react-icons/io5';
+import { FC } from 'react';
 
-export const SearchBar = () => {
+export const SearchBar: FC<BoxProps> = (props) => {
   return (
     <WhiteTransparent
       p={{ base: '18px', lg: '12px' }}
       display="flex"
       flexDirection="column"
       alignItems="flex-end"
-      w={{ base: '100%', md: '600px', lg: 'auto' }}
+      w={{ base: '100%', lg: 'auto' }}
+      {...props}
     >
       <Flex
         gap={{ base: '20px' }}
@@ -34,7 +36,9 @@ export const SearchBar = () => {
           Поиск
         </Button>
       </Flex>
-      <Text color="accent">расширенный поиск</Text>
+      <Text color="accent" mt="12px" fontWeight="bold">
+        расширенный поиск
+      </Text>
     </WhiteTransparent>
   );
 };

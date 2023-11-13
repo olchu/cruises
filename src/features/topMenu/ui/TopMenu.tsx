@@ -68,9 +68,6 @@ export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
     setIsMobile(isMatchMedia);
   }, [isMatchMedia]);
 
-  console.log('isMobileDevice', isMobileDevice);
-  console.log('isMobile', isMobile);
-
   return (
     <MainContainer as="div">
       {!isMobile ? (
