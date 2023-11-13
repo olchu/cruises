@@ -5,12 +5,12 @@ import { Link } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 
-import { Logo } from './Logo';
 import { TopMenuContacts } from './TopMenuContacts';
 import { socials } from '@/shared/constants/socialContacts';
 import { MobileMenu } from './MobileMenu';
 import { AiFillPhone } from 'react-icons/ai';
 import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { Logo } from '@/shared/ui/logo';
 
 export const MenuList = () => {
   const router = useRouter();

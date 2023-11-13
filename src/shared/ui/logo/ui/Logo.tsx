@@ -5,7 +5,14 @@ import logoSrc from '@/shared/assets/img/logo.svg';
 export const Logo = () => {
   return (
     <Box as="span" mr={4}>
-      <Image priority src={logoSrc} alt="VBP" className="mr-[20px]" />
+      <Image
+        priority
+        src="/logo.svg"
+        width={85}
+        height={45}
+        alt="VBP"
+        className="mr-[20px]"
+      />
     </Box>
   );
 };
