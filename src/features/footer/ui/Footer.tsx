@@ -3,19 +3,15 @@ import { Box, Text, useMediaQuery, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 export const Footer = () => {
-  const [isMobile] = useMediaQuery('(max-width: 1060px)');
   return (
     <Box
       as="footer"
       bg="primary"
-      p={isMobile ? '14px' : '30px'}
+      p={{ base: 'section.mobile', lg: 'section.desktop' }}
       color="secondary"
-      fontSize={isMobile ? '12px' : '14px'}
+      fontSize={{ base: '12px', lg: '14px' }}
     >
       <MainContainer>
-        <Text align="center">
-          © 2000 — {new Date(Date.now()).getFullYear()}
-        </Text>
         <Text align="center" fontWeight="bold">
           ООО «Круизная компания Волгобалтийские Путешествия»
         </Text>
@@ -51,6 +47,9 @@ export const Footer = () => {
           >
             СОУТ
           </Link>
+        </Text>
+        <Text align="center">
+          © 2000 — {new Date(Date.now()).getFullYear()}
         </Text>
       </MainContainer>
     </Box>

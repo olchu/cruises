@@ -12,6 +12,7 @@ import { MainLayout } from '@/layouts/main';
 import UAParser from 'ua-parser-js';
 import { StockWidget } from '@/widgets/stock';
 import { BlueBlock } from '@/features/blueBlock';
+import { ProviderLogos } from '@/entities/providerLogos';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -55,63 +56,7 @@ const Home = ({ cruises, isMobileDevice }: HomeProps) => {
 
       <BlueBlock />
 
-      {/* <MainContainer as="section" px="30px" pb="60px">
-        <Heading as="h2" size="xl" textAlign="center" mb="60px">
-          Круизные компании
-        </Heading>
-        <Flex alignItems="center" justifyContent="center" gap="40px">
-          <Box
-            w="120px"
-            h="120px"
-            bgImage="/logos/cesar.png"
-            bgPosition="center"
-            bgSize="contain"
-            bgRepeat="no-repeat"
-          />
-          <Box
-            w="120px"
-            h="120px"
-            bgImage="/logos/lebed.png"
-            bgPosition="center"
-            bgSize="contain"
-            bgRepeat="no-repeat"
-          />
-          <Box
-            w="120px"
-            h="120px"
-            bgImage="/logos/mosturflot.png"
-            bgPosition="center"
-            bgSize="contain"
-            bgRepeat="no-repeat"
-          />
-        </Flex>
-        <Flex alignItems="center" justifyContent="center" gap="40px" mt="40px">
-          <Box
-            w="160px"
-            h="120px"
-            bgImage="/logos/vodohod.svg"
-            bgPosition="center"
-            bgSize="contain"
-            bgRepeat="no-repeat"
-          />
-          <Box
-            w="160px"
-            h="120px"
-            bgImage="/logos/infoflot.png"
-            bgPosition="center"
-            bgSize="contain"
-            bgRepeat="no-repeat"
-          />
-          <Box
-            w="160px"
-            h="120px"
-            bgImage="/logos/knyaz.png"
-            bgPosition="center"
-            bgSize="contain"
-            bgRepeat="no-repeat"
-          />
-        </Flex>
-      </MainContainer> */}
+      <ProviderLogos />
     </>
   );
 };
