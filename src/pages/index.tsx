@@ -11,6 +11,7 @@ import { InfoBox } from '@/features/infoBox/ui/InfoBox';
 import { MainLayout } from '@/layouts/main';
 import UAParser from 'ua-parser-js';
 import { StockWidget } from '@/widgets/stock';
+import { BlueBlock } from '@/features/blueBlock';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -50,37 +51,11 @@ const Home = ({ cruises, isMobileDevice }: HomeProps) => {
             })}
           </HStack>
         </MainContainer>
-      </Box>
+      </Box> */}
 
-      <MainContainer as="section" px="30px" py="60px">
-        <Flex alignItems="center" h="full">
-          <Box
-            w="full"
-            flex="1"
-            bg="green"
-            p="20px"
-            color="white"
-            background="linear-gradient(302deg, #003267 -9.31%, #3A8CBD 89.55%);"
-          >
-            <Text whiteSpace="pre-wrap" textAlign="left" fontSize="18px">
-              {`Круиз на теплоходе — это уникальная возможность открыть для себя совершенно новый вид отдыха. Путешествие по воде поможет по-настоящему отдохнуть от городской суеты, ощутить полную гармонию с природой и познакомиться с многовековой историей самых интересных городов России.\n\nТуроператор «Волго-балтийские путешествия» предлагает Вам совершить незабываемую водную поездку.\n\nЧистый воздух, красивейшая природа России, интересная развлекательная программа — все это сделает отдых увлекательным и полезным.`}
-            </Text>
-          </Box>
-          <Box
-            w="full"
-            flex="1"
-            bg="red"
-            height="100%"
-            bgImage="/img/blueBlock.jpeg"
-            bgPosition="center"
-            bgSize="cover"
-          >
-            hello
-          </Box>
-        </Flex>
-      </MainContainer>
+      <BlueBlock />
 
-      <MainContainer as="section" px="30px" pb="60px">
+      {/* <MainContainer as="section" px="30px" pb="60px">
         <Heading as="h2" size="xl" textAlign="center" mb="60px">
           Круизные компании
         </Heading>
