@@ -1,4 +1,4 @@
-import { WhiteTransparent } from '@/entities/whiteTransparent/WhiteTransparent';
+import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
 import { HStack, Button, Text, Flex, BoxProps } from '@chakra-ui/react';
 import { SearchBarInput } from './SearchBarInput';
 import { BiCalendar } from 'react-icons/bi';

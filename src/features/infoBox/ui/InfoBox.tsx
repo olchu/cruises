@@ -1,4 +1,4 @@
-import { WhiteTransparent } from '@/entities/whiteTransparent/WhiteTransparent';
+import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
 import { BoxProps, Text, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 

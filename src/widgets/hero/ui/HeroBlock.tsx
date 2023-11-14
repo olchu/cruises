@@ -1,4 +1,4 @@
-import { WhiteTransparent } from '@/entities/whiteTransparent/WhiteTransparent';
+import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
 import { SearchBar } from '@/features/searchBar';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
