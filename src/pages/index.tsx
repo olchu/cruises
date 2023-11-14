@@ -10,6 +10,9 @@ import { StockWidget } from '@/widgets/stock';
 import { BlueBlock } from '@/entities/blueBlock';
 import { ProviderLogos } from '@/entities/providerLogos';
 import { CruisesCarousel } from '@/widgets/cruisesCarousel';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 interface HomeProps {
   cruises: CruiseType[];

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { CruiseCard } from '@/entities/cruiseCard';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { Heading } from '@/shared/ui/heading';
@@ -6,9 +6,6 @@ import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Mousewheel } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 interface CruisesCarouselProps {
   cruises: CruiseType[];
