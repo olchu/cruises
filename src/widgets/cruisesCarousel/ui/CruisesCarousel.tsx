@@ -5,7 +5,7 @@ import { Heading } from '@/shared/ui/heading';
 import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Mousewheel } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 
 interface CruisesCarouselProps {
   cruises: CruiseType[];
@@ -20,8 +20,9 @@ export const CruisesCarousel: FC<CruisesCarouselProps> = ({ cruises }) => {
         mousewheel={true}
         pagination={{
           clickable: true,
+          dynamicBullets: true,
         }}
-        modules={[Mousewheel, Pagination]}
+        modules={[Pagination]}
         className="Hswiper"
         breakpoints={{
           300: {

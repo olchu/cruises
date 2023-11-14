@@ -17,4 +17,10 @@ body {
     display: flex;
     justify-content: center;
   }
+  .swiper-pagination-bullet{
+    border-radius: unset;
+  }
+  .swiper-pagination-bullet-active{
+    background-color: #165D9F;
+  }
 }
