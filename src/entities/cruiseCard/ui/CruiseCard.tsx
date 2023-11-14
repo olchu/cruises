@@ -33,23 +33,24 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
     minDiscountPrice,
     image,
     id,
+    title,
   } = cruise;
   const formatedStart = moment(dateStart);
   const formatedEnd = moment(dateEnd);
 
   return (
     <VStack
-      w="370px"
+      w={{ base: 'full', sm: '370px' }}
       alignItems="flex-start"
       color="blue"
       height="100%"
       bg="white"
     >
-      <Box w="370px" h="190px">
-        <Image boxSize="100%" objectFit="cover" src={image} alt="Dan Abramov" />
+      <Box w="full" h="190px">
+        <Image boxSize="100%" objectFit="cover" src={image} alt={title} />
       </Box>
 
-      <VStack w="370px" gap="10px" alignItems="flex-start" p="12px">
+      <VStack w="full" gap="10px" alignItems="flex-start" p="12px">
         <Flex alignItems="center" fontSize="25px" fontWeight="bold">
           <Box w="25px" opacity={0.9}>
             <FaShip />
@@ -59,15 +60,11 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
           </Text>
         </Flex>
 
-        <Flex
-          alignItems="center"
-          fontSize="25px"
-          
-        >
+        <Flex alignItems="center" fontSize="25px">
           <Box w="25px" opacity={0.9}>
             <FaRoute />
           </Box>
-          <Text title={shortRoute} fontSize="12px" ml="14px"  noOfLines={3}>
+          <Text title={shortRoute} fontSize="12px" ml="14px" noOfLines={3}>
             {shortRoute}
           </Text>
         </Flex>
@@ -99,6 +96,7 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
         justifyContent="space-between"
         w="full"
         px="12px"
+        pb="12px"
       >
         <Box>
           <Text color="accent" fontWeight="bold" fontSize="16px">

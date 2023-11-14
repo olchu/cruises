@@ -9,3 +9,12 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.Hswiper {
+  padding: 0 0 45px 0 !important;
+  .swiper-slide {
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+}
