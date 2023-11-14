@@ -1,3 +1,4 @@
+'use client'
 import { CruiseCard } from '@/entities/cruiseCard';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { Heading } from '@/shared/ui/heading';
