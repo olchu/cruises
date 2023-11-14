@@ -18,6 +18,7 @@ model ships {
   images    String? @db.Text
   loadFrom  String  @db.VarChar(255)
   scheme    String? @db.VarChar(255)
+  active    Int
 }
 
 model cruises {
@@ -45,4 +46,14 @@ model cruises {
   included         String?  @db.Text
   excluded         String?  @db.Text
   image            String   @db.VarChar(255)
+}
+
+model blog {
+  id      Int       @id @default(autoincrement())
+  title   String    @db.VarChar(255)
+  date    DateTime? @db.DateTime(0)
+  content String?   @db.Text
+  images  String?   @db.Text
+  preview String?   @db.Text
+  publish Int?
 }
