@@ -1,4 +1,4 @@
-import { Deck } from '@/features/vodohod/api/getTarif';
+import { Deck } from '@/features/admin/vodohod/api/getTarif';
 
 type Price = {
   dicountedVal: null | number;

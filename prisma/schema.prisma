@@ -55,5 +55,5 @@ model blog {
   content String?   @db.Text
   images  String?   @db.Text
   preview String?   @db.Text
-  publish Int?
+  publish String?   @db.VarChar(255)
 }

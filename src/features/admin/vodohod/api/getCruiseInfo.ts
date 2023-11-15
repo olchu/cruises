@@ -1,5 +1,5 @@
-import { getCruiseDetails } from '@/features/vodohod/api/getCruiseDetails';
-import { getTarif } from '@/features/vodohod/api/getTarif';
+import { getCruiseDetails } from '@/features/admin/vodohod/api/getCruiseDetails';
+import { getTarif } from '@/features/admin/vodohod/api/getTarif';
 import prisma from 'prisma/client';
 import { Tarif } from '../ui/cruises/utils/prepareTarifs';
 

@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { DBCruiseData } from '@/features/vodohod/api/getCruiseInfo';
+import { DBCruiseData } from '@/features/admin/vodohod/api/getCruiseInfo';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
 

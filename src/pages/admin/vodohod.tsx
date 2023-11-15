@@ -1,6 +1,6 @@
 import AdminLayout from '@/layouts/admin';
-import { Cruises, Ships } from '@/features/vodohod/ui';
-import { DBShipsData } from '@/features/vodohod/ui/ships/utils/prepareShips';
+import { Cruises, Ships } from '@/features/admin/vodohod/ui';
+import { DBShipsData } from '@/features/admin/vodohod/ui/ships/utils/prepareShips';
 import { Providers } from '@/shared/constants/providers';
 import {
   Heading,

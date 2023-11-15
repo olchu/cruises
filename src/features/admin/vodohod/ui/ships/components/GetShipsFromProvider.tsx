@@ -1,4 +1,4 @@
-import { useGetShips } from '@/features/vodohod/api/useGetShips';
+import { useGetShips } from '@/features/admin/vodohod/api/useGetShips';
 import { Stack, Button, Text, ListItem, OrderedList } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { DBShipsData, prepareShips } from '../utils/prepareShips';
