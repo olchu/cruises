@@ -8,6 +8,7 @@ import {
   Switch,
   Button,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { useState } from 'react';
@@ -22,6 +23,7 @@ interface AddPost {
 export const AddPostForm = () => {
   const [content, setContent] = useState('');
   const [files, setFiles] = useState<FileList | null>(null);
+  const toast = useToast();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
@@ -47,7 +49,7 @@ export const AddPostForm = () => {
       console.log('body', { ...values, content });
       console.log('file', files);
       if (files) {
-        console.log()
+        console.log();
         const formData = new FormData();
         Array.from(files).forEach((file) => formData.append('files', file));
         formData.append('title', values.title);
@@ -60,6 +62,26 @@ export const AddPostForm = () => {
           method: 'POST',
           body: formData,
         });
+
+        const res = await response.json();
+
+        if (res.status === 'ok') {
+          toast({
+            title: 'Пост создан',
+            description: 'Новый пост создан с id=' + res.post.id,
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: 'Ошибка',
+            description: 'Ошибка при создании поста' + res.error,
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          });
+        }
       }
     },
   });

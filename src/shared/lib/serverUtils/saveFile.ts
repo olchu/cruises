@@ -24,14 +24,14 @@ export const saveFile = (
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
 
-      const fN = Array.isArray(files.files)
+      const fileNames = Array.isArray(files.files)
         ? files.files.map((file: any) => {
             console.log(file.newFilename);
             return file.newFilename;
           })
         : [];
 
-      resolve({ fields, fileNames: fN });
+      resolve({ fields, fileNames });
     });
   });
 };

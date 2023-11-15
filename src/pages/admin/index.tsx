@@ -1,14 +1,11 @@
 import { AddPostForm } from '@/features/admin/addPost';
-import { Ships } from '@/features/admin/vodohod/ui';
 import AdminLayout from '@/layouts/admin';
 import {
-  Box,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
-  Tabs,
-  HStack,
+  Tabs
 } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 

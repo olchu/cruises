@@ -25,27 +25,28 @@ const handler: NextApiHandler = async (req, res) => {
     true
   );
 
-  const formFields: Record<string, string> = {};
+  try {
+    const formFields: Record<string, string> = {};
 
-  for (let key in fields) {
-    formFields[key] = fields?.[key]?.[0] || '';
+    for (let key in fields) {
+      formFields[key] = fields?.[key]?.[0] || '';
+    }
+
+    const response = await prisma.blog.create({
+      data: {
+        title: formFields.title,
+        content: formFields.content,
+        preview: formFields.preview,
+        publish: formFields.publish,
+        date: new Date(formFields.date),
+        images: JSON.stringify(fileNames),
+      },
+    });
+
+    res.json({ status: 'ok', post: response });
+  } catch (error) {
+    res.status(500).json({ error: 'Внутренняя ошибка сервера.' });
   }
-
-  const str = JSON.stringify(fileNames);
-  const arr = JSON.parse(str);
-
-  const response = await prisma.blog.create({
-    data: {
-      title: formFields.title,
-      content: formFields.content,
-      preview: formFields.preview,
-      publish: formFields.publish,
-      date: new Date(formFields.date),
-      images: JSON.stringify(fileNames),
-    },
-  });
-
-  res.json({ done: 'ok', str, fileNames, arr, response });
 };
 
 export default handler;
