@@ -3,15 +3,20 @@ import { Heading } from '@/shared/ui/heading';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Flex, VStack, Text, Box, Image, Link, HStack } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import blogImg from '../../../../uploads/blog/post_1-post4_15.jpeg';
 import { IoIosArrowRoundForward } from 'react-icons/io';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { FC } from 'react';
+import { PostsType } from '@/shared/types/prismaResponse';
+import moment from 'moment';
 
-export const BlogPreview = () => {
+interface IBlogPreview {
+  posts: PostsType[];
+}
+
+export const BlogPreview: FC<IBlogPreview> = ({ posts }) => {
+  console.log(posts);
   return (
     <MainContainer
       as="section"
@@ -28,12 +33,20 @@ export const BlogPreview = () => {
         w="100%"
         gap="20px"
       >
-        {[1, 2, 3].map((item, id) => {
+        {posts.map(({ id, images, title, date }) => {
+          const image = JSON.parse(images!)[0];
+          const formatedDate = moment(date).format('DD.MM.YYYY');
           return (
             <VStack gap="10px" alignItems="flex-start" w="full" key={id}>
-              <Box as="a" href="#" h="200px" width="100%" display="block">
+              <Box
+                as="a"
+                href={`/blog/${id}`}
+                h="200px"
+                width="100%"
+                display="block"
+              >
                 <Image
-                  src={blogImg.src}
+                  src={`/uploads/${image}`}
                   alt="blog"
                   width="100%"
                   height="100%"
@@ -42,14 +55,14 @@ export const BlogPreview = () => {
                 />
               </Box>
               <Text color="grey" fontSize="12px">
-                20.11.2023
+                {formatedDate}
               </Text>
-              <Text fontSize="18px">Title of blog</Text>
+              <Text fontSize="18px">{title}</Text>
             </VStack>
           );
         })}
       </Flex>
-      <HStack justifyContent={{base: "center",md:"flex-end"}} mt="14px">
+      <HStack justifyContent={{ base: 'center', md: 'flex-end' }} mt="14px">
         <Link
           as={NextLink}
           color="primary"

@@ -1,4 +1,4 @@
-import { CruiseType } from '@/shared/types/prismaResponse';
+import { CruiseType, PostsType } from '@/shared/types/prismaResponse';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
@@ -15,9 +15,10 @@ import { BlogPreview } from '@/features/blogPreview/ui/BlogPreview';
 interface HomeProps {
   cruises: CruiseType[];
   isMobileDevice: boolean;
+  posts: PostsType[];
 }
 
-const Home = ({ cruises }: HomeProps) => {
+const Home = ({ cruises,posts }: HomeProps) => {
   return (
     <>
       <Head>
@@ -43,7 +44,7 @@ const Home = ({ cruises }: HomeProps) => {
 
       <BlueBlock />
 
-      <BlogPreview />
+      <BlogPreview posts={posts}/>
 
       <ProviderLogos />
     </>
@@ -63,7 +64,15 @@ export const getServerSideProps = (async ({ req }) => {
     take: 20,
   });
 
+  const blogSelect = await prisma.blog.findMany({
+    orderBy: {
+      date: 'asc',
+    },
+    take: 3,
+  });
+
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
+  const posts: PostsType[] = JSON.parse(JSON.stringify(blogSelect));
 
   const parser = new UAParser();
   const userAgentString = req?.headers['user-agent'] || '';
@@ -71,11 +80,8 @@ export const getServerSideProps = (async ({ req }) => {
 
   const isMobileDevice = userAgent.device.type === 'mobile';
 
-  return { props: { cruises: cruises, isMobileDevice } };
-}) satisfies GetServerSideProps<{
-  cruises: CruiseType[];
-  isMobileDevice: boolean;
-}>;
+  return { props: { cruises: cruises, isMobileDevice, posts } };
+}) satisfies GetServerSideProps<HomeProps>;
 
 Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
   return <MainLayout isMobileDevice={props.isMobileDevice}>{page}</MainLayout>;
