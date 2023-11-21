@@ -17,10 +17,21 @@ body {
     display: flex;
     justify-content: center;
   }
-  .swiper-pagination-bullet{
+  .swiper-pagination-bullet {
     border-radius: unset;
   }
-  .swiper-pagination-bullet-active{
-    background-color: #165D9F;
+  .swiper-pagination-bullet-active {
+    background-color: #165d9f;
   }
+}
+.blog-swiper {
+  min-width: 940px;
+  margin: 0 -12px;
+}
+
+.blogSlide {
+  width: calc(33% - 20px) !important;
+  min-width: 300px !important;
+  display: flex !important;
+  justify-content: center !important;
 }

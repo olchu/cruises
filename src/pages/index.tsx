@@ -10,9 +10,7 @@ import { StockWidget } from '@/widgets/stock';
 import { BlueBlock } from '@/entities/blueBlock';
 import { ProviderLogos } from '@/entities/providerLogos';
 import { CruisesCarousel } from '@/widgets/cruisesCarousel';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { BlogPreview } from '@/features/blogPreview/ui/BlogPreview';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -44,6 +42,8 @@ const Home = ({ cruises }: HomeProps) => {
       <CruisesCarousel cruises={cruises} />
 
       <BlueBlock />
+
+      <BlogPreview />
 
       <ProviderLogos />
     </>

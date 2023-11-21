@@ -73,6 +73,7 @@ export const AddPostForm = () => {
             duration: 9000,
             isClosable: true,
           });
+          resetForm();
         } else {
           toast({
             title: 'Ошибка',
@@ -145,7 +146,9 @@ export const AddPostForm = () => {
             />
           </Box>
 
-          <Button type="submit">Сохранить</Button>
+          <Button type="submit" isLoading={isSubmitting}>
+            Сохранить
+          </Button>
         </VStack>
       </form>
     </Box>

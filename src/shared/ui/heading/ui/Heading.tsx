@@ -8,6 +8,7 @@ export const Heading: FC<HeadingProps> = ({ children, ...props }) => {
       size={{ base: 'md', lg: 'xl' }}
       textAlign="center"
       mb={{ base: '30px', lg: '60px' }}
+      color="primary"
       {...props}
     >
       {children}

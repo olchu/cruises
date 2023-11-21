@@ -9,4 +9,5 @@ export const colors = {
   blue: '#165D9F',
   yellow: '#F4D157',
   lightBlue: '#F3F7FA',
+  grey: '#787878',
 };
