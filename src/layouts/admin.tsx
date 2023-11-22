@@ -1,13 +1,21 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { ProtectedRoute } from '@/app/providers/protectedProvider';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
-import { Box, Button, ChakraProvider } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  ChakraProvider,
+  HStack,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 const adminUrl = '/admin';
 
 const adminsMenu = [
   {
-    title: 'Главная',
+    title: 'Контент',
     href: adminUrl,
   },
   {
@@ -20,19 +28,28 @@ const AdminLayout: LayoutProps = ({ children }) => {
   return (
     <ProtectedRoute>
       <ChakraProvider>
-        <Box bg="gray.50" w="100%" px={4} py={4} color="gray.30">
-          <div>
+        <HStack w="full" h="full">
+          <VStack w="200px" bg="gray.600" h="full" py="20px" color="white">
             {adminsMenu.map(({ title, href }) => (
-              <Button key={title} as="a" href={href} marginRight={4}>
+              <Text
+                key={title}
+                as={NextLink}
+                href={href}
+                p="12px"
+                w="full"
+                textAlign="center"
+                _hover={{bg:"gray.800"}}
+              >
                 {title}
-              </Button>
+              </Text>
             ))}
-          </div>
-        </Box>
-
-        <Box px={4} py={4} w="100%" h="100%">
-          {children}
-        </Box>
+          </VStack>
+          <VStack flex={1} h="full">
+            <Box px={4} py={4} w="100%" h="100%">
+              {children}
+            </Box>
+          </VStack>
+        </HStack>
       </ChakraProvider>
     </ProtectedRoute>
   );

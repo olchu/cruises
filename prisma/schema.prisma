@@ -57,3 +57,13 @@ model blog {
   preview String?   @db.Text
   publish String?   @db.VarChar(255)
 }
+
+model news {
+  id      Int       @id @default(autoincrement())
+  title   String    @db.VarChar(255)
+  date    DateTime? @db.DateTime(0)
+  content String?   @db.Text
+  image   String?   @db.Text
+  preview String?   @db.Text
+  publish String?   @db.VarChar(255)
+}
