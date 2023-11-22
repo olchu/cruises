@@ -42,6 +42,7 @@ export const MobileMenu = () => {
             fontSize="14px"
             bg="primary"
             color="white"
+            height="60px"
           >
             Волго-Балтийские Путешествия
           </DrawerHeader>
@@ -57,7 +58,6 @@ export const MobileMenu = () => {
               <MenuList />
               <Spacer />
               <TopMenuContacts />
-              {/* <Social /> */}
             </VStack>
           </DrawerBody>
 

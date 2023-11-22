@@ -11,6 +11,7 @@ import { BlueBlock } from '@/entities/blueBlock';
 import { ProviderLogos } from '@/entities/providerLogos';
 import { CruisesCarousel } from '@/widgets/cruisesCarousel';
 import { BlogPreview } from '@/features/blogPreview/ui/BlogPreview';
+import { NewsPreview } from '@/features/newsPreview';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -18,7 +19,7 @@ interface HomeProps {
   posts: PostsType[];
 }
 
-const Home = ({ cruises,posts }: HomeProps) => {
+const Home = ({ cruises, posts }: HomeProps) => {
   return (
     <>
       <Head>
@@ -44,7 +45,9 @@ const Home = ({ cruises,posts }: HomeProps) => {
 
       <BlueBlock />
 
-      <BlogPreview posts={posts}/>
+      <NewsPreview posts={posts} />
+      
+      <BlogPreview posts={posts} />
 
       <ProviderLogos />
     </>
@@ -66,7 +69,10 @@ export const getServerSideProps = (async ({ req }) => {
 
   const blogSelect = await prisma.blog.findMany({
     orderBy: {
-      date: 'asc',
+      date: 'desc',
+    },
+    where: {
+      publish: 'true',
     },
     take: 3,
   });

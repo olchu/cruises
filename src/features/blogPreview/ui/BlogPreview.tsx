@@ -62,12 +62,12 @@ export const BlogPreview: FC<IBlogPreview> = ({ posts }) => {
           );
         })}
       </Flex>
-      <HStack justifyContent={{ base: 'center', md: 'flex-end' }} mt="14px">
+      <HStack justifyContent={{ base: 'center', md: 'flex-start' }} mt="18px">
         <Link
           as={NextLink}
           color="primary"
           href={`/blog`}
-          mb="12px"
+          mb="22px"
           display="flex"
           alignItems="center"
           gap="8px"
