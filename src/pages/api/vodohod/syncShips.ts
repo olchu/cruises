@@ -3,6 +3,7 @@ import { Providers } from '@/shared/constants/providers';
 import { DBShipsData } from '@/features/admin/vodohod/ui/ships/utils/prepareShips';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
+import { ShipsType } from '@/shared/types/prismaResponse';
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,7 +11,7 @@ export default async function handler(
 ) {
   try {
     let response: { id: number; status: string }[] = [];
-    req.body?.ships.forEach(async (ship: DBShipsData) => {
+    req.body?.ships.forEach(async (ship: ShipsType) => {
       const selectShip = await prisma.ships.findFirst({
         where: {
           loadFrom: Providers.vodohod,
