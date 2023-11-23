@@ -9,11 +9,11 @@ import {
   Button,
   Text,
   useToast,
-  HStack,
+  HStack, Image
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import moment from 'moment';
-import { ChangeEventHandler, FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 interface IAddPost {
   title: string;
@@ -31,6 +31,16 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
   const [files, setFiles] = useState<FileList | null>(null);
   const toast = useToast();
   const initDate = post ? moment(post?.date).format('YYYY-MM-DD') : null;
+  const [selectedImages, setSelectedImages] = useState<string[]>(() => {
+    if (post?.images) {
+      return JSON.parse(post.images)?.map(
+        (item: string) => `/uploads/blog/${item}`
+      );
+    }
+    return [];
+  });
+
+  console.log('img', post?.images);
 
   const handleDateChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -39,8 +49,19 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = e.target.files;
-    setFiles(selectedFiles);
+    if (e.target.files) {
+      const selectedFiles = e.target.files;
+
+      let images = [];
+      for (let i = 0; i < selectedFiles.length; i++) {
+        let img = selectedFiles.item(i);
+        if (img) {
+          images.push(URL.createObjectURL(img));
+        }
+      }
+      setFiles(selectedFiles);
+      setSelectedImages(images);
+    }
   };
 
   const {
@@ -64,6 +85,11 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
         console.log();
         const formData = new FormData();
         Array.from(files).forEach((file) => formData.append('files', file));
+
+        // add form field
+        if (post?.id) {
+          formData.append('id', `${post.id}`);
+        }
         formData.append('title', values.title);
         formData.append('date', values.date);
         formData.append('preview', values.preview);
@@ -71,7 +97,7 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
         formData.append('content', content);
 
         const response = await fetch('/api/addPost', {
-          method: 'POST',
+          method: post ? 'UPDATE' : 'POST',
           body: formData,
         });
 
@@ -148,13 +174,23 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
             <Text fontWeight="bold" mb="12px">
               Фото
             </Text>
-            <Button>Выбрать</Button>
-            <Input
-              visibility="hidden"
-              type="file"
-              multiple
-              onChange={handleFileChange}
-            />
+            <HStack gap="10px" mb="16px">
+              {selectedImages.map((item, index) => {
+                return (
+                  <Image key={index} src={item} w="150px" h="100px" alt="img" />
+                );
+              })}
+            </HStack>
+
+            <label>
+              <Button as="div">Выбрать</Button>
+              <Input
+                visibility="hidden"
+                type="file"
+                multiple
+                onChange={handleFileChange}
+              />
+            </label>
           </Box>
 
           <Box>

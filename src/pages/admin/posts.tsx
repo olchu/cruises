@@ -41,7 +41,6 @@ const Posts = ({ posts }: IPostProps) => {
   const handleEdit = (id: number) => {
     setEditableId(id);
     onOpen();
-    // setTimeout(onOpen);
   };
 
   return (
@@ -57,7 +56,7 @@ const Posts = ({ posts }: IPostProps) => {
       </HStack>
 
       <TableContainer>
-        <Table variant="simple">
+        <Table variant="striped" colorScheme="gray">
           <TableCaption>Imperial to metric conversion factors</TableCaption>
           <Thead>
             <Tr>
