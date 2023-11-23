@@ -55,7 +55,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ posts }) => {
               flex="1"
             >
               <Image
-                src={`/uploads/${JSON.parse(images!)[0]}`}
+                src={`/uploads/news/${JSON.parse(images!)[0]}`}
                 alt="blog"
                 width="100%"
                 height="100%"
