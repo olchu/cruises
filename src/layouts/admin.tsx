@@ -15,8 +15,12 @@ const adminUrl = '/admin';
 
 const adminsMenu = [
   {
-    title: 'Контент',
-    href: adminUrl,
+    title: 'Посты',
+    href: adminUrl + '/posts',
+  },
+  {
+    title: 'Новости',
+    href: adminUrl + '/news',
   },
   {
     title: 'api Водоход',
@@ -38,7 +42,7 @@ const AdminLayout: LayoutProps = ({ children }) => {
                 p="12px"
                 w="full"
                 textAlign="center"
-                _hover={{bg:"gray.800"}}
+                _hover={{ bg: 'gray.800' }}
               >
                 {title}
               </Text>

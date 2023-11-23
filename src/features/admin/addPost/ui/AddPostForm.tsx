@@ -1,6 +1,6 @@
 import { TextEditor } from '@/features/textEditor';
+import { PostsType } from '@/shared/types/prismaResponse';
 import {
-  Heading,
   VStack,
   Textarea,
   Box,
@@ -9,21 +9,34 @@ import {
   Button,
   Text,
   useToast,
+  HStack,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import moment from 'moment';
+import { ChangeEventHandler, FC, useState } from 'react';
 
-interface AddPost {
+interface IAddPost {
   title: string;
   date: string;
   preview: string;
   publish: boolean;
 }
 
-export const AddPostForm = () => {
-  const [content, setContent] = useState('');
+interface IAddPosrFrom {
+  post?: PostsType;
+}
+
+export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
+  const [content, setContent] = useState(post?.content || '');
   const [files, setFiles] = useState<FileList | null>(null);
   const toast = useToast();
+  const initDate = post ? moment(post?.date).format('YYYY-MM-DD') : null;
+
+  const handleDateChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setFieldValue('date', e.target.value);
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
@@ -38,16 +51,15 @@ export const AddPostForm = () => {
     setValues,
     setFieldValue,
     isSubmitting,
-  } = useFormik<AddPost>({
+  } = useFormik<IAddPost>({
     initialValues: {
-      title: '',
-      date: '',
-      preview: '',
-      publish: false,
+      title: post?.title || '',
+      date: initDate || '',
+      preview: post?.preview || '',
+      publish: post?.publish === 'true',
     },
     onSubmit: async (values) => {
       console.log('body', { ...values, content });
-      console.log('file', files);
       if (files) {
         console.log();
         const formData = new FormData();
@@ -88,26 +100,31 @@ export const AddPostForm = () => {
   });
   return (
     <Box>
-      <Heading mb="20px">Добавление поста</Heading>
       <form onSubmit={handleSubmit}>
         <VStack gap="18px" w="full" alignItems="none">
-          <Box>
-            <Text fontWeight="bold" mb="12px">
-              Дата
-            </Text>
-            <Input
-              name="date"
-              value={values.date}
-              onChange={handleChange}
-              type="date"
-            />
-          </Box>
-          <Box>
-            <Text fontWeight="bold" mb="12px">
-              Заголовок
-            </Text>
-            <Input name="title" value={values.title} onChange={handleChange} />
-          </Box>
+          <HStack gap="18px">
+            <Box>
+              <Text fontWeight="bold" mb="12px">
+                Дата
+              </Text>
+              <Input
+                name="date"
+                value={values.date}
+                onChange={handleDateChange}
+                type="date"
+              />
+            </Box>
+            <Box flex="1">
+              <Text fontWeight="bold" mb="12px">
+                Заголовок
+              </Text>
+              <Input
+                name="title"
+                value={values.title}
+                onChange={handleChange}
+              />
+            </Box>
+          </HStack>
 
           <Box>
             <Text fontWeight="bold" mb="12px">
@@ -131,7 +148,13 @@ export const AddPostForm = () => {
             <Text fontWeight="bold" mb="12px">
               Фото
             </Text>
-            <Input type="file" multiple onChange={handleFileChange} />
+            <Button>Выбрать</Button>
+            <Input
+              visibility="hidden"
+              type="file"
+              multiple
+              onChange={handleFileChange}
+            />
           </Box>
 
           <Box>
@@ -147,7 +170,7 @@ export const AddPostForm = () => {
           </Box>
 
           <Button type="submit" isLoading={isSubmitting}>
-            Сохранить
+            {post ? 'Обновить' : 'Создать'}
           </Button>
         </VStack>
       </form>
