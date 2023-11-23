@@ -8,14 +8,10 @@ import {
   useDisclosure,
   Flex,
   Text,
-  Box,
-  DrawerFooter,
-  Link,
-  HStack,
+  Box, Link,
+  HStack
 } from '@chakra-ui/react';
-import { MenuList, Social } from './TopMenu';
 import NextLink from 'next/link';
-import { TopMenuContacts } from './TopMenuContacts';
 import { GrMenu } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import { menuList } from '@/shared/constants/menuList';
