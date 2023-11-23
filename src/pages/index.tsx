@@ -39,14 +39,15 @@ const Home = ({ cruises, posts }: HomeProps) => {
 
       <HeroBlock />
 
+      <NewsPreview posts={posts} />
+      
       <StockWidget />
 
       <CruisesCarousel cruises={cruises} />
 
       <BlueBlock />
 
-      <NewsPreview posts={posts} />
-      
+
       <BlogPreview posts={posts} />
 
       <ProviderLogos />

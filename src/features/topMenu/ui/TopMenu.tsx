@@ -36,7 +36,7 @@ export const MenuList = () => {
   );
 };
 
-const Social = () => {
+export const Social = () => {
   return (
     <>
       {socials.map(({ alias, url, Icon }) => {

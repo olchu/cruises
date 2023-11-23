@@ -1,6 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Providers } from '@/shared/constants/providers';
-import { DBShipsData } from '@/features/admin/vodohod/ui/ships/utils/prepareShips';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
 import { ShipsType } from '@/shared/types/prismaResponse';

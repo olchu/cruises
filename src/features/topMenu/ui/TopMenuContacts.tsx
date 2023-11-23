@@ -1,9 +1,7 @@
 import { phones } from '@/shared/constants/contactsPhone';
-import { HStack, Link, Text, VStack } from '@chakra-ui/react';
+import { HStack, Link, VStack } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { MdOutlinePhoneAndroid } from 'react-icons/md';
-import { BiLogoTelegram } from 'react-icons/bi';
-import { socials } from '@/shared/constants/socialContacts';
 
 export const TopMenuContacts = () => {
   return (
