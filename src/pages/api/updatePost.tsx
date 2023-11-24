@@ -17,11 +17,11 @@ const handler: NextApiHandler = async (req, res) => {
   } catch (error) {
     await fs.mkdir(path.join(process.cwd() + '/uploads', '/blog'));
   }
-  
+
   const nextId = await getNextBlogId();
   const { fields, fileNames } = await saveFile(
     req,
-    `post_${nextId}`,
+    `post_${nextId - 1}`,
     '/uploads/blog',
     true
   );
@@ -32,15 +32,17 @@ const handler: NextApiHandler = async (req, res) => {
     for (let key in fields) {
       formFields[key] = fields?.[key]?.[0] || '';
     }
+    const postImages = JSON.parse(formFields.images) || [];
 
-    const response = await prisma.blog.create({
+    const response = await prisma.blog.update({
+      where: { id: parseInt(formFields.id) },
       data: {
         title: formFields.title,
         content: formFields.content,
         preview: formFields.preview,
         publish: formFields.publish,
         date: new Date(formFields.date),
-        images: JSON.stringify(fileNames),
+        images: JSON.stringify([...postImages, ...fileNames]),
       },
     });
 

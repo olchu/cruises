@@ -17,6 +17,7 @@ const handler: NextApiHandler = async (req, res) => {
   } catch (error) {
     await fs.mkdir(path.join(process.cwd() + '/uploads', '/blog'));
   }
+
   const nextId = await getNextBlogId();
   const { fields, fileNames } = await saveFile(
     req,
@@ -31,7 +32,6 @@ const handler: NextApiHandler = async (req, res) => {
     for (let key in fields) {
       formFields[key] = fields?.[key]?.[0] || '';
     }
-
     const response = await prisma.blog.create({
       data: {
         title: formFields.title,

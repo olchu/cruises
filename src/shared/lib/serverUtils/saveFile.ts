@@ -26,8 +26,7 @@ export const saveFile = (
 
       const fileNames = Array.isArray(files.files)
         ? files.files.map((file: any) => {
-            console.log(file.newFilename);
-            return file.newFilename;
+            return `${pathTo}/` + file.newFilename;
           })
         : [];
 

@@ -9,11 +9,14 @@ import {
   Button,
   Text,
   useToast,
-  HStack, Image
+  HStack,
+  Image,
+  Flex,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { FC, useState } from 'react';
+import { MdDelete } from 'react-icons/md';
 
 interface IAddPost {
   title: string;
@@ -26,21 +29,25 @@ interface IAddPosrFrom {
   post?: PostsType;
 }
 
+const ADD_API = '/api/addPost';
+const UPDATE_API = '/api/updatePost';
+
 export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
-  const [content, setContent] = useState(post?.content || '');
-  const [files, setFiles] = useState<FileList | null>(null);
   const toast = useToast();
+  const [content, setContent] = useState(post?.content || '');
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const initDate = post ? moment(post?.date).format('YYYY-MM-DD') : null;
-  const [selectedImages, setSelectedImages] = useState<string[]>(() => {
+  const [postImages, setPostImages] = useState<string[]>(() => {
     if (post?.images) {
-      return JSON.parse(post.images)?.map(
-        (item: string) => `/uploads/blog/${item}`
-      );
+      console.log('');
+      return JSON.parse(post.images)?.map((item: string) => item);
     }
     return [];
   });
 
-  console.log('img', post?.images);
+  const [uploadImages, setUploadImages] = useState<string[]>([]);
+
+  const endpoint = post ? UPDATE_API : ADD_API;
 
   const handleDateChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -52,16 +59,38 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
     if (e.target.files) {
       const selectedFiles = e.target.files;
 
-      let images = [];
+      let images: string[] = [];
       for (let i = 0; i < selectedFiles.length; i++) {
         let img = selectedFiles.item(i);
         if (img) {
           images.push(URL.createObjectURL(img));
         }
       }
-      setFiles(selectedFiles);
-      setSelectedImages(images);
+      setUploadedFiles((prev) => [...prev, ...Array.from(selectedFiles)]);
+      setUploadImages((prev) => [...prev, ...images]);
     }
+  };
+
+  const handleDelPostImages = (index: number) => {
+    setPostImages((prev) => {
+      const tmp = [...prev];
+      tmp.splice(index, 1);
+      return [...tmp];
+    });
+  };
+
+  const handleDelUploadImage = (index: number) => {
+    setUploadImages((prev) => {
+      const tmp = [...prev];
+      tmp.splice(index, 1);
+      return [...tmp];
+    });
+
+    setUploadedFiles((prev) => {
+      const tmp = [...prev];
+      tmp.splice(index, 1);
+      return [...tmp];
+    });
   };
 
   const {
@@ -69,7 +98,6 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
     handleChange,
     values,
     resetForm,
-    setValues,
     setFieldValue,
     isSubmitting,
   } = useFormik<IAddPost>({
@@ -81,14 +109,18 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
     },
     onSubmit: async (values) => {
       console.log('body', { ...values, content });
-      if (files) {
+      if (true) {
         console.log();
         const formData = new FormData();
-        Array.from(files).forEach((file) => formData.append('files', file));
+        if (uploadedFiles.length > 0)
+          uploadedFiles.forEach((file) => formData.append('files', file));
 
         // add form field
         if (post?.id) {
           formData.append('id', `${post.id}`);
+        }
+        if (post) {
+          formData.append('images', JSON.stringify(postImages));
         }
         formData.append('title', values.title);
         formData.append('date', values.date);
@@ -96,8 +128,8 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
         formData.append('publish', `${values.publish}`);
         formData.append('content', content);
 
-        const response = await fetch('/api/addPost', {
-          method: post ? 'UPDATE' : 'POST',
+        const response = await fetch(endpoint, {
+          method: 'POST',
           body: formData,
         });
 
@@ -175,22 +207,67 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
               Фото
             </Text>
             <HStack gap="10px" mb="16px">
-              {selectedImages.map((item, index) => {
+              {postImages.map((item, index) => {
                 return (
-                  <Image key={index} src={item} w="150px" h="100px" alt="img" />
+                  <Box key={index} position="relative">
+                    <Image src={item} w="150px" h="100px" alt="img" />
+                    <Box
+                      as="span"
+                      position="absolute"
+                      top={1}
+                      color="red"
+                      bg="white"
+                      p="4px"
+                      right={1}
+                      cursor="pointer"
+                      onClick={() => handleDelPostImages(index)}
+                    >
+                      <MdDelete />
+                    </Box>
+                  </Box>
                 );
               })}
+              {uploadImages.map((item, index) => {
+                return (
+                  <Box key={index} position="relative">
+                    <Image src={item} w="150px" h="100px" alt="img" />
+                    <Box
+                      as="span"
+                      position="absolute"
+                      top={1}
+                      color="red"
+                      bg="white"
+                      p="4px"
+                      right={1}
+                      cursor="pointer"
+                      onClick={() => handleDelUploadImage(index)}
+                    >
+                      <MdDelete />
+                    </Box>
+                  </Box>
+                );
+              })}
+              <label>
+                <Flex
+                  w="150px"
+                  h="100px"
+                  border="1px dashed"
+                  borderColor="gray.400"
+                  color="gray.400"
+                  justifyContent="center"
+                  align="center"
+                  cursor="pointer"
+                >
+                  Выбрать
+                </Flex>
+                <Input
+                  display="none"
+                  type="file"
+                  multiple
+                  onChange={handleFileChange}
+                />
+              </label>
             </HStack>
-
-            <label>
-              <Button as="div">Выбрать</Button>
-              <Input
-                visibility="hidden"
-                type="file"
-                multiple
-                onChange={handleFileChange}
-              />
-            </label>
           </Box>
 
           <Box>
