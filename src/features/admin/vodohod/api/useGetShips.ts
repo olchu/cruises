@@ -6,23 +6,29 @@ const endPoint = 'https://api-crs.vodohod.com/json/v3/motorships?limit=200';
 export const useGetShips = () => {
   const [ships, setShips] = useState<null | ShipsData[]>(null);
   const [error, setError] = useState<string | null>(null);
-  const { getToken, tokenError } = useGetToken();
+  const { getToken, tokenError, token } = useGetToken();
   const [isFetching, setIsFetching] = useState(false);
 
+  useEffect(() => {
+    if (token) return;
+    getToken();
+  }, [token]);
+
   const getShips = async () => {
-    const restoken = (await getToken()).result?.accessToken?.token;
-    try {
-      const res = await fetch(endPoint, {
-        method: 'Get',
-        headers: {
-          Authorization: `Bearer ${restoken}`,
-        },
-      });
-      const data: Main = await res.json();
-      setShips(data.result.data);
-    } catch (error) {
-      setIsFetching(false);
-      setError('Ошибка при получении списка теплоходов');
+    if (token) {
+      try {
+        const res = await fetch(endPoint, {
+          method: 'Get',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data: Main = await res.json();
+        setShips(data.result.data);
+      } catch (error) {
+        setIsFetching(false);
+        setError('Ошибка при получении списка теплоходов');
+      }
     }
   };
 

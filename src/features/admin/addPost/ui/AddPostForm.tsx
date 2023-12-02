@@ -29,8 +29,8 @@ interface IAddPosrFrom {
   post?: PostsType;
 }
 
-const ADD_API = '/api/addPost';
-const UPDATE_API = '/api/updatePost';
+const ADD_API = '/api/posts/addPost';
+const UPDATE_API = '/api/posts/updatePost';
 
 export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
   const toast = useToast();
@@ -135,10 +135,18 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
 
         const res = await response.json();
 
+        const toatsTitle = post ? 'Пост обновлен' : 'Пост создан';
+        const toatsDescription = post
+          ? 'Обновлен пост с id='
+          : 'Новый пост создан с id=';
+        const toatsError = post
+          ? 'Ошибка при обновлении поста'
+          : 'Ошибка при создании поста';
+
         if (res.status === 'ok') {
           toast({
-            title: 'Пост создан',
-            description: 'Новый пост создан с id=' + res.post.id,
+            title: toatsTitle,
+            description: toatsDescription + res.post.id,
             status: 'success',
             duration: 9000,
             isClosable: true,
@@ -147,7 +155,7 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
         } else {
           toast({
             title: 'Ошибка',
-            description: 'Ошибка при создании поста' + res.error,
+            description: toatsError + res.error,
             status: 'error',
             duration: 9000,
             isClosable: true,
