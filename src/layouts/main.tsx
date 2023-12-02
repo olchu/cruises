@@ -8,7 +8,9 @@ export const MainLayout: LayoutProps = ({ children, isMobileDevice }) => {
   return (
     <ThemeProvider>
       <TopMenu isMobileDevice={isMobileDevice} />
-      <VStack as="main" gap="0">{children}</VStack>
+      <VStack as="main" gap="0">
+        {children}
+      </VStack>
       <Spacer />
       <Footer />
     </ThemeProvider>
