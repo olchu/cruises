@@ -3,6 +3,9 @@ import { Deck } from '@/features/admin/vodohod/api/getTarif';
 type Price = {
   dicountedVal: null | number;
   val: null | number;
+  annotation: string;
+  description: string;
+  thumbnails: string[];
 };
 
 type Class = Record<string, Price>;
@@ -23,6 +26,9 @@ export const prepareTarifs = (decks: Deck[]) => {
       let price: Price = {
         dicountedVal: null,
         val: null,
+        annotation: room.annotation || '',
+        description: room.description || '',
+        thumbnails: room.thumbnails || [],
       };
       if (tarif) {
         tarif.accommodations.forEach((p) => {

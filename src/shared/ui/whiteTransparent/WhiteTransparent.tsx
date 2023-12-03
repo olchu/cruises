@@ -12,16 +12,16 @@ export const WhiteTransparent: FC<BoxProps> = (props) => {
       flexDirection="column"
       alignItems="center"
       _before={{
-        background: 'white',
+        background: "white",
         content: '""',
         position: 'absolute',
         top: 0,
-        left:0,
+        left: 0,
         height: '100%',
         width: '100%',
         opacity: '0.2',
       }}
-       {...props}
+      {...props}
     >
       {children}
     </Box>

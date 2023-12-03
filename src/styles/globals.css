@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   height: 100%;
@@ -8,6 +12,40 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.cruiseAbout ul {
+  margin-left: 0;
+  padding-right: 0;
+  padding: 0 30px;
+}
+.cruiseAbout li {
+  padding-right: 0;
+  margin-bottom: 12px;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.cruiseKitchen p {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+.cruiseKitchen ul {
+  margin-top: 20px;
+  margin-left: 0;
+  padding-right: 0;
+  padding: 0 30px;
+}
+
+.cruiseKitchen li {
+  padding-right: 0;
+  margin-bottom: 12px;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.cruiseKitchen strong {
+  font-weight: normal;
 }
 
 .Hswiper {
