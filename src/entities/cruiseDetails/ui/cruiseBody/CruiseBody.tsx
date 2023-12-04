@@ -20,13 +20,7 @@ const menu = [
 
 export type CabinType = {
   name: string;
-  price: {
-    val: number;
-    dicountedVal: number;
-    annotation: string;
-    description: string;
-    thumbnails: string[];
-  };
+  price: Price;
 };
 
 type PriceType = {
@@ -35,26 +29,40 @@ type PriceType = {
   hasPrice: boolean;
 }[];
 
+type Price = {
+  val: number;
+  dicountedVal: number;
+  annotation: string;
+  description: string;
+  thumbnails: string[];
+};
+
+type DeckPrice = Record<string, Price>;
+
+type IncomingPrices = Record<string, DeckPrice>;
+
 export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
-  const incomingPrices = cruise?.prices!;
+  const incomingPrices = cruise?.prices! as IncomingPrices;
   console.log('incomingPrices', incomingPrices);
   const decs = Object.keys(incomingPrices);
   const decks: PriceType = Object.keys(incomingPrices).map((deck) => {
     let cabinsByDeck = {
       name: deck,
-      cabinsType: [],
+      cabinsType: [] as CabinType[],
       hasPrice: false,
     };
     let hasPrice = false;
-    const cabinsType = Object.keys(incomingPrices[deck]!).map((cabinsType) => {
-      if (incomingPrices[deck][cabinsType]?.val) {
-        hasPrice = true;
+    const cabinsType: CabinType[] = Object.keys(incomingPrices[deck]!).map(
+      (cabinsType) => {
+        if (incomingPrices[deck][cabinsType]?.val) {
+          hasPrice = true;
+        }
+        return {
+          name: cabinsType,
+          price: incomingPrices[deck][cabinsType],
+        };
       }
-      return {
-        name: cabinsType,
-        price: incomingPrices[deck][cabinsType],
-      };
-    });
+    );
     cabinsByDeck.cabinsType = [...cabinsType];
     cabinsByDeck.hasPrice = hasPrice;
 
@@ -137,7 +145,13 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
           .map(({ cabinsType, name }) => {
             return (
               <Box key={name} mb="30px">
-                <Text bg="blue" p="12px" mb="12px" fontWeight="bold" color="white">
+                <Text
+                  bg="blue"
+                  p="12px"
+                  mb="12px"
+                  fontWeight="bold"
+                  color="white"
+                >
                   {name} палуба
                 </Text>
                 <VStack gap="20px" alignItems="flex-start" w="full">
