@@ -137,7 +137,7 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
           .map(({ cabinsType, name }) => {
             return (
               <Box key={name} mb="30px">
-                <Text bg="blueGrey" p="12px" mb="12px" fontWeight="bold">
+                <Text bg="blue" p="12px" mb="12px" fontWeight="bold" color="white">
                   {name} палуба
                 </Text>
                 <VStack gap="20px" alignItems="flex-start" w="full">

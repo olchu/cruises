@@ -15,7 +15,7 @@ const Description = ({ description }: { description: string }) => {
   const [isShow, setShow] = useState(false);
   return (
     <>
-      <Button size="sm" onClick={() => setShow(!isShow)}>
+      <Button variant='link' size="sm" onClick={() => setShow(!isShow)}>
         Подробнее
       </Button>
       {isShow && (
@@ -58,7 +58,7 @@ export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
           <Text fontWeight="bold"> {name}</Text>
           <Text> {annotation}</Text>
         </VStack>
-        <Description description={description} />
+        {description && <Description description={description} />}
       </VStack>
 
       <Box>
