@@ -79,6 +79,7 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
         position="sticky"
         top={0}
         boxShadow="md"
+        zIndex={1}
       >
         <HStack as={MainContainer} h="50px">
           {menu.map(({ title, link }) => {
