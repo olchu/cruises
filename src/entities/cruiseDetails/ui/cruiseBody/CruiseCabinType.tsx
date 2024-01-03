@@ -62,7 +62,7 @@ export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
       </VStack>
 
       <Box>
-        <Text>Цена: </Text>
+        {/* <Text>Цена: </Text> */}
         <Text color="accent" fontWeight="bold" fontSize="16px">
           от{' '}
           <Text fontSize="18px" as="span">

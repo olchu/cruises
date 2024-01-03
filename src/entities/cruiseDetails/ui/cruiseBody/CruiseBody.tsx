@@ -92,7 +92,11 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
         </HStack>
       </Box>
 
-      <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
+      <MainContainer
+        p={{ base: 'section.mobile', md: 'section.desktop' }}
+        maxH="320px"
+        overflow="hidden"
+      >
         <Heading id="about" size="xl" mb="30px">
           Описание
         </Heading>
