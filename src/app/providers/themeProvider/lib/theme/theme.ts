@@ -3,7 +3,7 @@ import { colors } from './colors';
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
-  weight: ['300','400', '700','900'],
+  weight: ['300', '400', '700', '900'],
   style: ['normal', 'italic'],
   subsets: ['cyrillic'],
   display: 'swap',

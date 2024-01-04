@@ -1,21 +1,37 @@
+'use client';
+
 import { InputGroup, Input, InputRightElement, Box } from '@chakra-ui/react';
 import { FC, ReactNode, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { BiCalendar } from 'react-icons/bi';
 import { ru } from 'date-fns/locale';
+import { useRouter } from 'next/router';
+
+export enum urlParamNames {
+  dateStart = 'dateStart',
+  dateEnd = 'dateEnd',
+}
 
 interface SearchBarInputDateProps {
   placeholder: string;
+  urlParamName: urlParamNames;
 }
 
 export const SearchBarInputDate: FC<SearchBarInputDateProps> = ({
   placeholder,
+  urlParamName,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleChange = (date: Date | null) => {
+    const currentUrl = new URL(window.location.href);
     setSelectedDate(date);
+    if (date) {
+      const formattedDate = date.toISOString().split('T')[0];
+      currentUrl.searchParams.set(urlParamName, formattedDate);
+      window.history.replaceState(null, '', currentUrl.toString());
+    }
   };
 
   return (
@@ -48,6 +64,8 @@ const CustomInput = ({
         placeholder={placeholderText}
         borderRadius="none"
         _focusVisible={{ boxShadow: 'none', borderColor: 'inherit' }}
+        color='text'
+        _placeholder={{ color: 'text' }}
       />
       <InputRightElement>
         <BiCalendar />

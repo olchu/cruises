@@ -15,6 +15,8 @@ export const SearchBarInput: FC<SearchBarInputProps> = (props) => {
         placeholder={placeholder}
         type={type}
         borderRadius="none"
+        color='text'
+        _placeholder={{ color: 'text' }}
         _focusVisible={{ boxShadow: 'none', borderColor: 'inherit' }}
       />
       <InputRightElement>{icon}</InputRightElement>
