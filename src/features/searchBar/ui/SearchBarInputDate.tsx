@@ -1,12 +1,17 @@
 'use client';
 
-import { InputGroup, Input, InputRightElement, Box } from '@chakra-ui/react';
-import { FC, ReactNode, useState } from 'react';
+import {
+  InputGroup,
+  Input,
+  InputRightElement,
+  Box,
+  Text,
+} from '@chakra-ui/react';
+import { FC, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { BiCalendar } from 'react-icons/bi';
 import { ru } from 'date-fns/locale';
-import { useRouter } from 'next/router';
 
 export enum urlParamNames {
   dateStart = 'dateStart',
@@ -35,14 +40,19 @@ export const SearchBarInputDate: FC<SearchBarInputDateProps> = ({
   };
 
   return (
-    <Box w="full">
+    <Box w="full" className="my-datePicker">
+      <Text color={{ base: 'primary', lg: 'white' }} mb="12px">
+        {placeholder}
+      </Text>
       <DatePicker
+        
         selected={selectedDate}
         onChange={handleChange}
         dateFormat="dd-MM-yyyy"
         showPopperArrow={false}
-        customInput={<CustomInput placeholderText={placeholder} />}
+        customInput={<CustomInput placeholderText="Дата" />}
         locale={ru}
+        isClearable
       />
     </Box>
   );
@@ -64,7 +74,7 @@ const CustomInput = ({
         placeholder={placeholderText}
         borderRadius="none"
         _focusVisible={{ boxShadow: 'none', borderColor: 'inherit' }}
-        color='text'
+        color="text"
         _placeholder={{ color: 'text' }}
       />
       <InputRightElement>

@@ -73,3 +73,7 @@ body {
   display: flex !important;
   justify-content: center !important;
 }
+
+.react-datepicker-wrapper {
+  display: block !important;
+}

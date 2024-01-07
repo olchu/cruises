@@ -11,8 +11,17 @@ import { useSearchParams } from 'next/navigation';
 import { SearchBarInputDate, urlParamNames } from './SearchBarInputDate';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { SearchBarSelect } from './SearchBarSelect';
+import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 
-export const SearchBar: FC<BoxProps> = (props) => {
+type SearchBarProps = BoxProps & {
+  ships: ShipsType[];
+  citiesEnd: CruiseType[];
+  citiesStart: CruiseType[];
+};
+
+export const SearchBar: FC<SearchBarProps> = (props) => {
+  const { ships, citiesEnd, citiesStart, ...otherProps } = props;
   const router = useRouter();
 
   const handleSearch = () => {
@@ -26,11 +35,12 @@ export const SearchBar: FC<BoxProps> = (props) => {
       flexDirection="column"
       alignItems="flex-end"
       w={{ base: '100%', lg: 'auto' }}
-      {...props}
+      {...otherProps}
     >
       <Flex
         gap={{ base: '20px' }}
         flexDirection={{ base: 'column', lg: 'row' }}
+        alignItems={{ base: 'none', lg: 'flex-end' }}
         w="100%"
       >
         <SearchBarInputDate
@@ -41,26 +51,33 @@ export const SearchBar: FC<BoxProps> = (props) => {
           placeholder="Прибытие"
           urlParamName={urlParamNames.dateEnd}
         />
-        <Select
-          icon={<BiSolidShip />}
-          placeholder="Теплоход"
-          borderRadius="none"
-          bg="white"
-          w="full"
-          color="text"
-          _placeholder={{ color: 'text' }}
-          iconSize="16px"
-          minW={{ lg: '160px' }}
-          variant="filled"
-          _hover={{ background: 'white' }}
-          _focusVisible={{ boxShadow: 'none', borderColor: 'inherit' }}
-        >
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </Select>
-        <SearchBarInput placeholder="От куда" icon={<IoLocationSharp />} />
-        <SearchBarInput placeholder="Куда" icon={<IoLocationSharp />} />
+        <SearchBarSelect icon={<BiSolidShip />} placeholder="Выбрать Теплоход">
+          {ships.map((ship) => {
+            return (
+              <option key={ship.id} value={ship.id}>
+                {ship.name}
+              </option>
+            );
+          })}
+        </SearchBarSelect>
+        <SearchBarSelect placeholder="От куда" icon={<IoLocationSharp />}>
+          {citiesStart.map((city) => {
+            return (
+              <option key={city.id} value={city.cityStart}>
+                {city.cityStart}
+              </option>
+            );
+          })}
+        </SearchBarSelect>
+        <SearchBarSelect placeholder="Куда" icon={<IoLocationSharp />}>
+          {citiesEnd.map((city) => {
+            return (
+              <option key={city.id} value={city.cityEnd}>
+                {city.cityEnd}
+              </option>
+            );
+          })}
+        </SearchBarSelect>
         <Button onClick={handleSearch} w="100%" bg="accent" color="white">
           Поиск
         </Button>

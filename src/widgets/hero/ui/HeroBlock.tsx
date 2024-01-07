@@ -1,14 +1,18 @@
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
 import { SearchBar } from '@/features/searchBar';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import {
-  Box,
-  HStack,
-  Spacer,
-  Text, VStack
-} from '@chakra-ui/react';
+import { Box, HStack, Spacer, Text, VStack } from '@chakra-ui/react';
+import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 
-export const HeroBlock = () => {
+export const HeroBlock = ({
+  ships,
+  citiesStart,
+  citiesEnd,
+}: {
+  ships: ShipsType[];
+  citiesStart: CruiseType[];
+  citiesEnd: CruiseType[];
+}) => {
   return (
     <>
       <Box
@@ -78,7 +82,12 @@ export const HeroBlock = () => {
             </HStack>
 
             <Spacer />
-            <SearchBar display={{ base: 'none', lg: 'flex' }} />
+            <SearchBar
+              display={{ base: 'none', lg: 'flex' }}
+              ships={ships}
+              citiesEnd={citiesEnd}
+              citiesStart={citiesStart}
+            />
           </VStack>
         </MainContainer>
       </Box>
@@ -89,7 +98,11 @@ export const HeroBlock = () => {
         bg="secondary"
         display={{ base: 'flex', lg: 'none' }}
       >
-        <SearchBar />
+        <SearchBar
+          ships={ships}
+          citiesEnd={citiesEnd}
+          citiesStart={citiesStart}
+        />
       </Box>
     </>
   );

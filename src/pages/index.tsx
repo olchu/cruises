@@ -1,4 +1,8 @@
-import { CruiseType, PostsType } from '@/shared/types/prismaResponse';
+import {
+  CruiseType,
+  PostsType,
+  ShipsType,
+} from '@/shared/types/prismaResponse';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
@@ -12,14 +16,20 @@ import { ProviderLogos } from '@/entities/providerLogos';
 import { CruisesCarousel } from '@/widgets/cruisesCarousel';
 import { BlogPreview } from '@/features/blogPreview/ui/BlogPreview';
 import { NewsPreview } from '@/features/newsPreview';
+import { getShips } from '@/shared/api/getShips';
+import { getCities } from '@/shared/api/getCities';
 
 interface HomeProps {
   cruises: CruiseType[];
   isMobileDevice: boolean;
   posts: PostsType[];
+  ships: ShipsType[];
+  citiesStart: CruiseType[];
+  citiesEnd: CruiseType[];
 }
 
-const Home = ({ cruises, posts }: HomeProps) => {
+const Home = ({ cruises, posts, ships, citiesStart,citiesEnd }: HomeProps) => {
+  console.log('ships', ships);
   return (
     <>
       <Head>
@@ -37,16 +47,15 @@ const Home = ({ cruises, posts }: HomeProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <HeroBlock />
+      <HeroBlock ships={ships} citiesEnd={citiesEnd} citiesStart={citiesStart}  />
 
       <NewsPreview posts={posts} />
-      
+
       <StockWidget />
 
       <CruisesCarousel cruises={cruises} />
 
       <BlueBlock />
-
 
       <BlogPreview posts={posts} />
 
@@ -80,6 +89,9 @@ export const getServerSideProps = (async ({ req }) => {
 
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
   const posts: PostsType[] = JSON.parse(JSON.stringify(blogSelect));
+  const ships = await getShips();
+  const citiesStart = await getCities('cityStart');
+  const citiesEnd = await getCities('cityEnd');
 
   const parser = new UAParser();
   const userAgentString = req?.headers['user-agent'] || '';
@@ -87,7 +99,7 @@ export const getServerSideProps = (async ({ req }) => {
 
   const isMobileDevice = userAgent.device.type === 'mobile';
 
-  return { props: { cruises: cruises, isMobileDevice, posts } };
+  return { props: { cruises: cruises, isMobileDevice, posts, ships, citiesStart, citiesEnd } };
 }) satisfies GetServerSideProps<HomeProps>;
 
 Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
