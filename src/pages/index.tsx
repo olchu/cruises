@@ -29,7 +29,6 @@ interface HomeProps {
 }
 
 const Home = ({ cruises, posts, ships, citiesStart,citiesEnd }: HomeProps) => {
-  console.log('ships', ships);
   return (
     <>
       <Head>

@@ -8,10 +8,10 @@ export const MainLayout: LayoutProps = ({ children, isMobileDevice }) => {
   return (
     <ThemeProvider>
       <TopMenu isMobileDevice={isMobileDevice} />
-      <VStack as="main" gap="0">
+      <VStack as="main" gap="0" flex={1}>
         {children}
       </VStack>
-      <Spacer />
+      {/* <Spacer /> */}
       <Footer />
     </ThemeProvider>
   );
