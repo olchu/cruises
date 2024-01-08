@@ -10,12 +10,15 @@ import {
   Stack,
   VStack,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 export type CruiseDetailsPageProps = {
   cruise: CruiseType | null;
 };
 
 const SearchPage = () => {
+  const router = useRouter();
+  console.log('router', router.query);
   return <div>hello</div>;
 };
 

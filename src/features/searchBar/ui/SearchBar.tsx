@@ -6,7 +6,7 @@ import { SearchBarInput } from './SearchBarInput';
 import { BiCalendar } from 'react-icons/bi';
 import { BiSolidShip } from 'react-icons/bi';
 import { IoLocationSharp } from 'react-icons/io5';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SearchBarInputDate, urlParamNames } from './SearchBarInputDate';
 import Link from 'next/link';
@@ -25,8 +25,11 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
   const router = useRouter();
 
   const handleSearch = () => {
-    console.log('search', window.location.search);
-    router.push('/search' + window.location.search);
+    console.log('router!!!!', router.query);
+    router.push({
+      pathname: '/search',
+      query: { ...router.query },
+    });
   };
   return (
     <WhiteTransparent
@@ -51,7 +54,11 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
           placeholder="Прибытие"
           urlParamName={urlParamNames.dateEnd}
         />
-        <SearchBarSelect icon={<BiSolidShip />} placeholder="Выбрать Теплоход">
+        <SearchBarSelect
+          icon={<BiSolidShip />}
+          placeholder="Выбрать Теплоход"
+          searchParamName="ship"
+        >
           {ships.map((ship) => {
             return (
               <option key={ship.id} value={ship.id}>
@@ -60,7 +67,11 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
             );
           })}
         </SearchBarSelect>
-        <SearchBarSelect placeholder="От куда" icon={<IoLocationSharp />}>
+        <SearchBarSelect
+          placeholder="От куда"
+          icon={<IoLocationSharp />}
+          searchParamName="cityFrom"
+        >
           {citiesStart.map((city) => {
             return (
               <option key={city.id} value={city.cityStart}>
@@ -69,7 +80,11 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
             );
           })}
         </SearchBarSelect>
-        <SearchBarSelect placeholder="Куда" icon={<IoLocationSharp />}>
+        <SearchBarSelect
+          placeholder="Куда"
+          icon={<IoLocationSharp />}
+          searchParamName="cityEnd"
+        >
           {citiesEnd.map((city) => {
             return (
               <option key={city.id} value={city.cityEnd}>
@@ -78,7 +93,17 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
             );
           })}
         </SearchBarSelect>
-        <Button onClick={handleSearch} w="100%" bg="accent" color="white">
+        <Button
+          // as={Link}
+          // href={{
+          //   pathname: '/search',
+          //   query: {...router.query},
+          // }}
+          onClick={handleSearch}
+          w="100%"
+          bg="accent"
+          color="white"
+        >
           Поиск
         </Button>
       </Flex>
