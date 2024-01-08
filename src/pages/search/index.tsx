@@ -15,6 +15,9 @@ import prisma from 'prisma/client';
 import { GetServerSideProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { TbShipOff } from 'react-icons/tb';
+import { Search } from '@/features/search';
+import { NoCruiseFound } from '@/entities/noCruiseFound';
+import { CruisesFounded } from '@/widgets/cruisesFounded/ui/CruisesFounded';
 
 export type SearchPageProps = {
   cruises: CruiseType[] | null;
@@ -33,7 +36,12 @@ const SearchPage = ({ cruises }: SearchPageProps) => {
       maxW={'1400px'}
       h="full"
     >
-      <Heading as="h1" size="lg" mb={{ base: '12px', lg: '18px' }}>
+      <Heading
+        as="h1"
+        size="lg"
+        mb={{ base: '12px', lg: '18px' }}
+        color="primary"
+      >
         Поиск Круизов
       </Heading>
       <Stack
@@ -44,45 +52,17 @@ const SearchPage = ({ cruises }: SearchPageProps) => {
         direction={{ base: 'column', md: 'row' }}
       >
         <VStack
-          w="300px"
+          w="350px"
           bg="white"
           h="full"
           alignItems="flex-start"
           p={{ base: '12px', lg: '18px' }}
           shadow="md"
+          gap="18px"
         >
-          <Text>Hello</Text>
+          <Search />
         </VStack>
-        <VStack
-          w="full"
-          h="full"
-          alignItems="flex-start"
-          p={{ base: '12px', lg: '18px' }}
-        >
-          {cruises?.length === 0 ? (
-            <VStack w="full">
-              <Text fontSize="80px" color="primary" opacity={0.2}>
-                <TbShipOff />
-              </Text>
-              <Text
-                fontWeight="600"
-                fontSize="30px"
-                textAlign="center"
-                opacity={0.2}
-                color="primary"
-              >
-                Мы не нашли круизы по Вашему запросу.
-                <br />
-                Попробуйте изменить параметры поиска
-              </Text>
-            </VStack>
-          ) : (
-            <Text>Найдено {cruises?.length} круизов</Text>
-          )}
-          {cruises?.map((cruise) => {
-            return <div key={cruise.id}>{cruise.title}</div>;
-          })}
-        </VStack>
+        <CruisesFounded cruises={cruises} />
       </Stack>
     </MainContainer>
   );
