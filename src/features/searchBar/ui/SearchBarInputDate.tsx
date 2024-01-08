@@ -45,7 +45,6 @@ export const SearchBarInputDate: FC<SearchBarInputDateProps> = ({
         {placeholder}
       </Text>
       <DatePicker
-        
         selected={selectedDate}
         onChange={handleChange}
         dateFormat="dd-MM-yyyy"
@@ -77,9 +76,11 @@ const CustomInput = ({
         color="text"
         _placeholder={{ color: 'text' }}
       />
-      <InputRightElement>
-        <BiCalendar />
-      </InputRightElement>
+      {!value && (
+        <InputRightElement>
+          <BiCalendar />
+        </InputRightElement>
+      )}
     </InputGroup>
   );
 };
