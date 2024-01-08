@@ -25,7 +25,6 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
   const router = useRouter();
 
   const handleSearch = () => {
-    console.log('router!!!!', router.query);
     router.push({
       pathname: '/search',
       query: { ...router.query },
@@ -72,9 +71,10 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
           icon={<IoLocationSharp />}
           searchParamName="cityFrom"
         >
+          <option>helop</option>
           {citiesStart.map((city) => {
             return (
-              <option key={city.id} value={city.cityStart}>
+              <option key={city.cityStart} value={city.cityStart}>
                 {city.cityStart}
               </option>
             );
@@ -87,23 +87,13 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
         >
           {citiesEnd.map((city) => {
             return (
-              <option key={city.id} value={city.cityEnd}>
+              <option key={city.cityEnd} value={city.cityEnd}>
                 {city.cityEnd}
               </option>
             );
           })}
-        </SearchBarSelect>
-        <Button
-          // as={Link}
-          // href={{
-          //   pathname: '/search',
-          //   query: {...router.query},
-          // }}
-          onClick={handleSearch}
-          w="100%"
-          bg="accent"
-          color="white"
-        >
+        </SearchBarSelect> 
+        <Button onClick={handleSearch} w="100%" bg="accent" color="white">
           Поиск
         </Button>
       </Flex>
