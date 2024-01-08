@@ -71,7 +71,6 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
           icon={<IoLocationSharp />}
           searchParamName="cityFrom"
         >
-          <option>helop</option>
           {citiesStart.map((city) => {
             return (
               <option key={city.cityStart} value={city.cityStart}>
@@ -92,7 +91,7 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
               </option>
             );
           })}
-        </SearchBarSelect> 
+        </SearchBarSelect>
         <Button onClick={handleSearch} w="100%" bg="accent" color="white">
           Поиск
         </Button>
