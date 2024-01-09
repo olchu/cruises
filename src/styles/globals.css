@@ -77,3 +77,9 @@ body {
 .react-datepicker-wrapper {
   display: block !important;
 }
+
+.react-datepicker__close-icon::after {
+  color: #1a1a17!important;
+  background-color: transparent !important;
+  font-size: 18px !important;
+}

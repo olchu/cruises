@@ -29,10 +29,10 @@ export const SearchBarSelect: FC<
   };
   return (
     <VStack alignItems="flex-start" gap="12px" w="full">
-      <Text color={{ base: 'primary', lg: 'white' }}>{placeholder}</Text>
+      <Text color={{ base: 'text' }}>{placeholder}</Text>
       <Select
         icon={icon}
-        placeholder={placeholder}
+        placeholder="выбрать"
         value={value}
         onChange={handleChange}
         borderRadius="none"

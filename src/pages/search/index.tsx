@@ -1,5 +1,5 @@
 import { CruiseType } from '@/shared/types/prismaResponse';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { MainLayout } from '@/layouts/main';
 import {
   HStack,
@@ -25,8 +25,10 @@ export type SearchPageProps = {
 
 const SearchPage = ({ cruises }: SearchPageProps) => {
   const router = useRouter();
-  console.log('router', router.query);
   console.log('cruises', cruises);
+  useEffect(() => {
+    console.log('query', router.query);
+  }, [router.query]);
   return (
     <MainContainer
       as="section"

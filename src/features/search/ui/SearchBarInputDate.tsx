@@ -41,7 +41,7 @@ export const SearchBarInputDate: FC<SearchBarInputDateProps> = ({
 
   return (
     <Box w="full" className="my-datePicker">
-      <Text color={{ base: 'primary', lg: 'white' }} mb="12px">
+      <Text color={{ base: 'text' }} mb="12px">
         {placeholder}
       </Text>
       <DatePicker

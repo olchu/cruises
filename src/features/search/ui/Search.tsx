@@ -38,7 +38,7 @@ export const Search: FC<SearchBarProps> = (props) => {
       />
       <SearchBarSelect
         icon={<BiSolidShip />}
-        placeholder="Выбрать Теплоход"
+        placeholder="Теплоход"
         searchParamName="ship"
       >
         {ships &&
