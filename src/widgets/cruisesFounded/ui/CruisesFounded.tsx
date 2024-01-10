@@ -2,19 +2,13 @@
 
 import { NoCruiseFound } from '@/entities/noCruiseFound';
 import { CruiseType } from '@/shared/types/prismaResponse';
-import { VStack, Text, Button } from '@chakra-ui/react';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { VStack, Text, Button, Spinner } from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
 
-type CruisesFoundedProps = {
-  cruises: CruiseType[];
-};
+const itemsOnPage = 10;
 
-const itemsOnPage = 2;
-
-export const CruisesFounded: FC<CruisesFoundedProps> = ({
-  cruises: initCruises,
-}) => {
-  const [cruises, setCruises] = useState<CruiseType[]>(initCruises);
+export const CruisesFounded = () => {
+  const [cruises, setCruises] = useState<CruiseType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [skip, setSkip] = useState(0);
@@ -22,10 +16,13 @@ export const CruisesFounded: FC<CruisesFoundedProps> = ({
 
   const search = async () => {
     setIsFetching(true);
+    const aditions = window.location.search ? '&' : '?'; //TODO переделать
+    console.log('aditions', aditions);
     const response = await fetch(
       'api/searchCruises' +
         window.location.search +
-        `&limit=${itemsOnPage}&skip=${skip}`
+        aditions +
+        `limit=${itemsOnPage}&skip=${skip}`
     );
     const { cruises: cruisesRes, totalCount } = await response.json();
     setCruisesCount(totalCount);
@@ -60,7 +57,7 @@ export const CruisesFounded: FC<CruisesFoundedProps> = ({
         alignItems="flex-start"
         p={{ base: '12px', lg: '18px' }}
       >
-        <Text>isLoading</Text>
+        <Spinner size="xl" />
       </VStack>
     );
 
@@ -74,7 +71,9 @@ export const CruisesFounded: FC<CruisesFoundedProps> = ({
       {cruises?.length === 0 ? (
         <NoCruiseFound />
       ) : (
-        <Text>Найдено {cruisesCount} круизов</Text>
+        <Text>
+          Найдено <b>{cruisesCount}</b> круизов
+        </Text>
       )}
       {cruises?.map((cruise) => {
         return <div key={cruise.id}>{cruise.title}</div>;

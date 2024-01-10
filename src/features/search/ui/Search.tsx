@@ -33,7 +33,7 @@ export const Search: FC<SearchBarProps> = (props) => {
         urlParamName={urlParamNames.dateStart}
       />
       <SearchBarInputDate
-        placeholder="Прибытие"
+        placeholder="Прибытие не ранее"
         urlParamName={urlParamNames.dateEnd}
       />
       <SearchBarSelect

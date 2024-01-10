@@ -7,11 +7,12 @@ import {
   Box,
   Text,
 } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { BiCalendar } from 'react-icons/bi';
 import { ru } from 'date-fns/locale';
+import { useRouter } from 'next/router';
 
 export enum urlParamNames {
   dateStart = 'dateStart',
@@ -27,7 +28,20 @@ export const SearchBarInputDate: FC<SearchBarInputDateProps> = ({
   placeholder,
   urlParamName,
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const router = useRouter();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(() => {
+    if (router.query[urlParamName])
+      return new Date(router.query[urlParamName] as string);
+    return null;
+  });
+
+  useEffect(() => {
+    if (router.query[urlParamName] && selectedDate === null) {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete(urlParamName);
+      window.history.replaceState(null, '', currentUrl.toString());
+    }
+  }, [router.query, selectedDate, urlParamName]);
 
   const handleChange = (date: Date | null) => {
     const currentUrl = new URL(window.location.href);

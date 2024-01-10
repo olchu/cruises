@@ -1,4 +1,4 @@
-import { CruiseType } from '@/shared/types/prismaResponse';
+import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { ReactElement, useEffect, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
 import {
@@ -18,12 +18,16 @@ import { TbShipOff } from 'react-icons/tb';
 import { Search } from '@/features/search';
 import { NoCruiseFound } from '@/entities/noCruiseFound';
 import { CruisesFounded } from '@/widgets/cruisesFounded/ui/CruisesFounded';
+import { getCities } from '@/shared/api/getCities';
+import { getShips } from '@/shared/api/getShips';
 
 export type SearchPageProps = {
-  cruises: CruiseType[];
+  ships: ShipsType[];
+  citiesStart: CruiseType[];
+  citiesEnd: CruiseType[];
 };
 
-const SearchPage = ({ cruises }: SearchPageProps) => {
+const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
   return (
     <MainContainer
       as="section"
@@ -57,9 +61,13 @@ const SearchPage = ({ cruises }: SearchPageProps) => {
           shadow="md"
           gap="18px"
         >
-          <Search />
+          <Search
+            ships={ships}
+            citiesStart={citiesStart}
+            citiesEnd={citiesEnd}
+          />
         </VStack>
-        <CruisesFounded cruises={cruises} />
+        <CruisesFounded />
       </Stack>
     </MainContainer>
   );
@@ -72,30 +80,9 @@ SearchPage.getLayout = function getLayout(page: ReactElement) {
 export default SearchPage;
 
 export const getServerSideProps = (async (context) => {
-  // const query = context.query;
-  // console.log('**************');
-  // console.log('req', query);
-  // console.log('**************');
-  // const cruiseSelect = await prisma.cruises.findMany({
-  //   where: {
-  //     dateStart: query.dateStart
-  //     ? {
-  //       gte: new Date(query.dateStart as string),
-  //     }
-  //     : undefined,
-  //     dateEnd: query.dateEnd
-  //     ? {
-  //       lte: new Date(query.dateEnd as string),
-  //     }
-  //     : undefined,
-  //     cityStart: query.cityFrom as string,
-  //     cityEnd: query.cityEnd as string,
-  //     shipId: parseInt(query.ship as string) || undefined,
-  //   },
-  // });
-  // const cruises = JSON.parse(JSON.stringify(cruiseSelect));
-  // console.log('**************');
-  return { props: { cruises: [] } };
-}) satisfies GetServerSideProps<{
-  cruises: CruiseType[] | null;
-}>;
+  const ships = await getShips();
+  const citiesStart = await getCities('cityStart');
+  const citiesEnd = await getCities('cityEnd');
+
+  return { props: { ships, citiesStart, citiesEnd } };
+}) satisfies GetServerSideProps<SearchPageProps>;
