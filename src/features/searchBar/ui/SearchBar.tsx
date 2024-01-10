@@ -6,7 +6,7 @@ import { SearchBarInput } from './SearchBarInput';
 import { BiCalendar } from 'react-icons/bi';
 import { BiSolidShip } from 'react-icons/bi';
 import { IoLocationSharp } from 'react-icons/io5';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SearchBarInputDate, urlParamNames } from './SearchBarInputDate';
 import Link from 'next/link';
@@ -22,9 +22,11 @@ type SearchBarProps = BoxProps & {
 
 export const SearchBar: FC<SearchBarProps> = (props) => {
   const { ships, citiesEnd, citiesStart, ...otherProps } = props;
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSearch = () => {
+    setIsLoading(true);
     router.push({
       pathname: '/search',
       query: { ...router.query },
@@ -92,7 +94,13 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
             );
           })}
         </SearchBarSelect>
-        <Button onClick={handleSearch} w="100%" bg="accent" color="white">
+        <Button
+          isLoading={isLoading}
+          onClick={handleSearch}
+          w="100%"
+          bg="accent"
+          color="white"
+        >
           Поиск
         </Button>
       </Flex>

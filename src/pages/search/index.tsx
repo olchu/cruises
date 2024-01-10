@@ -1,5 +1,5 @@
 import { CruiseType } from '@/shared/types/prismaResponse';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
 import {
   HStack,
@@ -20,15 +20,10 @@ import { NoCruiseFound } from '@/entities/noCruiseFound';
 import { CruisesFounded } from '@/widgets/cruisesFounded/ui/CruisesFounded';
 
 export type SearchPageProps = {
-  cruises: CruiseType[] | null;
+  cruises: CruiseType[];
 };
 
 const SearchPage = ({ cruises }: SearchPageProps) => {
-  const router = useRouter();
-  console.log('cruises', cruises);
-  useEffect(() => {
-    console.log('query', router.query);
-  }, [router.query]);
   return (
     <MainContainer
       as="section"
@@ -77,16 +72,30 @@ SearchPage.getLayout = function getLayout(page: ReactElement) {
 export default SearchPage;
 
 export const getServerSideProps = (async (context) => {
-  const query = context.query;
-  const cruiseSelect = await prisma.cruises.findMany({
-    where: {
-      cityStart: query.cityFrom as string,
-      cityEnd: query.cityEnd as string,
-      shipId: parseInt(query.ship as string) || undefined,
-    },
-  });
-  const cruises = JSON.parse(JSON.stringify(cruiseSelect));
-  return { props: { cruises: cruises } };
+  // const query = context.query;
+  // console.log('**************');
+  // console.log('req', query);
+  // console.log('**************');
+  // const cruiseSelect = await prisma.cruises.findMany({
+  //   where: {
+  //     dateStart: query.dateStart
+  //     ? {
+  //       gte: new Date(query.dateStart as string),
+  //     }
+  //     : undefined,
+  //     dateEnd: query.dateEnd
+  //     ? {
+  //       lte: new Date(query.dateEnd as string),
+  //     }
+  //     : undefined,
+  //     cityStart: query.cityFrom as string,
+  //     cityEnd: query.cityEnd as string,
+  //     shipId: parseInt(query.ship as string) || undefined,
+  //   },
+  // });
+  // const cruises = JSON.parse(JSON.stringify(cruiseSelect));
+  // console.log('**************');
+  return { props: { cruises: [] } };
 }) satisfies GetServerSideProps<{
   cruises: CruiseType[] | null;
 }>;

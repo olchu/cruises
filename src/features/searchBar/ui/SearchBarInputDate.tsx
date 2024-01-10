@@ -12,6 +12,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { BiCalendar } from 'react-icons/bi';
 import { ru } from 'date-fns/locale';
+import { format } from 'date-fns';
 
 export enum urlParamNames {
   dateStart = 'dateStart',
@@ -33,7 +34,7 @@ export const SearchBarInputDate: FC<SearchBarInputDateProps> = ({
     const currentUrl = new URL(window.location.href);
     setSelectedDate(date);
     if (date) {
-      const formattedDate = date.toISOString().split('T')[0];
+      const formattedDate = format(date, 'yyyy-MM-dd');
       currentUrl.searchParams.set(urlParamName, formattedDate);
       window.history.replaceState(null, '', currentUrl.toString());
     }
