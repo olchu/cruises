@@ -21,7 +21,6 @@ export const CruisesFounded: FC<CruisesFoundedProps> = ({
   const [cruisesCount, setCruisesCount] = useState(0);
 
   const search = async () => {
-    console.log('skip', skip);
     setIsFetching(true);
     const response = await fetch(
       'api/searchCruises' +
@@ -29,8 +28,6 @@ export const CruisesFounded: FC<CruisesFoundedProps> = ({
         `&limit=${itemsOnPage}&skip=${skip}`
     );
     const { cruises: cruisesRes, totalCount } = await response.json();
-    console.log('responce', cruisesRes);
-    console.log('totalCount', totalCount);
     setCruisesCount(totalCount);
     setCruises([...cruises, ...cruisesRes]);
     setSkip((prev) => prev + itemsOnPage);
