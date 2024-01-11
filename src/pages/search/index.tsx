@@ -18,6 +18,7 @@ import { getCities } from '@/shared/api/getCities';
 import { getShips } from '@/shared/api/getShips';
 import { Loading } from '@/shared/ui/loading';
 import { IoMdRepeat } from 'react-icons/io';
+import { CruiseCardRow } from '@/entities/cruiseCardRow';
 
 const itemsOnPage = 10;
 
@@ -102,7 +103,7 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
         w="full"
         flex={1}
         gap={{ base: 'section.mobile', lg: 'section.desktop' }}
-        direction={{ base: 'column', md: 'row' }}
+        direction={{ base: 'column', lg: 'row' }}
         alignItems="stretch"
       >
         <VStack
@@ -149,6 +150,7 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
             h="full"
             alignItems="flex-start"
             p={{ base: '12px', lg: '18px' }}
+            gap="20px"
           >
             {cruises?.length === 0 ? (
               <NoCruiseFound />
@@ -158,7 +160,7 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
               </Text>
             )}
             {cruises?.map((cruise) => {
-              return <div key={cruise.id}>{cruise.title}</div>;
+              return <CruiseCardRow cruise={cruise} key={cruise.id} />;
             })}
             {cruisesCount - cruises.length > 0 && (
               <Button
