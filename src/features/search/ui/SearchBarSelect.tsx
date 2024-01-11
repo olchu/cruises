@@ -3,6 +3,7 @@
 import { BoxProps, Button, Select, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { relative } from 'path';
+import { IoClose } from 'react-icons/io5';
 import {
   ChangeEvent,
   FC,
@@ -21,9 +22,9 @@ export const SearchBarSelect: FC<
 > = ({ children, icon, placeholder, searchParamName }) => {
   const router = useRouter();
   const [value, setValue] = useState<string | number>(() => {
-    if (!router.query[searchParamName]) return null;
+    if (!router.query[searchParamName]) return '';
 
-    return router.query[searchParamName];
+    return router.query[searchParamName] as string;
   });
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -37,6 +38,13 @@ export const SearchBarSelect: FC<
       currentUrl.searchParams.delete(searchParamName);
       window.history.replaceState(null, '', currentUrl.toString());
     }
+  };
+
+  const handleReset = () => {
+    const currentUrl = new URL(window.location.href);
+    setValue('');
+    currentUrl.searchParams.delete(searchParamName);
+    window.history.replaceState(null, '', currentUrl.toString());
   };
 
   return (
@@ -63,8 +71,22 @@ export const SearchBarSelect: FC<
         {children}
       </Select>
       {value && (
-        <Button size="sm" onClick={() => {}}>
-          x
+        <Button
+          size="sm"
+          onClick={handleReset}
+          position="absolute"
+          zIndex={10}
+          bottom="1px"
+          right="1px"
+          height="38px"
+          width="39px"
+          fontSize="16px"
+          bg="white"
+          _hover={{
+            bg: 'white',
+          }}
+        >
+          <IoClose />
         </Button>
       )}
     </VStack>

@@ -26,6 +26,7 @@ export const Search: FC<SearchBarProps> = (props) => {
       query: { ...router.query },
     });
   };
+
   return (
     <>
       <SearchBarInputDate
@@ -78,9 +79,6 @@ export const Search: FC<SearchBarProps> = (props) => {
             );
           })}
       </SearchBarSelect>
-      <Button onClick={handleSearch} w="100%" bg="primary" color="white">
-        Поиск
-      </Button>
     </>
   );
 };
