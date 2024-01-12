@@ -1,6 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 import { colors } from './colors';
 import { Roboto } from 'next/font/google';
+import { switchTheme } from './switchTheme';
 
 const roboto = Roboto({
   weight: ['300', '400', '700', '900'],
@@ -22,5 +23,6 @@ export const theme = extendTheme({
     Button: {
       baseStyle: { rounded: 'none' },
     },
+    Switch: switchTheme,
   },
 });

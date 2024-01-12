@@ -1,26 +1,15 @@
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
-import {
-  Heading,
-  Text,
-  Stack,
-  VStack,
-  Button,
-  Spinner,
-  Box,
-} from '@chakra-ui/react';
+import { Heading, Stack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Search } from '@/features/search';
-import { NoCruiseFound } from '@/entities/noCruiseFound';
 import { getCities } from '@/shared/api/getCities';
 import { getShips } from '@/shared/api/getShips';
-import { Loading } from '@/shared/ui/loading';
-import { IoMdRepeat } from 'react-icons/io';
-import { CruiseCardRow } from '@/entities/cruiseCardRow';
+import { AsidePanel } from './ui/AsidePanel';
+import { SearchContent } from './ui/SearchContent';
 
-const itemsOnPage = 10;
+export const itemsOnPage = 10;
 
 export type SearchPageProps = {
   ships: ShipsType[];
@@ -35,47 +24,42 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
   const [skip, setSkip] = useState(0);
   const [cruisesCount, setCruisesCount] = useState(0);
 
-  const search = async (newSearch?: boolean) => {
-    setIsFetching(true);
-    const aditions = window.location.search ? '&' : '?'; //TODO переделать
+  const search = useCallback(
+    async (newSearch?: boolean) => {
+      setIsFetching(true);
+      const aditions = window.location.search ? '&' : '?'; //TODO to refactor
 
-    const response = await fetch(
-      'api/searchCruises' +
-        window.location.search +
-        aditions +
-        `limit=${itemsOnPage}&skip=${skip}`
-    );
-    const { cruises: cruisesRes, totalCount } = await response.json();
+      const response = await fetch(
+        'api/searchCruises' +
+          window.location.search +
+          aditions +
+          `limit=${itemsOnPage}&skip=${skip}`
+      );
+      const { cruises: cruisesRes, totalCount } = await response.json();
 
-    setCruisesCount(totalCount);
-    if (newSearch) {
-      setCruises([...cruisesRes]);
-      setSkip(0);
-    } else {
-      setCruises([...cruises, ...cruisesRes]);
-      setSkip((prev) => prev + itemsOnPage);
-    }
-    setIsLoading(false);
-    setIsFetching(false);
-  };
-
-  const btnText = useMemo(() => {
-    if (cruises.length === 0) return '';
-
-    const difrent = cruisesCount - cruises.length;
-
-    return `Показать еще ${difrent > itemsOnPage ? itemsOnPage : difrent}`;
-  }, [cruises, cruisesCount]);
+      setCruisesCount(totalCount);
+      if (newSearch) {
+        setCruises([...cruisesRes]);
+        setSkip(0);
+      } else {
+        setCruises([...cruises, ...cruisesRes]);
+        setSkip((prev) => prev + itemsOnPage);
+      }
+      setIsLoading(false);
+      setIsFetching(false);
+    },
+    [cruises, skip]
+  );
 
   const handleGetMore = () => {
     search();
   };
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     setIsLoading(true);
-    setCruises([]);
+    setCruises([]); //TODO to refactor
     search(true);
-  };
+  }, [search]);
 
   useEffect(() => {
     search();
@@ -106,78 +90,20 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
         direction={{ base: 'column', lg: 'row' }}
         alignItems="stretch"
       >
-        <VStack
-          width="350px"
-          position="sticky"
-          bg="white"
-          top="0"
-          alignItems="flex-start"
-          p={{ base: '12px', lg: '18px' }}
-          shadow="md"
-          height="550px"
-          gap="18px"
-        >
-          <Search
-            ships={ships}
-            citiesStart={citiesStart}
-            citiesEnd={citiesEnd}
-          />
-          <Button
-            onClick={handleSearch}
-            w="100%"
-            bg="primary"
-            color="white"
-            isLoading={isLoading}
-          >
-            Поиск
-          </Button>
-        </VStack>
-
-        {isLoading ? (
-          <VStack
-            w="full"
-            h="full"
-            alignItems="center"
-            alignSelf="center"
-            justifyContent="center"
-            p={{ base: '12px', lg: '18px' }}
-          >
-            <Spinner size="lg" />
-          </VStack>
-        ) : (
-          <VStack
-            w="full"
-            h="full"
-            alignItems="flex-start"
-            p={{ base: '12px', lg: '18px' }}
-            gap="20px"
-          >
-            {cruises?.length === 0 ? (
-              <NoCruiseFound />
-            ) : (
-              <Text>
-                Найдено <b>{cruisesCount}</b> круизов
-              </Text>
-            )}
-            {cruises?.map((cruise) => {
-              return <CruiseCardRow cruise={cruise} key={cruise.id} />;
-            })}
-            {cruisesCount - cruises.length > 0 && (
-              <Button
-                onClick={handleGetMore}
-                color="primary"
-                variant="outline"
-                isLoading={isFetching}
-                margin="0 auto"
-              >
-                <Text as="span" mr="8px">
-                  <IoMdRepeat />
-                </Text>
-                {btnText}
-              </Button>
-            )}
-          </VStack>
-        )}
+        <AsidePanel
+          ships={ships}
+          citiesStart={citiesStart}
+          citiesEnd={citiesEnd}
+          isLoading={isLoading}
+          handleSearch={handleSearch}
+        />
+        <SearchContent
+          handleGetMore={handleGetMore}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          cruises={cruises}
+          cruisesCount={cruisesCount}
+        />
       </Stack>
     </MainContainer>
   );
