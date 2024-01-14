@@ -1,6 +1,7 @@
 import { CruiseCardRow } from '@/entities/cruiseCardRow';
 import { CruisesTable } from '@/entities/cruisesTable';
 import { NoCruiseFound } from '@/entities/noCruiseFound';
+import { itemsOnPage } from '@/shared/constants/constants';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import {
   Spinner,
@@ -13,9 +14,8 @@ import {
 } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { IoMdRepeat } from 'react-icons/io';
-import { itemsOnPage } from '..';
 
-type SearchContentProps = {
+type SearchResultContentProps = {
   handleGetMore: () => void;
   isLoading: boolean;
   isFetching: boolean;
@@ -23,13 +23,13 @@ type SearchContentProps = {
   cruisesCount: number;
 };
 
-export const SearchContent = ({
+export const SearchResultContent = ({
   handleGetMore,
   isLoading,
   cruises,
   cruisesCount,
   isFetching,
-}: SearchContentProps) => {
+}: SearchResultContentProps) => {
   const [isShowTable, setIsShowTable] = useState(false);
 
   const btnText = useMemo(() => {

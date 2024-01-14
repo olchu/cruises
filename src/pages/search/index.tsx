@@ -6,10 +6,9 @@ import { GetServerSideProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { getCities } from '@/shared/api/getCities';
 import { getShips } from '@/shared/api/getShips';
-import { AsidePanel } from './ui/AsidePanel';
-import { SearchContent } from './ui/SearchContent';
-
-export const itemsOnPage = 10;
+import { AsideSearchPanel } from '@/features/asideSearchPanel';
+import { itemsOnPage } from '@/shared/constants/constants';
+import { SearchResultContent } from '@/features/searchResultContent';
 
 export type SearchPageProps = {
   ships: ShipsType[];
@@ -90,14 +89,14 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
         direction={{ base: 'column', lg: 'row' }}
         alignItems="stretch"
       >
-        <AsidePanel
+        <AsideSearchPanel
           ships={ships}
           citiesStart={citiesStart}
           citiesEnd={citiesEnd}
           isLoading={isLoading}
           handleSearch={handleSearch}
         />
-        <SearchContent
+        <SearchResultContent
           handleGetMore={handleGetMore}
           isLoading={isLoading}
           isFetching={isFetching}

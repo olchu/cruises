@@ -4,7 +4,7 @@ import { Search } from '@/features/search';
 
 // TODO to refactor, add store
 
-type AsidePanelProps = {
+type AsideSearchPanelProps = {
   handleSearch: () => void;
   isLoading: boolean;
   ships: ShipsType[];
@@ -12,13 +12,13 @@ type AsidePanelProps = {
   citiesEnd: CruiseType[];
 };
 
-export const AsidePanel = ({
+export const AsideSearchPanel = ({
   handleSearch,
   isLoading,
   ships,
   citiesStart,
   citiesEnd,
-}: AsidePanelProps) => {
+}: AsideSearchPanelProps) => {
   return (
     <VStack
       width="350px"
