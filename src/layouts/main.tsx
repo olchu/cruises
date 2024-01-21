@@ -2,6 +2,7 @@ import { ThemeProvider } from '@/app/providers/themeProvider';
 import { Footer } from '@/entities/footer';
 import { TopMenu } from '@/features/topMenu';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
+import { CookieBanner } from '@/widgets/cookieBanner';
 import { Box, Spacer, VStack } from '@chakra-ui/react';
 
 export const MainLayout: LayoutProps = ({ children, isMobileDevice }) => {
@@ -12,6 +13,7 @@ export const MainLayout: LayoutProps = ({ children, isMobileDevice }) => {
         {children}
       </VStack>
       {/* <Spacer /> */}
+      <CookieBanner/>
       <Footer />
     </ThemeProvider>
   );

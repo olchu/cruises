@@ -26,6 +26,9 @@ export default async function handler(
 
     const cruiseSelect = await prisma.cruises.findMany({
       where: where,
+      orderBy: {
+        dateStart: 'asc',
+      },
       take: parseInt(query?.limit as string) || undefined,
       skip: parseInt(query?.skip as string) || undefined,
     });

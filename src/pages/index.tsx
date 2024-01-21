@@ -65,9 +65,6 @@ const Home = ({ cruises, posts, ships, citiesStart,citiesEnd }: HomeProps) => {
 
 export const getServerSideProps = (async ({ req }) => {
   const cruisesSelect = await prisma.cruises.findMany({
-    orderBy: {
-      dateStart: 'asc',
-    },
     where: {
       dateStart: {
         gte: new Date(Date.now()),
