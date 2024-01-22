@@ -1,26 +1,28 @@
+import { pagesLink } from './pagesLink';
+
 export const menuList = [
   {
-    title: 'Речные круизы',
-    link: '/',
-  },
-  {
-    title: 'Морские круизы',
-    link: '/re4',
+    title: 'Круизы',
+    link: pagesLink.home,
   },
   {
     title: 'Теплоходы',
-    link: '/ships',
+    link: pagesLink.ships,
+  },
+  {
+    title: 'Направления',
+    link: pagesLink.routes,
   },
   {
     title: 'Поиск',
-    link: '/search',
+    link: pagesLink.search,
   },
   {
     title: 'Блог',
-    link: '/blog',
+    link: pagesLink.blog,
   },
   {
     title: 'Контакты',
-    link: '/contacts',
+    link: pagesLink.contacts,
   },
 ];

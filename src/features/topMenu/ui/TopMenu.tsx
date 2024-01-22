@@ -1,5 +1,5 @@
 import { menuList } from '@/shared/constants/menuList';
-import { Flex, HStack, Spacer, useMediaQuery } from '@chakra-ui/react';
+import { Box, Flex, HStack, Spacer, useMediaQuery } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Link } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
@@ -69,47 +69,43 @@ export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
   }, [isMatchMedia]);
 
   return (
-    <MainContainer as="div">
-      {!isMobile ? (
-        <HStack
-          bg="white"
-          height="65px"
-          gap="10px"
-          px="3"
-          alignContent="center"
-        >
-          <Logo />
-          <MenuList />
-          <Spacer />
-          <TopMenuContacts />
-          <Social />
-        </HStack>
-      ) : (
-        <HStack
-          bg="white"
-          height="60px"
-          gap="10px"
-          alignContent="center"
-          boxShadow="0px 4px 16px 0px rgba(0, 0, 0, 0.05)"
-        >
-          <MobileMenu />
-          <Spacer />
-          <Logo />
-          <Spacer />
-          <Flex
-            as="a"
-            href="tel:+74955439463"
-            width="60px"
-            height="100%"
-            bg="blueGrey"
-            alignItems="center"
-            justifyContent="center"
-            fontSize="30px"
+    <Box as="header" bg="lightBlue">
+      <MainContainer>
+        {!isMobile ? (
+          <HStack height="65px" gap="10px" px="3" alignContent="center">
+            <Logo />
+            <MenuList />
+            <Spacer />
+            <TopMenuContacts />
+            <Social />
+          </HStack>
+        ) : (
+          <HStack
+            bg="white"
+            height="60px"
+            gap="10px"
+            alignContent="center"
+            boxShadow="0px 4px 16px 0px rgba(0, 0, 0, 0.05)"
           >
-            <AiFillPhone />
-          </Flex>
-        </HStack>
-      )}
-    </MainContainer>
+            <MobileMenu />
+            <Spacer />
+            <Logo />
+            <Spacer />
+            <Flex
+              as="a"
+              href="tel:+74955439463"
+              width="60px"
+              height="100%"
+              bg="blueGrey"
+              alignItems="center"
+              justifyContent="center"
+              fontSize="30px"
+            >
+              <AiFillPhone />
+            </Flex>
+          </HStack>
+        )}
+      </MainContainer>
+    </Box>
   );
 };
