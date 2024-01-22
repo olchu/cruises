@@ -1,17 +1,6 @@
 import { MainLayout } from '@/layouts/main';
 import { Heading } from '@/shared/ui/heading';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import {
-  VStack,
-  Text,
-  Tr,
-  Td,
-  Table,
-  Tbody,
-  Box,
-  Stack,
-} from '@chakra-ui/react';
-import Link from 'next/link';
 import { ReactElement } from 'react';
 
 const Privacy = () => {
