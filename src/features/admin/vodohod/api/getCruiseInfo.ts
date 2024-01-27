@@ -1,15 +1,8 @@
 import { getCruiseDetails } from '@/features/admin/vodohod/api/getCruiseDetails';
 import { getTarif } from '@/features/admin/vodohod/api/getTarif';
 import prisma from 'prisma/client';
+import { RouteObjectType } from '../types/cruiseRouteType';
 import { Tarif } from '../ui/cruises/utils/prepareTarifs';
-
-interface RouteType {
-  id: number;
-  name: string;
-  in: Date;
-  out: Date;
-  annotation: string;
-}
 
 export interface DBCruiseData {
   extId: number;
@@ -19,7 +12,7 @@ export interface DBCruiseData {
   cityStart: string;
   cityEnd: string;
   days: number;
-  route: RouteType[];
+  route: RouteObjectType;
   shortRoute: string;
   shipId: number;
   extShipId: number;
@@ -46,9 +39,8 @@ export const getCruiseInfo = async (
 ) => {
   let dbCruises: DBCruiseData[] = [];
   for (let cruise of cruises) {
-    await timeout(1000);
+    await timeout(2000);
     const tarifs = await getTarif(cruise.id, token);
-   
     const cruiseDetails = await getCruiseDetails(cruise.id, token);
     if (cruiseDetails) {
       cruiseDetails.minPrice = tarifs?.minimum.minPrice || 0;

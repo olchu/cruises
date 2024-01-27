@@ -1,5 +1,6 @@
 import { Providers } from '@/shared/constants/providers';
 import moment from 'moment';
+import { getCruiseRoute } from './getCruiseRoute';
 
 const endPoint = 'https://api-crs.vodohod.com/json/v3/cruise';
 
@@ -12,21 +13,13 @@ export const getCruiseDetails = async (id: number, token: any) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const { result }: CruiseDetailsResponce = await res.json();
+    const responce: CruiseDetailsResponce = await res.json();
+    const { result } = responce;
+    console.log('result', result);
     const days = moment(result.duration * 1000).format('D');
     const routesCity = result.route.map((i) => i.name);
-    const route = result.route.map((r) => {
-      return {
-        id: r.id,
-        name: r.name,
-        in: r.in,
-        out: r.out,
-        annotation: r.annotation,
-      };
-    });
 
-    console.log(result.dateStart);
-    console.log(new Date(result.dateStart));
+    const route = await getCruiseRoute(responce, token) ||{};
 
     return {
       extId: result.id,
@@ -55,7 +48,7 @@ export const getCruiseDetails = async (id: number, token: any) => {
   } catch (error) {}
 };
 
-interface CruiseDetailsResponce {
+export interface CruiseDetailsResponce {
   code: number;
   message: string;
   result: Result;
