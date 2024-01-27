@@ -8,17 +8,19 @@ datasource db {
 }
 
 model ships {
-  id        Int     @id @default(autoincrement())
-  extId     Int
-  name      String  @db.VarChar(255)
-  img       String? @db.VarChar(255)
-  anotation String? @db.Text
-  about     String? @db.Text
-  services  String? @db.Text
-  images    String? @db.Text
-  loadFrom  String  @db.VarChar(255)
-  scheme    String? @db.VarChar(255)
-  active    Int
+  id          Int     @id @default(autoincrement())
+  extId       Int
+  name        String  @db.VarChar(255)
+  img         String? @db.VarChar(255)
+  anotation   String? @db.Text
+  about       String? @db.Text
+  services    String? @db.Text
+  images      String? @db.Text
+  loadFrom    String  @db.VarChar(255)
+  scheme      String? @db.VarChar(255)
+  active      Int
+  description String? @db.Text
+  captain     String? @db.Text
 }
 
 model cruises {

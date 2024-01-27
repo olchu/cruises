@@ -38,7 +38,7 @@ export const useGetShips = () => {
     }
   }, [tokenError]);
 
-  return { error, getShips, ships, isFetching };
+  return { error, getShips, ships, isFetching, token };
 };
 
 interface Main {

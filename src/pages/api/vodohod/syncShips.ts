@@ -10,29 +10,38 @@ export default async function handler(
 ) {
   try {
     let response: { id: number; status: string }[] = [];
-    req.body?.ships.forEach(async (ship: ShipsType) => {
-      const selectShip = await prisma.ships.findFirst({
-        where: {
-          loadFrom: Providers.vodohod,
-          extId: ship.extId,
-        },
-      });
-     
-      if (selectShip?.id) {
-        await prisma.ships.update({
-          where: {
-            id: selectShip?.id,
-          },
-          data: ship,
-        });
-      } else {
-        await prisma.ships.create({
-          data: ship,
-        });
-      }
+    const ships = req.body?.ships;
 
-      response.push({ id: ship.extId, status: 'ok' });
-    });
+    for (const i in ships){
+      const ship= ships[i]
+      // req.body?.ships.forEach(async (ship: ShipsType) => {
+        console.log('             ');
+        const selectShip = await prisma.ships.findFirst({
+          where: {
+            loadFrom: Providers.vodohod,
+            extId: ship.extId,
+          },
+        });
+
+        if (selectShip?.id) {
+          await prisma.ships.update({
+            where: {
+              id: selectShip?.id,
+            },
+            data: {...ship},
+          });
+        } else {
+          console.log('****** new *******');
+          console.log('name', ship);
+
+          const createRes = await prisma.ships.create({
+            data: ship,
+          });
+          console.log('createRes', createRes);
+        }
+
+        response.push({ id: ship.extId, status: 'ok' });
+      };
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);

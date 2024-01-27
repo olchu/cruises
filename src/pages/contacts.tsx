@@ -69,8 +69,8 @@ const Contacts = () => {
             </Td>
             <Td flex="1" color="primary">
               <b>
-                <a href="https://t.me/vbpcruise"></a>
-                @vbpcruise
+                <a href="https://t.me/vbpcruise">@vbpcruise</a>
+                
               </b>
             </Td>
           </Tr>

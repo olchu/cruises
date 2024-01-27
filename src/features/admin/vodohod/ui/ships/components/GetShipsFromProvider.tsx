@@ -1,12 +1,14 @@
-import { useGetShips } from '@/features/admin/vodohod/api/useGetShips';
+import {
+  ShipsData,
+  useGetShips,
+} from '@/features/admin/vodohod/api/useGetShips';
 import { Stack, Button, Text, ListItem, OrderedList } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useGetToken } from '../../../api/useGetToken';
 import { DBShipsData, prepareShips } from '../utils/prepareShips';
 
 export const GetShipsFromProvider = () => {
   const [prepareData, setPrepareData] = useState<DBShipsData[] | null>(null);
-  const { error, getShips, ships, isFetching } = useGetShips();
+  const { error, getShips, ships, token } = useGetShips();
 
   const handleSync = async () => {
     if (!prepareData) return;
@@ -18,10 +20,16 @@ export const GetShipsFromProvider = () => {
     });
   };
 
+  const handlePrepare = async (ships: ShipsData[]) => {
+    const prepare = await prepareShips(ships, token);
+    console.log('ships', prepare);
+
+    setPrepareData(prepare);
+  };
+
   useEffect(() => {
     if (ships) {
-      console.log('ships', prepareShips(ships));
-      setPrepareData(prepareShips(ships));
+      handlePrepare(ships);
     }
   }, [ships]);
 
