@@ -18,8 +18,8 @@ import { getCruiseList } from '../../api/getCruiseList';
 import { useGetToken } from '../../api/useGetToken';
 import { ImCheckmark } from 'react-icons/im';
 import { useToast } from '@chakra-ui/react';
-import { getCruiseRoute } from '../../api/getCruiseRoute';
 import { DBCruiseData } from '../../api/getCruiseInfo';
+import { deleteUnusedCruise } from '../../api/deleteUnusedCruise';
 
 type DataTypeItem = {
   isLoading: boolean;
@@ -39,10 +39,6 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
     if (token) return;
     getToken();
   }, [token]);
-
-  useEffect(() => {
-    // console.log('data', data);
-  }, [data]);
 
   const setIsLoadingTrue = (id: number) => {
     setData((prevSate) => {
@@ -69,23 +65,6 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
     }
   };
 
-  // const handleGetCruisesRoute = async (extId: number, id: number) => {
-  //   console.log('cruises', data[extId]?.cruises);
-  //   const cruise = data[extId]?.cruises[0];
-  //   const route = await getCruiseRoute(cruise, token);
-
-  //   // if (route && data[extId]?.cruises[0]?.route) {
-  //   //   data[extId]?.cruises[0]?.route = [...route];
-  //   // }
-  //   // for (const key in data) {
-  //   //   const cruise = data[key];
-  //   //   // const route = await getCruiseRoute(mockCruise.extId, token);
-
-  //   // }
-
-  //   console.log('handleGetCruisesRoute', route);
-  // };
-
   const handleGetCruiseList = async () => {
     for (let ship of ships) {
       if (!data[ship.extId]?.isLoaded) {
@@ -95,11 +74,10 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
   };
 
   const handleDel = async () => {
-    const res = await fetch('/api/vodohod/delOldCruises');
-    const data = await res.json();
+    const count = await deleteUnusedCruise();
     toast({
       title: 'Круизы удалены',
-      description: 'Удалено ' + data.count + ' круизов',
+      description: 'Удалено ' + count + ' круизов',
       status: 'success',
       duration: 99999999,
       isClosable: true,
@@ -120,8 +98,19 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
     });
 
     const responce = await res.json();
-
-    console.log('responce', responce);
+    const resSuccess = responce?.length - cruises.length === 0;
+    toast({
+      title: resSuccess ? 'Успешно' : 'Внимание!!!',
+      description:
+        'Синхранизировано ' +
+        responce?.length +
+        ' круизов из ' +
+        cruises.length,
+      status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
+      duration: 99999999,
+      isClosable: true,
+      position: 'bottom-right',
+    });
   };
 
   return (
@@ -170,9 +159,6 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
                 <Th>
                   <Center alignItems="center">Загрузить</Center>
                 </Th>
-                <Th>
-                  <Center alignItems="center">Загрузить маршрут</Center>
-                </Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -203,20 +189,6 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
                             загрузить
                           </Button>
                         )}
-                      </Center>
-                    </Td>
-                    <Td>
-                      <Center alignItems="center" color="green">
-                        <Button
-                          colorScheme="yellow"
-                          size="xs"
-                          onClick={() =>{}
-                            // handleGetCruisesRoute(ship.extId, ship.id)
-                          }
-                          isLoading={data[ship.extId]?.isLoading}
-                        >
-                          загрузить
-                        </Button>
                       </Center>
                     </Td>
                   </Tr>
