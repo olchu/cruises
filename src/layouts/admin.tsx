@@ -26,6 +26,10 @@ const adminsMenu = [
     title: 'api Водоход',
     href: adminUrl + '/vodohod',
   },
+  {
+    title: 'api Infoflot',
+    href: adminUrl + '/infoflot',
+  },
 ];
 
 const AdminLayout: LayoutProps = ({ children }) => {
