@@ -1,33 +1,7 @@
 import { getCruiseDetails } from '@/features/admin/vodohod/api/getCruiseDetails';
 import { getTarif } from '@/features/admin/vodohod/api/getTarif';
-import prisma from 'prisma/client';
-import { RouteObjectType } from '../types/cruiseRouteType';
-import { Tarif } from '../ui/cruises/utils/prepareTarifs';
+import { DBCruiseData } from '@/shared/types/dbCruisesType';
 
-export interface DBCruiseData {
-  extId: number;
-  title: string;
-  dateStart: Date;
-  dateEnd: Date;
-  cityStart: string;
-  cityEnd: string;
-  days: number;
-  route: RouteObjectType;
-  shortRoute: string;
-  shipId: number;
-  extShipId: number;
-  shipName: string;
-  loadFrom: string;
-  minPrice: number;
-  minDiscountPrice: number;
-  citiesInRoute: string[];
-  description: string;
-  restaurants: string;
-  included: string;
-  excluded: string;
-  image: string;
-  prices: Tarif;
-}
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

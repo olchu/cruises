@@ -1,3 +1,8 @@
+import {
+  DBExcursionType,
+  DBInfoRouteType,
+  DBRouteType,
+} from '@/shared/types/dbCruisesType';
 import { CruiseDetailsResponce } from './getCruiseDetails';
 
 const endPoint = 'https://api-crs.vodohod.com/json/v3/cruise/route';
@@ -16,12 +21,12 @@ export const getCruiseRoute = async (
       },
     });
 
-    let route: RouteObjectType = {};
+    let route: DBRouteType = {};
     const { data }: CruiseRoutesResponce = await res.json();
     console.log('data', data);
     for (let key in data) {
       const day = data[key];
-      let excursions: ExcursionType[] = [];
+      let excursions: DBExcursionType[] = [];
 
       if (Array.isArray(day.excursions)) {
         for (let excursion in day.excursions) {
@@ -51,7 +56,7 @@ export const getCruiseRoute = async (
 
       const rowDay = cruise.route.find((item) => item.id === day.id);
 
-      const program: InfoRouteType = {
+      const program: DBInfoRouteType = {
         city: rowDay?.name || day.city,
         dateIn: day.dateIn,
         dateOut: day.dateOut,
@@ -71,25 +76,6 @@ export const getCruiseRoute = async (
     console.error('Не получилось загрузить маршрут к ' + cruise.id + ' круизу');
   }
 };
-
-type ExcursionType = {
-  duration: number;
-  name: string;
-  annotation: string;
-  description: string;
-  groupSize: string;
-};
-
-type InfoRouteType = {
-  city: number | string;
-  dateIn: number;
-  dateOut: number;
-  annotation: string;
-  excursions: ExcursionType[];
-  extraExcursions: ExcursionType[];
-};
-
-export type RouteObjectType = Record<string, InfoRouteType[]>;
 
 export interface CruiseRoutesResponce {
   result: string;

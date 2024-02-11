@@ -1,5 +1,4 @@
 import AdminLayout from '@/layouts/admin';
-import { DBShipsData } from '@/features/admin/vodohod/ui/ships/utils/prepareShips';
 import { Providers } from '@/shared/constants/providers';
 import {
   Heading,
@@ -13,20 +12,22 @@ import { GetStaticProps } from 'next';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { Ships } from '@/features/admin/infoflot/ui/ships/Ships';
+import { Cruises } from '@/features/admin/infoflot/ui/cruises/Cruises';
+import React from 'react';
+import { ShipsType } from '@/shared/types/prismaResponse';
 
-export interface ShipsDataType extends DBShipsData {
-  id: number;
-}
+const ThemeContext = React.createContext({});
 
 const Infoflot = ({
   data,
 }: {
   data: {
-    ships: ShipsDataType[];
+    ships: ShipsType[];
   };
 }) => {
+  console.log('infoflot ships',data.ships)
   return (
-    <>
+    <ThemeContext.Provider value={{ ships: data.ships }}>
       <Heading mb={8}>Infoflot api</Heading>
       <Tabs variant="soft-rounded">
         <TabList>
@@ -39,11 +40,11 @@ const Infoflot = ({
             <Ships />
           </TabPanel>
           <TabPanel>
-            {/* <Cruises ships={data.ships} /> */}
+            <Cruises ships={data.ships} />
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </ThemeContext.Provider>
   );
 };
 
@@ -62,7 +63,8 @@ export const getStaticProps: GetStaticProps<{
     },
   });
 
-  const ships = JSON.parse(JSON.stringify(shipsSelect));
+  // const ships = JSON.parse(JSON.stringify(shipsSelect));
+  const ships =shipsSelect;
 
   return {
     props: { data: { ships: ships || [] } },

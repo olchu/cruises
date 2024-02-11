@@ -1,8 +1,18 @@
 import { Deck } from '@/features/admin/vodohod/api/getTarif';
-import { DBPrice, DBTarif } from '@/shared/types/dbCruisesType';
+
+type Price = {
+  dicountedVal: null | number;
+  val: null | number;
+  annotation: string;
+  description: string;
+  thumbnails: string[];
+};
+
+type Class = Record<string, Price>;
+export type Tarif = Record<string, Class>;
 
 export const prepareTarifs = (decks: Deck[]) => {
-  let tarifs: DBTarif = {};
+  let tarifs: Tarif = {};
   let minPrice: null | number = null;
   let minPriceDiscont: null | number = null;
 
@@ -13,7 +23,7 @@ export const prepareTarifs = (decks: Deck[]) => {
           t.meta_name === 'Тариф Взрослый' ||
           t.meta_name === 'Тариф Лайт Взрослый (завтрак)'
       );
-      let price: DBPrice = {
+      let price: Price = {
         dicountedVal: null,
         val: null,
         annotation: room.annotation || '',

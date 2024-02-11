@@ -2,6 +2,8 @@ import { Providers } from '@/shared/constants/providers';
 import { ShipsData } from '@/features/admin/vodohod/api/useGetShips';
 import { renderToStaticMarkup } from 'react-dom/server';
 
+type CabisPhotos = Record<string, string[]>;
+
 export interface DBShipsData {
   extId: number;
   name: string;
@@ -15,30 +17,35 @@ export interface DBShipsData {
   images: string;
   loadFrom: string;
   active: number;
+  cabinsPhoto: string;
 }
 
 export const prepareInfoflotShips = async (data: ShipResponse[]) => {
   const ships: DBShipsData[] = [];
   for (const i in data) {
     const item = data[i];
-    //   `https://api-crs.vodohod.com/json/v3/motorship?id=${item.id}`,
-    //   {
-    //     method: 'Get',
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
-    // const { result }: ShipDetails = await response.json();
+
+    const cabinsPhoto: Record<string, CabisPhotos> = {};
+
+    for (const j in data[i].cabins) {
+      const deck = data[i].cabins[j].deck.name;
+      if (cabinsPhoto[deck]) {
+        cabinsPhoto[deck] = {
+          ...cabinsPhoto[deck],
+          [data[i].cabins[j].typeId]: data[i].cabins[j].photos.map(
+            (item) => item.filename
+          ),
+        };
+      } else {
+        cabinsPhoto[deck] = {
+          [data[i].cabins[j].typeId]: data[i].cabins[j].photos.map(
+            (item) => item.filename
+          ),
+        };
+      }
+    }
 
     const images = item?.photos?.map((img) => img.filename);
-    // const servicesMap = (
-    //   <ul>
-    //     {item.features.map((item) => (
-    //       <li key={item.id}>{item.name}</li>
-    //     ))}
-    //   </ul>
-    // );
 
     const cap = {
       name: item?.captain,
@@ -58,6 +65,7 @@ export const prepareInfoflotShips = async (data: ShipResponse[]) => {
       images: JSON.stringify(images),
       loadFrom: Providers.infoflot,
       active: 1,
+      cabinsPhoto:JSON.stringify(cabinsPhoto),
     });
   }
 

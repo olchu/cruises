@@ -21,6 +21,7 @@ model ships {
   active      Int
   description String? @db.Text
   captain     String? @db.Text
+  cabinsPhoto Json?
 }
 
 model cruises {
