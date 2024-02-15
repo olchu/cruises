@@ -19,6 +19,7 @@ import { DBCruiseData } from '@/shared/types/dbCruisesType';
 import { getCruisesByShip } from '../../api/getCruisesByShip';
 import { DBShipsData } from '@/shared/types/dbShipsType';
 import { ShipsType } from '@/shared/types/prismaResponse';
+import { Providers } from '@/shared/constants/providers';
 
 type DataTypeItem = {
   isLoading: boolean;
@@ -32,7 +33,7 @@ type DataType = Record<number, DataTypeItem>;
 export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   const [data, setData] = useState<DataType>({});
   const toast = useToast();
-  console.log('ship');
+  // console.log('ship');
 
   const setIsLoadingTrue = (id: number) => {
     setData((prevSate) => {
@@ -43,9 +44,20 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   const handleGetCruise = async (ship: ShipsType) => {
     const { extId, id } = ship;
     setIsLoadingTrue(extId);
-    console.log(extId, id);
     const cruises = await getCruisesByShip(extId, id, ship);
-    console.log('cruises', cruises);
+    // console.log('cruises', cruises);
+    setData((prevSate) => {
+      return {
+        ...prevSate,
+        [extId]: {
+          ...prevSate[extId],
+          isLoading: false,
+          isLoaded: true,
+          cruises: cruises?.preparedData || [],
+          cruisesCount: cruises?.count || 0,
+        },
+      };
+    });
   };
 
   const handleGetCruiseList = async () => {
@@ -55,44 +67,34 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
     }
   };
 
-  // const handleDel = async () => {
-  //   const count = await deleteUnusedCruise();
-  //   toast({
-  //     title: 'Круизы удалены',
-  //     description: 'Удалено ' + count + ' круизов',
-  //     status: 'success',
-  //     duration: 99999999,
-  //     isClosable: true,
-  //     position: 'bottom-right',
-  //   });
-  // };
-
   const handleSync = async () => {
     let cruises: DBCruiseData[] = [];
     for (let key in data) {
       cruises = [...cruises.concat(data[key].cruises)];
     }
 
-    // const res = await fetch('/api/vodohod/syncCruises', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ cruises }),
-    // });
+    console.log('cruise fo sync infoflot', cruises)
 
-    // const responce = await res.json();
-    // const resSuccess = responce?.length - cruises.length === 0;
-    // toast({
-    //   title: resSuccess ? 'Успешно' : 'Внимание!!!',
-    //   description:
-    //     'Синхранизировано ' +
-    //     responce?.length +
-    //     ' круизов из ' +
-    //     cruises.length,
-    //   status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
-    //   duration: 99999999,
-    //   isClosable: true,
-    //   position: 'bottom-right',
-    // });
+    const res = await fetch('/api/admin/syncCruises', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cruises ,loadFrom:Providers.infoflot}),
+    });
+
+    const responce = await res.json();
+    const resSuccess = responce?.length - cruises.length === 0;
+    toast({
+      title: resSuccess ? 'Успешно' : 'Внимание!!!',
+      description:
+        'Синхранизировано ' +
+        responce?.length +
+        ' круизов из ' +
+        cruises.length,
+      status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
+      duration: 99999999,
+      isClosable: true,
+      position: 'bottom-right',
+    });
   };
 
   return (

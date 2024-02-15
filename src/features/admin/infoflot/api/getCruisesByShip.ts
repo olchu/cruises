@@ -9,7 +9,8 @@ export const getCruisesByShip = async (
   extId: number,
   id: number,
   ship: ShipsType
-): Promise<DBCruiseData[]> => {
+// ): Promise<DBCruiseData[]> => {
+)=> {
   console.log(format(new Date(), "'Today is a' eeee"));
   const prepareCruises: DBCruiseData[] = [];
   const dateStart = format(new Date(), 'yyyy-MM-dd');
@@ -19,10 +20,22 @@ export const getCruisesByShip = async (
   );
   const cruises: InfoflotCruisesResponce = await cruisesRes.json();
 
-  const details = await getCruisesById(cruises.data[0].id, id, ship);
-  console.log('details', details);
+  for (let i in cruises.data) {
+    if (cruises.data[i]?.id) {
+      console.log('i', i);
+      const details = await getCruisesById(cruises.data[i].id, id, ship);
+      prepareCruises.push(details);
+    } else {
+      console.log('i', i, cruises.data[i]);
+    }
+  }
 
-  return prepareCruises;
+  // return prepareCruises;
+
+  return {
+    preparedData: prepareCruises,
+    count: cruises.data.length,
+  };
 };
 
 export interface InfoflotCruisesResponce {

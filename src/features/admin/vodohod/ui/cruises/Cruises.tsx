@@ -91,26 +91,28 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
       cruises = [...cruises.concat(data[key].cruises)];
     }
 
-    const res = await fetch('/api/vodohod/syncCruises', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cruises }),
-    });
+    console.log('cruise fo sync vodohod', cruises)
 
-    const responce = await res.json();
-    const resSuccess = responce?.length - cruises.length === 0;
-    toast({
-      title: resSuccess ? 'Успешно' : 'Внимание!!!',
-      description:
-        'Синхранизировано ' +
-        responce?.length +
-        ' круизов из ' +
-        cruises.length,
-      status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
-      duration: 99999999,
-      isClosable: true,
-      position: 'bottom-right',
-    });
+    // const res = await fetch('/api/vodohod/syncCruises', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ cruises }),
+    // });
+
+    // const responce = await res.json();
+    // const resSuccess = responce?.length - cruises.length === 0;
+    // toast({
+    //   title: resSuccess ? 'Успешно' : 'Внимание!!!',
+    //   description:
+    //     'Синхранизировано ' +
+    //     responce?.length +
+    //     ' круизов из ' +
+    //     cruises.length,
+    //   status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
+    //   duration: 99999999,
+    //   isClosable: true,
+    //   position: 'bottom-right',
+    // });
   };
 
   return (

@@ -11,19 +11,31 @@ export const getPriceseById = async (extId: number, ship: ShipsType) => {
   const cabinsKeys = Object.keys(data.cabins);
   const deks: Record<string, {}> = {};
   const cabinsPhoto = JSON.parse(ship.cabinsPhoto as string) || {};
-  console.log('cabinsPhoto', cabinsPhoto);
+  let minPrice = 1000000000;
+  let minPriceDiscount = 10000000000;
+  // console.log('cabinsPhoto', cabinsPhoto);
 
   for (const key in cabinsKeys) {
     const i = cabinsKeys[key];
     const cabin = data.cabins[i];
-    const dekName=cabin?.deck
+    const dekName = cabin?.deck.replaceAll(' палуба','');
 
+    // console.log('PHOTO     ', cabinsPhoto[dekName]?.[cabin.type_id])
+    const dicountedVal =
+      data.prices[cabin.type_id].prices.main_bottom.adult * 100;
+    const val = data.prices[cabin.type_id].prices.default===0
+      ? dicountedVal
+      : data.prices[cabin.type_id].prices.default * 100;
+
+    minPrice = minPrice >= val ? val : minPrice;
+    minPriceDiscount =
+      minPriceDiscount >= dicountedVal ? dicountedVal : minPriceDiscount;
     const cabinInfo = {
-      val: data.prices[cabin.type_id].prices.main_bottom.adult,
+      val: val,
       annotation: '',
       description: data.prices[cabin.type_id].type_description,
-      dicountedVal: data.prices[cabin.type_id].prices.main_bottom.adult,
-      thumbnails: [...cabinsPhoto[dekName][cabin.type_id]],
+      dicountedVal: dicountedVal,
+      thumbnails: [...(cabinsPhoto[cabin?.deck]?.[cabin.type_id] || [])], //TODO разобрааться почему undefiend
     };
 
     if (deks[dekName]) {
@@ -39,8 +51,10 @@ export const getPriceseById = async (extId: number, ship: ShipsType) => {
   }
 
   console.log('deks', deks);
+  console.log('minPrice', minPrice);
+  console.log('minPriceDiscount', minPriceDiscount);
 
-  return deks;
+  return { prices: deks, minPrice, minPriceDiscount };
 };
 
 interface PricesResponse {

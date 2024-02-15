@@ -15,19 +15,26 @@ export const getCruisesById = async (
     ` https://restapi.infoflot.com/cruises/${extId}?key=${infoflotKey}`
   );
   const info: InfoflotCruiseResponse = await infoRes.json();
+  // console.log('info', info);
 
-  const prices = await getPriceseById(extId, ship);
+  const { prices, minPriceDiscount, minPrice } = await getPriceseById(
+    extId,
+    ship
+  );
 
   const route = getRoutes(info.timetable);
-  console.log('rooute', route);
 
   const shortRoute = info.routeShort.split(' – ');
+
+  if (!Array.isArray(info.photos)) {
+    console.log('info.photos[0].filename', info);
+  }
 
   const prepareCruises: DBCruiseData = {
     extId: extId,
     title: info.beautifulName || '',
-    dateStart: new Date(info.dateStartTimestamp),
-    dateEnd: new Date(info.dateEndTimestamp),
+    dateStart: new Date(info.dateStartTimestamp * 1000),
+    dateEnd: new Date(info.dateEndTimestamp * 1000),
     cityStart: info.startCityName,
     cityEnd: shortRoute.at(-1) || '',
     days: info.days,
@@ -40,9 +47,9 @@ export const getCruisesById = async (
     included: info.include,
     excluded: info.additional,
     restaurants: '',
-    image: info.photos[0].filename,
-    minPrice: info.prices.old,
-    minDiscountPrice: info.prices.min,
+    image: Array.isArray(info.photos) ? info.photos[0].filename : '',
+    minPrice: minPrice,
+    minDiscountPrice: minPriceDiscount,
     citiesInRoute: info.route.split(' – '),
     route: route,
     prices,
