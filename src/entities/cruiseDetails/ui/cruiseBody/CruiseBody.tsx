@@ -8,7 +8,9 @@ import {
   Text,
   Stack,
   VStack,
+  Button,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { CruiseCabinType } from './CruiseCabinType';
 
 const menu = [
@@ -44,7 +46,6 @@ type IncomingPrices = Record<string, DeckPrice>;
 export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
   const incomingPrices = cruise?.prices! as IncomingPrices;
   console.log('incomingPrices', incomingPrices);
-  const decs = Object.keys(incomingPrices);
   const decks: PriceType = Object.keys(incomingPrices).map((deck) => {
     let cabinsByDeck = {
       name: deck,
@@ -68,6 +69,8 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
 
     return cabinsByDeck;
   });
+
+  const [isExpandedInfo, setIsExpandedInfo] = useState(false);
 
   return (
     <Box position="relative" w="full">
@@ -94,13 +97,17 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
 
       <MainContainer
         p={{ base: 'section.mobile', md: 'section.desktop' }}
-        maxH="320px"
-        overflow="hidden"
+        position="relative"
       >
         <Heading id="about" size="xl" mb="30px">
           Описание
         </Heading>
-        <Stack direction={{ base: 'column', lg: 'row' }} gap="20px">
+        <Stack
+          direction={{ base: 'column', lg: 'row' }}
+          gap="20px"
+          overflow="hidden"
+          maxH={!isExpandedInfo ? '320px' : 'inherit'}
+        >
           {cruise?.restaurants && (
             <Box>
               <Heading fontSize="22px" mb="20px">
@@ -139,6 +146,21 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
             />
           </Box>
         </Stack>
+        <Box
+          w="full"
+          h={isExpandedInfo ? '0' : '40px'}
+          bg="linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.0046612394957983305) 100%)"
+          position="absolute"
+          bottom={{ base: 'section.mobile', md: 62 }}
+        />
+        <Button
+          size="sm"
+          color="primary"
+          mt="12px"
+          onClick={() => setIsExpandedInfo(!isExpandedInfo)}
+        >
+          раскрыть
+        </Button>
       </MainContainer>
 
       <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>

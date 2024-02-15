@@ -15,7 +15,7 @@ const Description = ({ description }: { description: string }) => {
   const [isShow, setShow] = useState(false);
   return (
     <>
-      <Button variant='link' size="sm" onClick={() => setShow(!isShow)}>
+      <Button variant="link" size="sm" onClick={() => setShow(!isShow)}>
         Подробнее
       </Button>
       {isShow && (
@@ -72,13 +72,21 @@ export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
           </Text>{' '}
           руб./чел
         </Text>
-        <Text fontSize="12px" fontWeight="normal" textDecoration="line-through">
-          без скидки{' '}
-          <Text as="span">
-            {(val / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-            руб./чел
+
+        {dicountedVal !== val && (
+          <Text
+            fontSize="12px"
+            fontWeight="normal"
+            textDecoration="line-through"
+          >
+            без скидки{' '}
+            <Text as="span">
+              {(val / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+              руб./чел
+            </Text>
           </Text>
-        </Text>
+        )}
+
         <Button
           bg="accent"
           color="white"

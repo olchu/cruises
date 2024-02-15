@@ -71,7 +71,9 @@ export const CruiseShortAbout = ({ cruise }: { cruise: CruiseType | null }) => {
               </Text>
               {cruise?.cityEnd}
             </Description>
-            <Text maxWidth="650px" fontSize="12px" fontWeight="400" >{cruise?.shortRoute}</Text>
+            <Text maxWidth="650px" fontSize="12px" fontWeight="400">
+              {cruise?.shortRoute}
+            </Text>
           </Box>
         </VStack>
 
@@ -91,15 +93,17 @@ export const CruiseShortAbout = ({ cruise }: { cruise: CruiseType | null }) => {
             </Text>{' '}
             руб./чел
           </Text>
-          <Text fontSize="12px" fontWeight="normal">
-            без скидки{' '}
-            <Text as="span" textDecoration="line-through">
-              {(cruise?.minPrice! / 100)
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-              руб./чел
+          {cruise?.minDiscountPrice !== cruise?.minPrice && (
+            <Text fontSize="12px" fontWeight="normal">
+              без скидки{' '}
+              <Text as="span" textDecoration="line-through">
+                {(cruise?.minPrice! / 100)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+                руб./чел
+              </Text>
             </Text>
-          </Text>
+          )}
           <Link
             bg="accent"
             color="white"
