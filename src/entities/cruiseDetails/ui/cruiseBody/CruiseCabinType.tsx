@@ -33,6 +33,11 @@ const Description = ({ description }: { description: string }) => {
 export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
   const { name, price } = cabin;
   const { annotation, description, thumbnails, dicountedVal, val } = price;
+
+  const handleSend = () => {
+    fetch('/api/sendEmail');
+  };
+
   return (
     <Stack
       direction={{ base: 'column', md: 'row' }}
@@ -93,6 +98,7 @@ export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
           size="sm"
           fontWeight="bold"
           mt="12px"
+          onClick={handleSend}
           //   href={`#price`}
           alignItems="center"
           justifyContent="center"
