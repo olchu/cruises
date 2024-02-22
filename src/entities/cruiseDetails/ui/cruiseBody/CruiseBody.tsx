@@ -1,3 +1,4 @@
+import { DBRouteType } from '@/shared/types/dbCruisesType';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
@@ -12,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CruiseCabinType } from './CruiseCabinType';
+import { CruiseRoute } from './CruiseRoute';
 
 const menu = [
   { title: 'Описание', link: '#about' },
@@ -171,7 +173,7 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
           .filter((item) => item.hasPrice)
           .map(({ cabinsType, name }) => {
             return (
-              <Box key={name} mb="30px">
+              <Box key={name} mb="30px" _last={{ marginBottom: 0 }}>
                 <Text
                   bg="blue"
                   p="12px"
@@ -190,6 +192,8 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
             );
           })}
       </MainContainer>
+
+      <CruiseRoute route={cruise?.route as DBRouteType} />
     </Box>
   );
 };

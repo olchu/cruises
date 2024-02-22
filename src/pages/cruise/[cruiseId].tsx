@@ -4,7 +4,7 @@ import { MainLayout } from '@/layouts/main';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { Box, Heading, HStack, Link, Text, VStack } from '@chakra-ui/react';
+import { Box, Text, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
