@@ -48,7 +48,6 @@ export const CruiseCabinType = ({
 
   const handleSend = () => {
     openOrder();
-    // fetch('/api/sendEmail');
   };
 
   return (
@@ -93,8 +92,6 @@ export const CruiseCabinType = ({
                   _hover={{
                     cursor: 'pointer',
                     fontWeight: 'bold',
-                    // backgroundColor: 'primary',
-                    // color: 'white',
                   }}
                   onClick={() => handleChoose(item)}
                 >

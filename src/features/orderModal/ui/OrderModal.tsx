@@ -1,3 +1,4 @@
+import { CruiseType } from '@/shared/types/prismaResponse';
 import {
   Button,
   Modal,
@@ -17,6 +18,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
 type OrderModalProp = {
@@ -24,6 +26,7 @@ type OrderModalProp = {
   onClose: () => void;
   onOpen: () => void;
   chooseCabins: string[];
+  cruise: CruiseType | null;
 };
 
 type FormType = {
@@ -56,7 +59,10 @@ export const OrderModal = ({
   onClose,
   onOpen,
   chooseCabins,
+  cruise,
 }: OrderModalProp) => {
+  const [successModal, setSuccessModal] = useState(false);
+
   const {
     handleSubmit,
     handleChange,
@@ -73,8 +79,16 @@ export const OrderModal = ({
       message: '',
     },
     validationSchema: FormSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const resp = await fetch('/api/order', {
+        method: 'POST',
+        body: JSON.stringify({ fields: values, cruise ,chooseCabins}),
+      });
+      const { status } = await resp.json();
+      if (status === 'OK') {
+        handleClose();
+        setSuccessModal(true);
+      }
     },
   });
 
@@ -86,99 +100,111 @@ export const OrderModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Оформление заявки</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <Box
-            as="form"
-            onSubmit={handleSubmit}
-            gap="12px"
-            display="flex"
-            flexDirection="column"
-          >
-            <FormControl>
-              <FormLabel>Имя</FormLabel>
-              <Input
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-                isInvalid={Boolean(errors.name)}
-                _invalid={{
-                  boxShadow: 'none',
-                  borderColor: 'accent',
-                }}
-              />
-              {errors.name && (
-                <FormHelperText color="accent">{errors.name}</FormHelperText>
-              )}
-            </FormControl>
+    <>
+      <Modal isOpen={successModal} onClose={() => setSuccessModal(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            Ваша заявка отправлена. Ожидайте звонка менеджера
+          </ModalBody>
+        </ModalContent>
+      </Modal>
 
-            <FormControl>
-              <FormLabel>Телефон</FormLabel>
-              <Input
-                name="phone"
-                value={values.phone}
-                type="number"
-                onChange={handleChange}
-                isInvalid={Boolean(errors.phone)}
-                _invalid={{
-                  boxShadow: 'none',
-                  borderColor: 'accent',
-                }}
-              />
-              {errors.name && (
-                <FormHelperText color="accent">{errors.phone}</FormHelperText>
-              )}
-            </FormControl>
+      <Modal isOpen={isOpen} onClose={handleClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Оформление заявки</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box
+              as="form"
+              onSubmit={handleSubmit}
+              gap="12px"
+              display="flex"
+              flexDirection="column"
+            >
+              <FormControl>
+                <FormLabel>Имя</FormLabel>
+                <Input
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  isInvalid={Boolean(errors.name)}
+                  _invalid={{
+                    boxShadow: 'none',
+                    borderColor: 'accent',
+                  }}
+                />
+                {errors.name && (
+                  <FormHelperText color="accent">{errors.name}</FormHelperText>
+                )}
+              </FormControl>
 
-            <FormControl>
-              <FormLabel>Email</FormLabel>
-              <Input
-                name="email"
-                type="email"
-                value={values.email}
-                onChange={handleChange}
-                isInvalid={Boolean(errors.email)}
-                _invalid={{
-                  boxShadow: 'none',
-                  borderColor: 'accent',
-                }}
-              />
-              {errors.name && (
-                <FormHelperText color="accent">{errors.email}</FormHelperText>
-              )}
-            </FormControl>
+              <FormControl>
+                <FormLabel>Телефон</FormLabel>
+                <Input
+                  name="phone"
+                  value={values.phone}
+                  type="number"
+                  onChange={handleChange}
+                  isInvalid={Boolean(errors.phone)}
+                  _invalid={{
+                    boxShadow: 'none',
+                    borderColor: 'accent',
+                  }}
+                />
+                {errors.name && (
+                  <FormHelperText color="accent">{errors.phone}</FormHelperText>
+                )}
+              </FormControl>
 
-            <FormControl>
-              <FormLabel>Комментарий</FormLabel>
-              <Textarea
-                name="message"
-                value={values.message}
-                onChange={handleChange}
-              />
-            </FormControl>
+              <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  name="email"
+                  type="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  isInvalid={Boolean(errors.email)}
+                  _invalid={{
+                    boxShadow: 'none',
+                    borderColor: 'accent',
+                  }}
+                />
+                {errors.name && (
+                  <FormHelperText color="accent">{errors.email}</FormHelperText>
+                )}
+              </FormControl>
 
-            <Text color="grey">
-              Вы выбрали каюты - {chooseCabins.join(', ')}
-            </Text>
-            <HStack justifyContent="stretch" gap="12px" my="12px">
-              <Button w="full">Отменить</Button>
-              <Button
-                w="full"
-                bg="primary"
-                color="white"
-                type="submit"
-                isLoading={isSubmitting}
-              >
-                Отправить
-              </Button>
-            </HStack>
-          </Box>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+              <FormControl>
+                <FormLabel>Комментарий</FormLabel>
+                <Textarea
+                  name="message"
+                  value={values.message}
+                  onChange={handleChange}
+                />
+              </FormControl>
+
+              <Text color="grey">
+                Вы выбрали каюты - {chooseCabins.join(', ')}
+              </Text>
+              <HStack justifyContent="stretch" gap="12px" my="12px">
+                <Button w="full">Отменить</Button>
+                <Button
+                  w="full"
+                  bg="primary"
+                  color="white"
+                  type="submit"
+                  isLoading={isSubmitting}
+                >
+                  Отправить
+                </Button>
+              </HStack>
+            </Box>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };

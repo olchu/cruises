@@ -2,20 +2,20 @@ import { OrderModal } from '@/features/orderModal';
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
-    HStack,
-    Heading,
-    Switch,
-    VStack,
-    Box,
-    Text,
-    useDisclosure,
+  HStack,
+  Heading,
+  Switch,
+  VStack,
+  Box,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import {
-    CabinType,
-    FreeCabinsType,
-    IncomingPrices,
-    PriceType,
+  CabinType,
+  FreeCabinsType,
+  IncomingPrices,
+  PriceType,
 } from '../../type/cruisePrices';
 import { CruiseCabinType } from './CruiseCabinType';
 
@@ -29,14 +29,10 @@ export const CruisePrices = ({ freeCabins }: CruisePricesProp) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { cruise } = useContext(CruiseContext);
 
-  console.log('cruise', cruise);
-
   const incomingPrices = cruise?.prices! as IncomingPrices;
 
   const handleChoose = (item: string) => {
     const index = chooseCabins.findIndex((el) => el === item);
-    console.log('index', index);
-    console.log('chooseCabins ', chooseCabins);
 
     if (index >= 0) {
       setChooseCabins((prev) => {
@@ -74,6 +70,11 @@ export const CruisePrices = ({ freeCabins }: CruisePricesProp) => {
 
     return cabinsByDeck;
   });
+
+  const handleOrder = (cab: CabinType) => {
+    console.log('freeCabins', freeCabins);
+    console.log('chooseCabins', chooseCabins);
+  };
 
   return (
     <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
@@ -134,6 +135,7 @@ export const CruisePrices = ({ freeCabins }: CruisePricesProp) => {
         onOpen={onOpen}
         onClose={onClose}
         chooseCabins={chooseCabins}
+        cruise={cruise}
       />
     </MainContainer>
   );
