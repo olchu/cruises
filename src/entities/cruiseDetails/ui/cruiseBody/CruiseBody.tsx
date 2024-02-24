@@ -1,6 +1,5 @@
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { DBRouteType } from '@/shared/types/dbCruisesType';
-import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
   HStack,
@@ -12,8 +11,6 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
-import { IncomingPrices } from '../../type/cruisePrices';
-import { useGetPricesInfoflot } from '../../utils/useGetPricesInfoflot';
 import { CruisePrices } from './CruisePrices';
 import { CruiseRoute } from './CruiseRoute';
 
@@ -27,11 +24,6 @@ const menu = [
 export const CruiseBody = () => {
   const { cruise } = useContext(CruiseContext);
   const [isExpandedInfo, setIsExpandedInfo] = useState(false);
-  const { cabins, freeCabins } = useGetPricesInfoflot(cruise?.extId);
-
-  // console.log('infoflot prices', cabins);
-  // console.log('cruise prices', cruise?.prices);
-  // console.log('freeCabins', freeCabins);
 
   return (
     <Box position="relative" w="full">
@@ -112,7 +104,8 @@ export const CruiseBody = () => {
           h={isExpandedInfo ? '0' : '40px'}
           bg="linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.0046612394957983305) 100%)"
           position="absolute"
-          bottom={{ base: 'section.mobile', md: 62 }}
+          bottom={{ base: 10, md: 62 }}
+          left={{ base: 0, md: 0 }}
         />
         <Button
           size="sm"
@@ -124,7 +117,7 @@ export const CruiseBody = () => {
         </Button>
       </MainContainer>
 
-      <CruisePrices freeCabins={cabins} />
+      <CruisePrices />
 
       <CruiseRoute route={cruise?.route as DBRouteType} />
     </Box>

@@ -2,32 +2,26 @@ import { OrderModal } from '@/features/orderModal';
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
-  HStack,
-  Heading,
-  Switch,
-  VStack,
-  Box,
-  Text,
-  useDisclosure,
+    HStack,
+    Heading,
+    Switch,
+    VStack,
+    Box,
+    Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import {
-  CabinType,
-  FreeCabinsType,
-  IncomingPrices,
-  PriceType,
+    CabinType, IncomingPrices,
+    PriceType
 } from '../../type/cruisePrices';
 import { CruiseCabinType } from './CruiseCabinType';
 
-type CruisePricesProp = {
-  freeCabins: FreeCabinsType | null;
-};
-
-export const CruisePrices = ({ freeCabins }: CruisePricesProp) => {
+export const CruisePrices = () => {
   const [showSchema, setShowSchema] = useState(false);
   const [chooseCabins, setChooseCabins] = useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { cruise } = useContext(CruiseContext);
+  const { cruise, cabins } = useContext(CruiseContext);
 
   const incomingPrices = cruise?.prices! as IncomingPrices;
 
@@ -70,11 +64,6 @@ export const CruisePrices = ({ freeCabins }: CruisePricesProp) => {
 
     return cabinsByDeck;
   });
-
-  const handleOrder = (cab: CabinType) => {
-    console.log('freeCabins', freeCabins);
-    console.log('chooseCabins', chooseCabins);
-  };
 
   return (
     <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
@@ -119,7 +108,7 @@ export const CruisePrices = ({ freeCabins }: CruisePricesProp) => {
                       <CruiseCabinType
                         key={cabin.name}
                         cabin={cabin}
-                        freeCabins={freeCabins ? freeCabins[cabin.name] : []}
+                        freeCabins={cabins ? cabins[cabin?.name] : []}
                         handleChoose={handleChoose}
                         chooseCabins={chooseCabins}
                         openOrder={onOpen}

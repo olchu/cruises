@@ -1,7 +1,9 @@
+import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import { Text, Box, VStack, TextProps, Link, Stack } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { useContext } from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 const Title = ({ children }: { children: string }) => {
@@ -20,7 +22,8 @@ const Description = ({ children, ...props }: TextProps) => {
   );
 };
 
-export const CruiseShortAbout = ({ cruise }: { cruise: CruiseType | null }) => {
+export const CruiseShortAbout = () => {
+  const { cruise, freeCabins } = useContext(CruiseContext);
   const formatedStart = format(cruise?.dateStart!, 'dd MMMM yyyy', {
     locale: ru,
   });
@@ -75,6 +78,9 @@ export const CruiseShortAbout = ({ cruise }: { cruise: CruiseType | null }) => {
               {cruise?.shortRoute}
             </Text>
           </Box>
+          <Text fontSize="sm" color="primary">
+            Свободно {freeCabins?.length} <Text as="span">кают</Text>
+          </Text>
         </VStack>
 
         <Box>

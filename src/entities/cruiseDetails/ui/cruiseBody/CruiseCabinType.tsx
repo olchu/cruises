@@ -3,9 +3,7 @@ import {
   Box,
   Stack,
   VStack,
-  HStack,
-  Link,
-  Button,
+  HStack, Button
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CabinType } from '../../type/cruisePrices';
@@ -78,7 +76,7 @@ export const CruiseCabinType = ({
         {description && <Description description={description} />}
 
         {freeCabins && (
-          <HStack fontSize="14px">
+          <HStack fontSize="14px" flexWrap="wrap">
             <Text>Свободные каюты: </Text>
             {freeCabins.map((item) => {
               return (

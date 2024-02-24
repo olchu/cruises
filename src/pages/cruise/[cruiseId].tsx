@@ -1,5 +1,7 @@
 import { CruiseShortAbout } from '@/entities/cruiseDetails';
+import { FreeCabinsType } from '@/entities/cruiseDetails/type/cruisePrices';
 import { CruiseBody } from '@/entities/cruiseDetails/ui/cruiseBody/CruiseBody';
+import { useGetPricesInfoflot } from '@/entities/cruiseDetails/utils/useGetPricesInfoflot';
 import { MainLayout } from '@/layouts/main';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
@@ -12,6 +14,8 @@ import React, { ReactElement } from 'react';
 const initialState: CruiseDetailsPageProps = {
   cruise: null,
   ship: null,
+  cabins: null,
+  freeCabins: null,
 };
 
 export const CruiseContext = React.createContext(initialState);
@@ -19,13 +23,15 @@ export const CruiseContext = React.createContext(initialState);
 export type CruiseDetailsPageProps = {
   cruise: CruiseType | null;
   ship: ShipsType | null;
+  freeCabins: string[] | null;
+  cabins: FreeCabinsType | null;
 };
 
 const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
-  const route = cruise?.route || [];
+  const { cabins, freeCabins } = useGetPricesInfoflot(cruise?.extId);
 
   return (
-    <CruiseContext.Provider value={{ cruise, ship }}>
+    <CruiseContext.Provider value={{ cruise, ship, cabins, freeCabins }}>
       <VStack w="full" gap={0} alignItems="center">
         <Box
           w="full"
@@ -56,7 +62,7 @@ const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
           )}
         </Box>
 
-        <CruiseShortAbout cruise={cruise} />
+        <CruiseShortAbout />
 
         <CruiseBody />
       </VStack>
