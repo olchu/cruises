@@ -1,5 +1,4 @@
 import { InfoflotPricesResponse } from '@/shared/types/infoflot/infoflotPrice';
-import { useLayoutEffect, useState } from 'react';
 import { FreeCabinsType } from './useGetPrice';
 
 const infoflotKey = process.env.NEXT_PUBLIC_INFOFLOT_KEY;
@@ -19,12 +18,6 @@ export const getPricesInfoflot = async (id: number | undefined) => {
       const deckName = deck.replace(' палуба','');
       const typeName = prices[type_id].type_name;
       freeCabins.push(roomNumber);
-
-      // if (obj[typeName]) {
-      //   obj[typeName].push(roomNuber);
-      // } else {
-      //   obj[typeName] = [roomNuber];
-      // }
 
       if (obj[deckName]) {
         if (obj[deckName][typeName]) {

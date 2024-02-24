@@ -82,7 +82,7 @@ export const OrderModal = ({
     onSubmit: async (values) => {
       const resp = await fetch('/api/order', {
         method: 'POST',
-        body: JSON.stringify({ fields: values, cruise ,chooseCabins}),
+        body: JSON.stringify({ fields: values, cruise, chooseCabins }),
       });
       const { status } = await resp.json();
       if (status === 'OK') {
@@ -91,8 +91,6 @@ export const OrderModal = ({
       }
     },
   });
-
-  console.log('errors', errors);
 
   const handleClose = () => {
     resetForm();

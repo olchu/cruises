@@ -2,18 +2,18 @@ import { OrderModal } from '@/features/orderModal';
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
-    HStack,
-    Heading,
-    Switch,
-    VStack,
-    Box,
-    Text,
-    useDisclosure,
+  HStack,
+  Heading,
+  Switch,
+  VStack,
+  Box,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import {
-    CabinType, IncomingPrices,
-    PriceType
+  CabinType, IncomingPrices,
+  PriceType
 } from '../../type/cruisePrices';
 import { CruiseCabinType } from './CruiseCabinType';
 

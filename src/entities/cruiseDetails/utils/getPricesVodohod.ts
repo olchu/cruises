@@ -1,8 +1,5 @@
-import { InfoflotPricesResponse } from '@/shared/types/infoflot/infoflotPrice';
 import { VodohodCabinsResponse } from '@/shared/types/vodohod/vodohodCabins';
 import { FreeCabinsType } from './useGetPrice';
-
-const infoflotKey = process.env.NEXT_PUBLIC_INFOFLOT_KEY;
 
 const LOGIN = process.env.NEXT_PUBLIC_VODOHOD_LOGIN;
 const PWD = process.env.NEXT_PUBLIC_VODOHOD_PWD;
@@ -44,8 +41,6 @@ export const getPricesVodohod = async (id: number | undefined) => {
     );
     const { result }: VodohodCabinsResponse = await res.json();
 
-    console.log('vodohod ', result.data);
-
     let obj: FreeCabinsType = {};
     let freeCabins: string[] = [];
 
@@ -56,7 +51,6 @@ export const getPricesVodohod = async (id: number | undefined) => {
         freeCabins.push(roomNumber);
         const deckName = cabinsRes[i].deck.name;
         const typeName = cabinsRes[i].class.name;
-        console.log('obj i', obj);
 
         if (obj[deckName]) {
           if (obj[deckName][typeName]) {

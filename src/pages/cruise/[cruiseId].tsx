@@ -36,8 +36,6 @@ const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
     provider: cruise?.loadFrom as Providers,
   });
 
-  console.log({ cabins, freeCabins });
-
   return (
     <CruiseContext.Provider value={{ cruise, ship, cabins, freeCabins }}>
       <VStack w="full" gap={0} alignItems="center">
