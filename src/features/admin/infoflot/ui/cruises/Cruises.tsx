@@ -12,12 +12,11 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ImCheckmark } from 'react-icons/im';
 import { useToast } from '@chakra-ui/react';
 import { DBCruiseData } from '@/shared/types/dbCruisesType';
 import { getCruisesByShip } from '../../api/getCruisesByShip';
-import { DBShipsData } from '@/shared/types/dbShipsType';
 import { ShipsType } from '@/shared/types/prismaResponse';
 import { Providers } from '@/shared/constants/providers';
 
@@ -33,7 +32,6 @@ type DataType = Record<number, DataTypeItem>;
 export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   const [data, setData] = useState<DataType>({});
   const toast = useToast();
-  // console.log('ship');
 
   const setIsLoadingTrue = (id: number) => {
     setData((prevSate) => {
@@ -45,7 +43,6 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
     const { extId, id } = ship;
     setIsLoadingTrue(extId);
     const cruises = await getCruisesByShip(extId, id, ship);
-    // console.log('cruises', cruises);
     setData((prevSate) => {
       return {
         ...prevSate,
@@ -72,8 +69,6 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
     for (let key in data) {
       cruises = [...cruises.concat(data[key].cruises)];
     }
-
-    console.log('cruise fo sync infoflot', cruises)
 
     const res = await fetch('/api/admin/syncCruises', {
       method: 'POST',

@@ -1,5 +1,6 @@
+import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { DBRouteType } from '@/shared/types/dbCruisesType';
-import { CruiseType } from '@/shared/types/prismaResponse';
+import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
   HStack,
@@ -8,11 +9,12 @@ import {
   Link,
   Text,
   Stack,
-  VStack,
   Button,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { CruiseCabinType } from './CruiseCabinType';
+import { useContext, useState } from 'react';
+import { IncomingPrices } from '../../type/cruisePrices';
+import { useGetPricesInfoflot } from '../../utils/useGetPricesInfoflot';
+import { CruisePrices } from './CruisePrices';
 import { CruiseRoute } from './CruiseRoute';
 
 const menu = [
@@ -22,57 +24,14 @@ const menu = [
   { title: 'Теплоход', link: '#ship' },
 ];
 
-export type CabinType = {
-  name: string;
-  price: Price;
-};
-
-type PriceType = {
-  name: string;
-  cabinsType: CabinType[];
-  hasPrice: boolean;
-}[];
-
-type Price = {
-  val: number;
-  dicountedVal: number;
-  annotation: string;
-  description: string;
-  thumbnails: string[];
-};
-
-type DeckPrice = Record<string, Price>;
-
-type IncomingPrices = Record<string, DeckPrice>;
-
-export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
-  const incomingPrices = cruise?.prices! as IncomingPrices;
-  console.log('incomingPrices', incomingPrices);
-  const decks: PriceType = Object.keys(incomingPrices).map((deck) => {
-    let cabinsByDeck = {
-      name: deck,
-      cabinsType: [] as CabinType[],
-      hasPrice: false,
-    };
-    let hasPrice = false;
-    const cabinsType: CabinType[] = Object.keys(incomingPrices[deck]!).map(
-      (cabinsType) => {
-        if (incomingPrices[deck][cabinsType]?.val) {
-          hasPrice = true;
-        }
-        return {
-          name: cabinsType,
-          price: incomingPrices[deck][cabinsType],
-        };
-      }
-    );
-    cabinsByDeck.cabinsType = [...cabinsType];
-    cabinsByDeck.hasPrice = hasPrice;
-
-    return cabinsByDeck;
-  });
-
+export const CruiseBody = () => {
+  const { cruise } = useContext(CruiseContext);
   const [isExpandedInfo, setIsExpandedInfo] = useState(false);
+  const { cabins, freeCabins } = useGetPricesInfoflot(cruise?.extId);
+
+  // console.log('infoflot prices', cabins);
+  // console.log('cruise prices', cruise?.prices);
+  // console.log('freeCabins', freeCabins);
 
   return (
     <Box position="relative" w="full">
@@ -165,33 +124,7 @@ export const CruiseBody = ({ cruise }: { cruise: CruiseType | null }) => {
         </Button>
       </MainContainer>
 
-      <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
-        <Heading id="price" size="xl" mb="30px">
-          Цены
-        </Heading>
-        {decks
-          .filter((item) => item.hasPrice)
-          .map(({ cabinsType, name }) => {
-            return (
-              <Box key={name} mb="30px" _last={{ marginBottom: 0 }}>
-                <Text
-                  bg="blue"
-                  p="12px"
-                  mb="12px"
-                  fontWeight="bold"
-                  color="white"
-                >
-                  {name} палуба
-                </Text>
-                <VStack gap="20px" alignItems="flex-start" w="full">
-                  {cabinsType.map((cabin) => {
-                    return <CruiseCabinType key={cabin.name} cabin={cabin} />;
-                  })}
-                </VStack>
-              </Box>
-            );
-          })}
-      </MainContainer>
+      <CruisePrices freeCabins={cabins} />
 
       <CruiseRoute route={cruise?.route as DBRouteType} />
     </Box>

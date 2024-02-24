@@ -6,10 +6,7 @@ import { ru } from 'date-fns/locale';
 import { CruiseRouteDay } from './CruiseRouteDay';
 
 export const CruiseRoute = ({ route }: { route: DBRouteType }) => {
-  console.log('route', route);
-
   const routes = Object.values(route);
-  console.log('days', routes);
   return (
     <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
       <Heading id="price" size="xl" mb="30px">
@@ -23,7 +20,7 @@ export const CruiseRoute = ({ route }: { route: DBRouteType }) => {
         const dayOfWeekStart = format(days[0].dateIn * 1000, 'EEEE', {
           locale: ru,
         });
-        
+
         return (
           <div key={index}>
             День {index + 1}{' '}

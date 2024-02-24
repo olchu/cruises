@@ -8,7 +8,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { CabinType } from './CruiseBody';
+import { CabinType } from '../../type/cruisePrices';
 import './style.css';
 
 const Description = ({ description }: { description: string }) => {
@@ -30,12 +30,25 @@ const Description = ({ description }: { description: string }) => {
   );
 };
 
-export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
+export const CruiseCabinType = ({
+  cabin,
+  freeCabins,
+  chooseCabins,
+  handleChoose,
+  openOrder,
+}: {
+  cabin: CabinType;
+  freeCabins: string[];
+  chooseCabins: string[];
+  handleChoose: (v: string) => void;
+  openOrder: () => void;
+}) => {
   const { name, price } = cabin;
   const { annotation, description, thumbnails, dicountedVal, val } = price;
 
   const handleSend = () => {
-    fetch('/api/sendEmail');
+    openOrder();
+    // fetch('/api/sendEmail');
   };
 
   return (
@@ -64,10 +77,36 @@ export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
           <Text> {annotation}</Text>
         </VStack>
         {description && <Description description={description} />}
+
+        {freeCabins && (
+          <HStack fontSize="14px">
+            <Text>Свободные каюты: </Text>
+            {freeCabins.map((item) => {
+              return (
+                <Text
+                  key={item}
+                  px="4px"
+                  py="2px"
+                  background={
+                    chooseCabins.includes(item) ? 'success' : 'inherit'
+                  }
+                  _hover={{
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    // backgroundColor: 'primary',
+                    // color: 'white',
+                  }}
+                  onClick={() => handleChoose(item)}
+                >
+                  {item}
+                </Text>
+              );
+            })}
+          </HStack>
+        )}
       </VStack>
 
       <Box>
-        {/* <Text>Цена: </Text> */}
         <Text color="accent" fontWeight="bold" fontSize="16px">
           от{' '}
           <Text fontSize="18px" as="span">
@@ -99,7 +138,6 @@ export const CruiseCabinType = ({ cabin }: { cabin: CabinType }) => {
           fontWeight="bold"
           mt="12px"
           onClick={handleSend}
-          //   href={`#price`}
           alignItems="center"
           justifyContent="center"
           display="flex"

@@ -22,6 +22,7 @@ export const theme = extendTheme({
   components: {
     Button: {
       baseStyle: { rounded: 'none' },
+      // TODO add colorSheme
     },
     Switch: switchTheme,
   },

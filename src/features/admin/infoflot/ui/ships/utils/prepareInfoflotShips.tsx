@@ -52,6 +52,8 @@ export const prepareInfoflotShips = async (data: ShipResponse[]) => {
       image: item?.files?.captainPhoto?.path,
     };
 
+    const response = fetch(item.svgScheme?.url);
+
     ships.push({
       extId: item.id,
       name: item.name,
@@ -65,7 +67,7 @@ export const prepareInfoflotShips = async (data: ShipResponse[]) => {
       images: JSON.stringify(images),
       loadFrom: Providers.infoflot,
       active: 1,
-      cabinsPhoto:JSON.stringify(cabinsPhoto),
+      cabinsPhoto: JSON.stringify(cabinsPhoto),
     });
   }
 
