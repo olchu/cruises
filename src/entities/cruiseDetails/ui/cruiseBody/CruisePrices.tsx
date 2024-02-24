@@ -108,7 +108,7 @@ export const CruisePrices = () => {
                       <CruiseCabinType
                         key={cabin.name}
                         cabin={cabin}
-                        freeCabins={cabins ? cabins[cabin?.name] : []}
+                        freeCabins={cabins ? cabins[name]?.[cabin?.name] : []}
                         handleChoose={handleChoose}
                         chooseCabins={chooseCabins}
                         openOrder={onOpen}

@@ -16,9 +16,6 @@ export type PriceType = {
   hasPrice: boolean;
 }[];
 
-
-export type FreeCabinsType = Record<string, string[]>;
-
 type DeckPrice = Record<string, Price>;
 
 export type IncomingPrices = Record<string, DeckPrice>;

@@ -1,8 +1,11 @@
 import { CruiseShortAbout } from '@/entities/cruiseDetails';
-import { FreeCabinsType } from '@/entities/cruiseDetails/type/cruisePrices';
 import { CruiseBody } from '@/entities/cruiseDetails/ui/cruiseBody/CruiseBody';
-import { useGetPricesInfoflot } from '@/entities/cruiseDetails/utils/useGetPricesInfoflot';
+import {
+  FreeCabinsType,
+  useGetFreeCabins,
+} from '@/entities/cruiseDetails/utils/useGetPrice';
 import { MainLayout } from '@/layouts/main';
+import { Providers } from '@/shared/constants/providers';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
@@ -28,7 +31,12 @@ export type CruiseDetailsPageProps = {
 };
 
 const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
-  const { cabins, freeCabins } = useGetPricesInfoflot(cruise?.extId);
+  const { cabins, freeCabins } = useGetFreeCabins({
+    id: cruise?.extId,
+    provider: cruise?.loadFrom as Providers,
+  });
+
+  console.log({ cabins, freeCabins });
 
   return (
     <CruiseContext.Provider value={{ cruise, ship, cabins, freeCabins }}>
