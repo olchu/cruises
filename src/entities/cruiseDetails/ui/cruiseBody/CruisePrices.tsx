@@ -11,10 +11,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
-import {
-  CabinType, IncomingPrices,
-  PriceType
-} from '../../type/cruisePrices';
+import { CabinType, IncomingPrices, PriceType } from '../../type/cruisePrices';
+import { Schema } from '../schema/Schema';
 import { CruiseCabinType } from './CruiseCabinType';
 
 export const CruisePrices = () => {
@@ -85,7 +83,7 @@ export const CruisePrices = () => {
         </HStack>
       </HStack>
 
-      {/* {showSchema && <InfoflotSchema />} */}
+      {showSchema && <Schema />}
 
       {!showSchema &&
         decks

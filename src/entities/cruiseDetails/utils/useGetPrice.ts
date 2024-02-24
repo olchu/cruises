@@ -11,10 +11,11 @@ type GetFreeCabinsProps = {
 type CabinsType = Record<string, string[]>;
 
 export type FreeCabinsType = Record<string, CabinsType>;
+export type FreeCabinsWithIDType = { roomNumber: string; roomId: string };
 
 export const useGetFreeCabins = ({ id, provider }: GetFreeCabinsProps) => {
   const [cabins, setCabins] = useState<FreeCabinsType | null>(null);
-  const [freeCabins, setFreeCabins] = useState<string[] | null>(null);
+  const [freeCabins, setFreeCabins] = useState<FreeCabinsWithIDType[] | null>(null);
 
   const saveState = async () => {
     switch (provider) {

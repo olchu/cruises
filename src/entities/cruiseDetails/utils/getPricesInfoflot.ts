@@ -1,5 +1,5 @@
 import { InfoflotPricesResponse } from '@/shared/types/infoflot/infoflotPrice';
-import { FreeCabinsType } from './useGetPrice';
+import { FreeCabinsType, FreeCabinsWithIDType } from './useGetPrice';
 
 const infoflotKey = process.env.NEXT_PUBLIC_INFOFLOT_KEY;
 
@@ -10,14 +10,14 @@ export const getPricesInfoflot = async (id: number | undefined) => {
   const { cabins, prices }: InfoflotPricesResponse = await resp.json();
 
   const obj: FreeCabinsType = {};
-  let freeCabins: string[] = [];
+  let freeCabins: FreeCabinsWithIDType[] = [];
   for (const key in cabins) {
     if (cabins[key].status === 0) {
       const { type_id, deck, name } = cabins[key];
       const roomNumber = name;
-      const deckName = deck.replace(' палуба','');
+      const deckName = deck.replace(' палуба', '');
       const typeName = prices[type_id].type_name;
-      freeCabins.push(roomNumber);
+      freeCabins.push({ roomNumber, roomId: key });
 
       if (obj[deckName]) {
         if (obj[deckName][typeName]) {

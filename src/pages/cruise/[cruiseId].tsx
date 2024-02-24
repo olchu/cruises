@@ -2,6 +2,7 @@ import { CruiseShortAbout } from '@/entities/cruiseDetails';
 import { CruiseBody } from '@/entities/cruiseDetails/ui/cruiseBody/CruiseBody';
 import {
   FreeCabinsType,
+  FreeCabinsWithIDType,
   useGetFreeCabins,
 } from '@/entities/cruiseDetails/utils/useGetPrice';
 import { MainLayout } from '@/layouts/main';
@@ -26,7 +27,7 @@ export const CruiseContext = React.createContext(initialState);
 export type CruiseDetailsPageProps = {
   cruise: CruiseType | null;
   ship: ShipsType | null;
-  freeCabins: string[] | null;
+  freeCabins: FreeCabinsWithIDType[] | null;
   cabins: FreeCabinsType | null;
 };
 

@@ -1,5 +1,4 @@
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
-import { CruiseType } from '@/shared/types/prismaResponse';
 import { Text, Box, VStack, TextProps, Link, Stack } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';

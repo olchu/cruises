@@ -1,5 +1,5 @@
 import { VodohodCabinsResponse } from '@/shared/types/vodohod/vodohodCabins';
-import { FreeCabinsType } from './useGetPrice';
+import { FreeCabinsType, FreeCabinsWithIDType } from './useGetPrice';
 
 const LOGIN = process.env.NEXT_PUBLIC_VODOHOD_LOGIN;
 const PWD = process.env.NEXT_PUBLIC_VODOHOD_PWD;
@@ -42,15 +42,16 @@ export const getPricesVodohod = async (id: number | undefined) => {
     const { result }: VodohodCabinsResponse = await res.json();
 
     let obj: FreeCabinsType = {};
-    let freeCabins: string[] = [];
+    let freeCabins: FreeCabinsWithIDType[] = [];
 
     const cabinsRes = result?.data;
+    console.log('cabinsRes', cabinsRes);
     for (const i in cabinsRes) {
       if (cabinsRes[i].availability) {
         const roomNumber = cabinsRes[i].number;
-        freeCabins.push(roomNumber);
         const deckName = cabinsRes[i].deck.name;
         const typeName = cabinsRes[i].class.name;
+        freeCabins.push({ roomNumber, roomId: cabinsRes[i].id.toString() });
 
         if (obj[deckName]) {
           if (obj[deckName][typeName]) {
