@@ -1,43 +1,97 @@
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
-import { useContext, useRef } from 'react';
+import { Button, HStack, VStack } from '@chakra-ui/react';
+import { useContext, useEffect, useMemo, useRef } from 'react';
+import { ReactSVG } from 'react-svg';
+import { SchemaProp } from './Schema';
+import './style.css';
 
-export const InfoflotSchema = () => {
+export const InfoflotSchema = ({
+  chooseCabins,
+  handleChoose,
+  orderOpen,
+}: SchemaProp) => {
   const { cruise, freeCabins, ship } = useContext(CruiseContext);
-  const schema = useRef(null);
+  const svgRef = useRef<SVGSVGElement | null>(null); // Добавляем ref для доступа к элементу SVG
 
-  console.log('freeCabins', freeCabins);
-  console.log('ship', ship?.scheme);
+  const { freeCabinsId, cabinsById, cabinsByNumber } = useMemo(() => {
+    const freeCabinsId = freeCabins?.map((cabin) => cabin.roomId);
+    const cabinsById: Record<string, string> = {};
+    const cabinsByNumber: Record<string, string> = {};
+    freeCabins?.forEach((cabin) => {
+      cabinsById[cabin.roomId] = cabin.roomNumber;
+      cabinsByNumber[cabin.roomNumber] = cabin.roomId;
+    });
+    return { freeCabinsId, cabinsById, cabinsByNumber };
+  }, [freeCabins]);
 
-  const handleSvgInjected = (svg: any) => {
-    if (svg) {
-      schema.current = svg;
-    }
+  const handleBeforeInjected = (svg: SVGSVGElement) => {
+    svgRef.current = svg;
+
+    svg.querySelectorAll('g[data-cabin-id]').forEach((room) => {
+      const roomId = room.getAttribute('data-cabin-id');
+
+      // Определяем, свободна ли каюта и выбрана ли она
+      const isFree = freeCabinsId?.includes(roomId || '');
+      const isSelected = chooseCabins.includes(cabinsById[roomId || '']);
+      const fillColor = isSelected ? '#165D9F' : isFree ? '#61EA6F' : '#e1f3fd';
+
+      // Добавляем обработчик клика
+      if (isFree) {
+        room.classList.add('cabin');
+        room.addEventListener('click', () =>
+          handleChoose(cabinsById[roomId || ''])
+        );
+      }
+
+      if (isSelected) {
+        room
+          .querySelector('.cabin_num')
+          ?.setAttribute('style', `fill:white !important`);
+      }
+
+      room.querySelectorAll(`path.wall_cabin`).forEach((elem) => {
+        elem.setAttribute('style', `fill:none`);
+      });
+      room.querySelectorAll(`.cabin`).forEach((elem) => {
+        elem.setAttribute('style', `fill:${fillColor}!important`);
+      });
+    });
   };
 
-  if (freeCabins && schema.current) {
-    for (const i in freeCabins) {
-      fillRoom(freeCabins[i].roomId, schema.current);
-    }
-  }
+  // useEffect(() => {
+  //   return () => {
+  //     if (svgRef.current) {
+  //       const rooms = svgRef.current.querySelectorAll('g[data-cabin-id]');
+  //       rooms.forEach((room) => {
+  //         const roomId = room.getAttribute('data-cabin-id');
+  //         const isFree = freeCabinsId?.includes(roomId || '');
+  //         if (isFree)
+  //           room.removeEventListener(
+  //             'click',
+  //             handleChoose(cabinsById[roomId || ''])
+  //           );
+  //       });
+  //     }
+  //   };
+  // }, [cabinsById, freeCabinsId, handleChoose]);
 
   return (
-    <div>
-      {/* <ReactSVG src={'/api/svgProxy'} afterInjection={handleSvgInjected} /> */}
-    </div>
+    <>
+      <ReactSVG
+        src={ship?.scheme || ''}
+        beforeInjection={handleBeforeInjected}
+      />
+      <HStack>
+        <Button
+          background="primary"
+          color="white"
+          onClick={orderOpen}
+          mt="20px"
+          mx="auto"
+        >
+          Оформить заявку
+        </Button>
+      </HStack>
+    </>
   );
-};
-
-const fillRoom = (id: string, elem: HTMLElement) => {
-  const room = elem.querySelector(`[data-cabin-id="${id}"]`);
-  const roomText = elem.querySelector(
-    '[data-cabin-id="25180"]>[class="cabin_num"]'
-  );
-  if (room) {
-    // console.log('room', room);
-    room.style.fill = 'green';
-  }
-  if (roomText) {
-    // console.log('roomText', roomText);
-    room.removeChild(roomText);
-  }
 };

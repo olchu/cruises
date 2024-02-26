@@ -188,7 +188,7 @@ export const OrderModal = ({
                 Вы выбрали каюты - {chooseCabins.join(', ')}
               </Text>
               <HStack justifyContent="stretch" gap="12px" my="12px">
-                <Button w="full">Отменить</Button>
+                <Button onClick={handleClose} w="full">Отменить</Button>
                 <Button
                   w="full"
                   bg="primary"
@@ -196,7 +196,7 @@ export const OrderModal = ({
                   type="submit"
                   isLoading={isSubmitting}
                 >
-                  Отправить
+                  Оформить
                 </Button>
               </HStack>
             </Box>

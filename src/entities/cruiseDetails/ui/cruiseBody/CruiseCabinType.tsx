@@ -85,8 +85,9 @@ export const CruiseCabinType = ({
                   px="4px"
                   py="2px"
                   background={
-                    chooseCabins.includes(item) ? 'success' : 'inherit'
+                    chooseCabins.includes(item) ? 'blue' : 'inherit'
                   }
+                  color={chooseCabins.includes(item) ? 'white' : 'inherit'}
                   _hover={{
                     cursor: 'pointer',
                     fontWeight: 'bold',

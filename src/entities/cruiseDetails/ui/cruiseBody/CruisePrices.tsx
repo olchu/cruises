@@ -26,6 +26,8 @@ export const CruisePrices = () => {
   const handleChoose = (item: string) => {
     const index = chooseCabins.findIndex((el) => el === item);
 
+    console.log('item', item);
+
     if (index >= 0) {
       setChooseCabins((prev) => {
         const cabins = [...prev];
@@ -83,7 +85,13 @@ export const CruisePrices = () => {
         </HStack>
       </HStack>
 
-      {showSchema && <Schema />}
+      {showSchema && (
+        <Schema
+          handleChoose={handleChoose}
+          chooseCabins={chooseCabins}
+          orderOpen={onOpen}
+        />
+      )}
 
       {!showSchema &&
         decks

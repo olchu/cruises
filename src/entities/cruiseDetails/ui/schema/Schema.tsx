@@ -3,8 +3,15 @@ import { Providers } from '@/shared/constants/providers';
 import { useContext } from 'react';
 import { InfoflotSchema } from './InfoflotSchema';
 
-export const Schema = () => {
+export type SchemaProp = {
+  chooseCabins: string[];
+  handleChoose: (v: string) => void;
+  orderOpen: () => void;
+};
+
+export const Schema = (props: SchemaProp) => {
   const { cruise } = useContext(CruiseContext);
-  if (cruise?.loadFrom === Providers.infoflot) return <InfoflotSchema />;
+  if (cruise?.loadFrom === Providers.infoflot)
+    return <InfoflotSchema {...props} />;
   return null;
 };
