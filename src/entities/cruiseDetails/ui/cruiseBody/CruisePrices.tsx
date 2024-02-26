@@ -67,21 +67,34 @@ export const CruisePrices = () => {
 
   return (
     <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
-      <HStack alignItems="flex-end" justifyContent="space-between">
+      <HStack alignItems="baseline" justifyContent="space-between">
         <Heading id="price" size="xl" mb="30px">
           Цены
         </Heading>
 
-        <HStack mb="12px">
-          <Text as="span">Показать на схеме</Text>
-          <Switch
-            colorScheme="prime"
-            id="tableShow"
-            isChecked={showSchema}
-            onChange={() => {
-              setShowSchema(!showSchema);
-            }}
-          />
+        <HStack mb="12px" gap="12px">
+          <Text as="span">Режим выбора кают:</Text>
+
+          <Text
+            px="12px"
+            py="12px"
+            onClick={() => setShowSchema(false)}
+            background={showSchema ? 'secondary' : 'blue'}
+            color={showSchema ? 'inherit' : 'white'}
+            as="button"
+          >
+            Таблица
+          </Text>
+          <Text
+            as="button"
+            px="12px"
+            py="12px"
+            onClick={() => setShowSchema(true)}
+            background={showSchema ? 'blue' : 'secondary'}
+            color={!showSchema ? 'inherit' : 'white'}
+          >
+            Схема палуб
+          </Text>
         </HStack>
       </HStack>
 
