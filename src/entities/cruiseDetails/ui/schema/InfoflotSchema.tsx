@@ -33,7 +33,8 @@ export const InfoflotSchema = ({
       // Определяем, свободна ли каюта и выбрана ли она
       const isFree = freeCabinsId?.includes(roomId || '');
       const isSelected = chooseCabins.includes(cabinsById[roomId || '']);
-      const fillColor = isSelected ? '#165D9F' : isFree ? '#61EA6F' : '#e1f3fd';
+      const fillColor = isSelected ? '#165D9F' : '#e1f3fd';
+      const textColor = isSelected ? 'white' : isFree ? 'text' : 'none';
 
       // Добавляем обработчик клика
       if (isFree) {
@@ -43,11 +44,12 @@ export const InfoflotSchema = ({
         );
       }
 
-      if (isSelected) {
-        room
-          .querySelector('.cabin_num')
-          ?.setAttribute('style', `fill:white !important`);
-      }
+      room
+        .querySelector('.cabin_num')
+        ?.setAttribute('style', `fill:${textColor}`);
+      room
+        .querySelector('.cabin_vacancies')
+        ?.setAttribute('style', `fill:none`);
 
       room.querySelectorAll(`path.wall_cabin`).forEach((elem) => {
         elem.setAttribute('style', `fill:none`);
