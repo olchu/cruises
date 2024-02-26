@@ -119,7 +119,7 @@ export const CruiseBody = () => {
 
       <CruisePrices />
 
-      <CruiseRoute route={cruise?.route as DBRouteType} />
+      {/* <CruiseRoute route={cruise?.route as DBRouteType} /> */}
     </Box>
   );
 };

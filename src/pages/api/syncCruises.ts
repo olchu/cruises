@@ -1,18 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { DBCruiseData } from '@/features/admin/vodohod/api/getCruiseInfo';
+import { DBCruiseData } from '@/shared/types/dbCruisesType';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-  ) {
-    try {
-      let response: { id: number; status: string }[] = [];
-      req.body?.cruises.forEach(async (cruise: DBCruiseData) => {
-        const result = await prisma.cruises.upsert({
-          where: {
-          // @ts-ignore
+) {
+  try {
+    let response: { id: number; status: string }[] = [];
+    req.body?.cruises.forEach(async (cruise: DBCruiseData) => {
+      const result = await prisma.cruises.upsert({
+        // @ts-ignore
+        where: {
           extId: cruise.extId,
         },
         // @ts-ignore
