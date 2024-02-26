@@ -121,7 +121,7 @@ export const CruiseShortAbout = () => {
             display="flex"
             _hover={{ textDecoration: 'none' }}
           >
-            Забронировать
+            Оформить заявку
           </Link>
         </Box>
       </Stack>

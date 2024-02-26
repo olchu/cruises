@@ -139,7 +139,7 @@ export const CruiseCabinType = ({
           display="flex"
           _hover={{ textDecoration: 'none' }}
         >
-          Забронировать
+          Оформить заявку
         </Button>
       </Box>
     </Stack>
