@@ -113,7 +113,7 @@ export const CruiseBody = () => {
           mt="12px"
           onClick={() => setIsExpandedInfo(!isExpandedInfo)}
         >
-          раскрыть
+          Подробнее
         </Button>
       </MainContainer>
 
