@@ -50,7 +50,7 @@ const FormSchema = Yup.object().shape({
     .matches(phoneRegExp, 'Не похоже на на номер телефона'),
   email: Yup.string()
     .email('Не похоже на почту')
-    .matches(emailRegExp, 'Не похоже на почту')
+    // .matches(emailRegExp, 'Не похоже на почту')
     .required('Это поле обязательное'),
 });
 
