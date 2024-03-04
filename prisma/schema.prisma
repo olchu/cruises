@@ -22,6 +22,9 @@ model ships {
   description String? @db.Text
   captain     String? @db.Text
   cabinsPhoto Json?
+  class       String? @db.VarChar(255)
+  type        String? @db.VarChar(255)
+  provider    String? @db.VarChar(255)
 }
 
 model cruises {
@@ -69,4 +72,15 @@ model news {
   image   String?   @db.Text
   preview String?   @db.Text
   publish String?   @db.VarChar(255)
+}
+
+model pages {
+  id      Int     @id @default(autoincrement())
+  title   String? @db.VarChar(255)
+  images  Json?
+  slug    String  @unique(map: "compilation_slug_key") @db.VarChar(255)
+  query   Json?
+  content String? @db.Text
+  active  Int
+  metaTag Json?
 }

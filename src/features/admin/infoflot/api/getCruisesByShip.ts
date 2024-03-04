@@ -5,13 +5,16 @@ import { ShipsType } from '@/shared/types/prismaResponse';
 
 const infoflotKey = process.env.NEXT_PUBLIC_INFOFLOT_KEY;
 
+function timeout(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const getCruisesByShip = async (
   extId: number,
   id: number,
   ship: ShipsType
-// ): Promise<DBCruiseData[]> => {
-)=> {
-  console.log(format(new Date(), "'Today is a' eeee"));
+  // ): Promise<DBCruiseData[]> => {
+) => {
   const prepareCruises: DBCruiseData[] = [];
   const dateStart = format(new Date(), 'yyyy-MM-dd');
 
@@ -22,7 +25,7 @@ export const getCruisesByShip = async (
 
   for (let i in cruises.data) {
     if (cruises.data[i]?.id) {
-      console.log('i', i);
+      // await timeout(2000);
       const details = await getCruisesById(cruises.data[i].id, id, ship);
       prepareCruises.push(details);
     } else {

@@ -114,10 +114,19 @@ SearchPage.getLayout = function getLayout(page: ReactElement) {
 
 export default SearchPage;
 
-export const getServerSideProps = (async (context) => {
+export const getServerSideProps = (async () => {
   const ships = await getShips();
+  const sortedShip = ships.sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      return -1;
+    }
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
   const citiesStart = await getCities('cityStart');
   const citiesEnd = await getCities('cityEnd');
 
-  return { props: { ships, citiesStart, citiesEnd } };
+  return { props: { ships: sortedShip, citiesStart, citiesEnd } };
 }) satisfies GetServerSideProps<SearchPageProps>;

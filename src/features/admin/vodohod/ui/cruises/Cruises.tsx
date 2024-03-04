@@ -20,6 +20,7 @@ import { ImCheckmark } from 'react-icons/im';
 import { useToast } from '@chakra-ui/react';
 import { deleteUnusedCruise } from '../../api/deleteUnusedCruise';
 import { DBCruiseData } from '@/shared/types/dbCruisesType';
+import { Providers } from '@/shared/constants/providers';
 
 type DataTypeItem = {
   isLoading: boolean;
@@ -91,28 +92,28 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
       cruises = [...cruises.concat(data[key].cruises)];
     }
 
-    console.log('cruise fo sync vodohod', cruises)
+    console.log('cruise fo sync vodohod', cruises);
 
-    // const res = await fetch('/api/vodohod/syncCruises', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ cruises }),
-    // });
+    const res = await fetch('/api/admin/syncCruises', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cruises, loadFrom: Providers.vodohod }),
+    });
 
-    // const responce = await res.json();
-    // const resSuccess = responce?.length - cruises.length === 0;
-    // toast({
-    //   title: resSuccess ? 'Успешно' : 'Внимание!!!',
-    //   description:
-    //     'Синхранизировано ' +
-    //     responce?.length +
-    //     ' круизов из ' +
-    //     cruises.length,
-    //   status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
-    //   duration: 99999999,
-    //   isClosable: true,
-    //   position: 'bottom-right',
-    // });
+    const responce = await res.json();
+    const resSuccess = responce?.length - cruises.length === 0;
+    toast({
+      title: resSuccess ? 'Успешно' : 'Внимание!!!',
+      description:
+        'Синхранизировано ' +
+        responce?.length +
+        ' круизов из ' +
+        cruises.length,
+      status: responce?.length - cruises.length === 0 ? 'success' : 'warning',
+      duration: 99999999,
+      isClosable: true,
+      position: 'bottom-right',
+    });
   };
 
   return (

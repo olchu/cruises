@@ -39,10 +39,10 @@ export const getRoutes = (table: Timetable[]) => {
 };
 
 const getDuration = (obj: Excursion) => {
-  const start = obj.timeStart.split(':');
-  const end = obj.timeEnd.split(':');
-  const hoursDuration = Number(end[0]) - Number(start[0]);
-  const minutesDuration = Number(end[1]) - Number(start[1]);
+  const start = obj.timeStart?.split(':');
+  const end = obj.timeEnd?.split(':');
+  const hoursDuration = start && end ? Number(end[0]) - Number(start[0]) : 0;
+  const minutesDuration = start && end ? Number(end[1]) - Number(start[1]) : 0;
 
   return hoursDuration * 60 + minutesDuration;
 };

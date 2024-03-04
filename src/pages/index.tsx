@@ -28,7 +28,7 @@ interface HomeProps {
   citiesEnd: CruiseType[];
 }
 
-const Home = ({ cruises, posts, ships, citiesStart,citiesEnd }: HomeProps) => {
+const Home = ({ cruises, posts, ships, citiesStart, citiesEnd }: HomeProps) => {
   return (
     <>
       <Head>
@@ -43,10 +43,32 @@ const Home = ({ cruises, posts, ships, citiesStart,citiesEnd }: HomeProps) => {
           name="keywords"
           content="речные круизы по россии, круизы по россии 2023, речной круиз на теплоходе, речные круизы расписание"
         />
-        <link rel="icon" href="/favicon.ico" />
+
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
-      <HeroBlock ships={ships} citiesEnd={citiesEnd} citiesStart={citiesStart}  />
+      <HeroBlock
+        ships={ships}
+        citiesEnd={citiesEnd}
+        citiesStart={citiesStart}
+      />
 
       <NewsPreview posts={posts} />
 
@@ -86,6 +108,15 @@ export const getServerSideProps = (async ({ req }) => {
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
   const posts: PostsType[] = JSON.parse(JSON.stringify(blogSelect));
   const ships = await getShips();
+  const sortedShips = ships.sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      return -1;
+    }
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
   const citiesStart = await getCities('cityStart');
   const citiesEnd = await getCities('cityEnd');
 
@@ -95,7 +126,16 @@ export const getServerSideProps = (async ({ req }) => {
 
   const isMobileDevice = userAgent.device.type === 'mobile';
 
-  return { props: { cruises: cruises, isMobileDevice, posts, ships, citiesStart, citiesEnd } };
+  return {
+    props: {
+      cruises: cruises,
+      isMobileDevice,
+      posts,
+      ships: sortedShips,
+      citiesStart,
+      citiesEnd,
+    },
+  };
 }) satisfies GetServerSideProps<HomeProps>;
 
 Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
