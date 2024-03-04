@@ -12,8 +12,11 @@ import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import prisma from 'prisma/client';
 import React, { ReactElement } from 'react';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 const initialState: CruiseDetailsPageProps = {
   cruise: null,
@@ -37,43 +40,91 @@ const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
     provider: cruise?.loadFrom as Providers,
   });
 
+  const formatedStart = format(cruise?.dateStart!, 'dd MMMM yyyy', {
+    locale: ru,
+  });
+  const formatedEnd = format(cruise?.dateEnd!, 'dd MMMM yyyy', {
+    locale: ru,
+  });
+
+  const price = cruise?.minDiscountPrice || cruise?.minPrice;
+
+  const title = `${
+    cruise?.title || cruise?.cityStart + ' ' + cruise?.cityEnd
+  } от ${(price! / 100)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} руб./чел. Даты ${formatedStart} - 
+ ${formatedEnd}. Купить билеты на сайте Волгобалтийские Путешествия`;
+
   return (
-    <CruiseContext.Provider value={{ cruise, ship, cabins, freeCabins }}>
-      <VStack w="full" gap={0} alignItems="center">
-        <Box
-          w="full"
-          h="200px"
-          bgImage={cruise?.image}
-          bgPosition="center"
-          bgSize="cover"
-        >
-          {cruise?.title && (
-            <MainContainer
-              mt={{ base: 'section.mobile', md: 'section.desktop' }}
-            >
-              <WhiteTransparent
-                width={{ base: 'full', md: 'fit-content' }}
-                p="12px"
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={title} />
+
+        <meta
+          name="keywords"
+          content={
+            cruise?.title + ' ' + cruise?.shortRoute.replaceAll(' → ', ' ')
+          }
+        />
+
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Head>
+      <CruiseContext.Provider value={{ cruise, ship, cabins, freeCabins }}>
+        <VStack w="full" gap={0} alignItems="center">
+          <Box
+            w="full"
+            h="200px"
+            bgImage={cruise?.image}
+            bgPosition="center"
+            bgSize="cover"
+          >
+            {cruise?.title && (
+              <MainContainer
+                mt={{ base: 'section.mobile', md: 'section.desktop' }}
               >
-                <Text
-                  fontSize={{ base: '22px', lg: '28px' }}
-                  fontWeight="bold"
-                  whiteSpace="pre-wrap"
-                  color="white"
-                  px="30px"
+                <WhiteTransparent
+                  width={{ base: 'full', md: 'fit-content' }}
+                  p="12px"
                 >
-                  {cruise?.title}
-                </Text>
-              </WhiteTransparent>
-            </MainContainer>
-          )}
-        </Box>
+                  <Text
+                    fontSize={{ base: '22px', lg: '28px' }}
+                    fontWeight="bold"
+                    whiteSpace="pre-wrap"
+                    color="white"
+                    px="30px"
+                  >
+                    {cruise?.title}
+                  </Text>
+                </WhiteTransparent>
+              </MainContainer>
+            )}
+          </Box>
 
-        <CruiseShortAbout />
+          <CruiseShortAbout />
 
-        <CruiseBody />
-      </VStack>
-    </CruiseContext.Provider>
+          <CruiseBody />
+        </VStack>
+      </CruiseContext.Provider>
+    </>
   );
 };
 

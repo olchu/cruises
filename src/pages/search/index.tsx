@@ -9,6 +9,7 @@ import { getShips } from '@/shared/api/getShips';
 import { AsideSearchPanel } from '@/features/asideSearchPanel';
 import { itemsOnPage } from '@/shared/constants/constants';
 import { SearchResultContent } from '@/features/searchResultContent';
+import Head from 'next/head';
 
 export type SearchPageProps = {
   ships: ShipsType[];
@@ -65,46 +66,74 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
   }, []);
 
   return (
-    <MainContainer
-      as="section"
-      overflow="hidden"
-      px={{ base: 'section.mobile', lg: 'section.desktop' }}
-      py={{ base: 'section.mobile', lg: 'section.desktop' }}
-      maxW={'1400px'}
-      h="full"
-    >
-      <Heading
-        as="h1"
-        size="lg"
-        mb={{ base: '12px', lg: '18px' }}
-        color="primary"
-      >
-        Поиск Круизов
-      </Heading>
-      <Stack
-        justifyContent="flex-start"
-        w="full"
-        flex={1}
-        gap={{ base: 'section.mobile', lg: 'section.desktop' }}
-        direction={{ base: 'column', lg: 'row' }}
-        alignItems="stretch"
-      >
-        <AsideSearchPanel
-          ships={ships}
-          citiesStart={citiesStart}
-          citiesEnd={citiesEnd}
-          isLoading={isLoading}
-          handleSearch={handleSearch}
+    <>
+      <Head>
+        <title>Результат поиска круизов.</title>
+        <meta name="description" content="Результаты поиска круизов" />
+
+        <meta name="keywords" content="Результаты поиска круизов" />
+
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
         />
-        <SearchResultContent
-          handleGetMore={handleGetMore}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          cruises={cruises}
-          cruisesCount={cruisesCount}
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
         />
-      </Stack>
-    </MainContainer>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Head>
+
+      <MainContainer
+        as="section"
+        overflow="hidden"
+        px={{ base: 'section.mobile', lg: 'section.desktop' }}
+        py={{ base: 'section.mobile', lg: 'section.desktop' }}
+        maxW={'1400px'}
+        h="full"
+      >
+        <Heading
+          as="h1"
+          size="lg"
+          mb={{ base: '12px', lg: '18px' }}
+          color="primary"
+        >
+          Поиск Круизов
+        </Heading>
+        <Stack
+          justifyContent="flex-start"
+          w="full"
+          flex={1}
+          gap={{ base: 'section.mobile', lg: 'section.desktop' }}
+          direction={{ base: 'column', lg: 'row' }}
+          alignItems="stretch"
+        >
+          <AsideSearchPanel
+            ships={ships}
+            citiesStart={citiesStart}
+            citiesEnd={citiesEnd}
+            isLoading={isLoading}
+            handleSearch={handleSearch}
+          />
+          <SearchResultContent
+            handleGetMore={handleGetMore}
+            isLoading={isLoading}
+            isFetching={isFetching}
+            cruises={cruises}
+            cruisesCount={cruisesCount}
+          />
+        </Stack>
+      </MainContainer>
+    </>
   );
 };
 
