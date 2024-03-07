@@ -61,7 +61,7 @@ export const HeroBlock = ({
                 </WhiteTransparent>
               </VStack>
 
-              <WhiteTransparent display={{ base: 'none', md: 'inherit' }}>
+              {/* <WhiteTransparent display={{ base: 'none', md: 'inherit' }}>
                 <Text
                   fontSize={{ base: '26px', lg: '40px' }}
                   fontWeight="bold"
@@ -78,7 +78,7 @@ export const HeroBlock = ({
                 >
                   всего круизов
                 </Text>
-              </WhiteTransparent>
+              </WhiteTransparent> */}
             </HStack>
 
             <Spacer />

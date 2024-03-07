@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const {cruise,chooseCabins} = JSON.parse(req.body);
+  const { cruise, chooseCabins } = JSON.parse(req.body);
 
   const text = `Заявка с сайта по круизу: ${cruise?.dateStart} ${
     cruise?.cityStart
@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { data, error } = await resend.emails.send({
     from: 'Заявка с сайта <onboarding@resend.dev>',
-    to: ['ochurkin@gmail.com'], //vbp@vbp.ru
+    to: ['vbp@vbp.ru', 'ochurkin@gmail.com'],
     subject: `Заявка с сайта по круизу ${cruise?.id}`,
     text: text,
   });

@@ -47,7 +47,11 @@ export const getCruisesById = async (
     included: info.include,
     excluded: info.additional,
     restaurants: '',
-    image: Array.isArray(info.photos) ? info.photos[0].filename : '',
+    image: Array.isArray(info.photos)
+      ? info.photos[0].filename
+      : ship?.img
+      ? ship.img
+      : '',
     minPrice: minPrice,
     minDiscountPrice: minPriceDiscount,
     citiesInRoute: info.route.split(' – '),

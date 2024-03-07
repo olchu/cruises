@@ -106,15 +106,17 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
                 </Text>{' '}
                 руб./чел
               </Text>
-              <Text fontSize="12px" fontWeight="normal">
-                без скидки{' '}
-                <Text as="span" textDecoration="line-through">
-                  {(minPrice / 100)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-                  руб./чел
+              {minPrice && minPrice !== minDiscountPrice && (
+                <Text fontSize="12px" fontWeight="normal">
+                  без скидки{' '}
+                  <Text as="span" textDecoration="line-through">
+                    {(minPrice / 100)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+                    руб./чел
+                  </Text>
                 </Text>
-              </Text>
+              )}
             </Box>
             <Link
               bg="accent"

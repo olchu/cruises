@@ -6,8 +6,8 @@ export const GoToOldSite = () => {
     <Box bg="warning" >
       <MainContainer overflow="hidden" p="8px"  maxW={'1400px'}>
         <Text mx="auto" textAlign="center">
-          Это новая версия сайта vbp.ru. Прежняя версия сайта продолжает
-          работать здесь: <a href="https://old.vbp.ru/">old.vbp.ru</a>.
+          Это новая версия сайта. Прежняя версия сайта продолжает
+          работать здесь: <a href="https://vbp.ru/">old.vbp.ru</a>.
         </Text>
       </MainContainer>
     </Box>
