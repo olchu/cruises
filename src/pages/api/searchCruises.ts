@@ -8,6 +8,8 @@ export default async function handler(
 ) {
   try {
     const { query } = req;
+    const shipId = query?.ship as string;
+    const cruiseId = query?.id as string;
     const where = {
       dateStart: query?.dateStart
         ? {
@@ -21,7 +23,13 @@ export default async function handler(
         : undefined,
       cityStart: query?.cityFrom as string,
       cityEnd: query?.cityEnd as string,
-      shipId: parseInt(query?.ship as string) || undefined,
+      shipId: {
+        in: shipId?.split(',').map(Number),
+      },
+      days: parseInt(query?.days as string) || undefined,
+      id: {
+        in: cruiseId?.split(',').map(Number),
+      },
     };
 
     const cruiseSelect = await prisma.cruises.findMany({

@@ -13,6 +13,15 @@ export const getShips = async () => {
   });
 
   const ships: ShipsType[] = JSON.parse(JSON.stringify(shipsSelect));
+  const sortedShip = ships.sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      return -1;
+    }
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
 
-  return ships;
+  return sortedShip;
 };

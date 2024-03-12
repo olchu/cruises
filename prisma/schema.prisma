@@ -79,7 +79,7 @@ model pages {
   title   String? @db.VarChar(255)
   images  Json?
   slug    String  @unique(map: "compilation_slug_key") @db.VarChar(255)
-  query   Json?
+  query   String? @db.Text
   content String? @db.Text
   active  Int
   metaTag Json?

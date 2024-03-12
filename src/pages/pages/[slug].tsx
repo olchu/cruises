@@ -1,10 +1,13 @@
-import { PagesPrismaType } from '@/shared/types/prismaResponse';
-import { ReactElement, useMemo } from 'react';
+import { CruiseType, PagesPrismaType } from '@/shared/types/prismaResponse';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import prisma from 'prisma/client';
 import Head from 'next/head';
+import { getShips } from '@/shared/api/getShips';
+import { itemsOnPage } from '@/shared/constants/constants';
+import { SearchResultContent } from '@/features/searchResultContent';
 
 export type CompilationPageProps = {
   compilation: PagesPrismaType;
@@ -19,7 +22,42 @@ type TagType = {
 };
 
 const CompilationPage = ({ compilation }: CompilationPageProps) => {
+  const [cruises, setCruises] = useState<CruiseType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+  const [skip, setSkip] = useState(0);
+  const [cruisesCount, setCruisesCount] = useState(0);
   const metaTags = compilation.metaTag as TagType[];
+
+  const getCruises = useCallback(async () => {
+    if (!compilation.query) {
+      setIsLoading(false);
+      return;
+    }
+    setIsFetching(true);
+
+    const response = await fetch(
+      `/api/searchCruises?limit=${itemsOnPage}&skip=${skip}` + compilation.query
+    );
+    const { cruises: cruisesRes, totalCount } = await response.json();
+
+    setCruisesCount(totalCount);
+
+    setCruises([...cruises, ...cruisesRes]);
+    setSkip((prev) => prev + itemsOnPage);
+
+    setIsLoading(false);
+    setIsFetching(false);
+  }, [compilation.query, cruises, skip]);
+
+  const handleGetMore = () => {
+    getCruises();
+  };
+
+  useEffect(() => {
+    getCruises();
+  }, []);
+
   return (
     <>
       <Head>
@@ -40,6 +78,16 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
         h="full"
       >
         {compilation?.title}
+
+        {compilation.query && (
+          <SearchResultContent
+            handleGetMore={handleGetMore}
+            isLoading={isLoading}
+            isFetching={isFetching}
+            cruises={cruises}
+            cruisesCount={cruisesCount}
+          />
+        )}
       </MainContainer>
     </>
   );
