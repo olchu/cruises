@@ -2,31 +2,37 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
 
+type Query = Record<string, any[] | string>;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { query } = req;
-    const shipId = query?.ship as string;
-    const cruiseId = query?.id as string;
+    const { query, body } = req;
+    const queries = JSON.parse(body);
+
+    const options = queries.map((query: Query) => {
+      const objQuery: Record<
+        string,
+        {
+          in?: any[];
+          contains?: string;
+        }
+      > = {};
+      for (const key in query) {
+        const optionKey = ['cityStart', 'cityEnd'].includes(key)
+          ? 'contains'
+          : 'in';
+        objQuery[key] = {
+          [optionKey]: query[key],
+        };
+      }
+      return objQuery;
+    });
+
     const where = {
-      dateStart: query?.dateStart
-        ? {
-            gte: new Date(query.dateStart as string),
-          }
-        : undefined,
-      dateEnd: query?.dateEnd
-        ? {
-            lte: new Date(query.dateEnd as string),
-          }
-        : undefined,
-      cityStart: { contains: query?.cityFrom as string },
-      cityEnd: { contains: query?.cityEnd as string },
-      shipId: {
-        in: shipId?.split(',').map(Number) || [],
-      },
-      days: parseInt(query?.days as string) || undefined,
+      OR: options,
     };
 
     const cruiseSelect = await prisma.cruises.findMany({

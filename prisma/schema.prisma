@@ -52,6 +52,9 @@ model cruises {
   included         String?  @db.Text
   excluded         String?  @db.Text
   image            String   @db.VarChar(255)
+  class            String?  @db.VarChar(255)
+  type             String?  @db.VarChar(255)
+  provider         String?  @db.VarChar(255)
 }
 
 model blog {
@@ -77,10 +80,16 @@ model news {
 model pages {
   id      Int     @id @default(autoincrement())
   title   String? @db.VarChar(255)
-  images  Json?
+  images  String? @db.VarChar(255)
   slug    String  @unique(map: "compilation_slug_key") @db.VarChar(255)
-  query   String? @db.Text
+  query   Json?
   content String? @db.Text
   active  Int
   metaTag Json?
+}
+
+model admins {
+  id    Int     @id @default(autoincrement())
+  email String  @db.VarChar(255)
+  role  String? @db.VarChar(255)
 }

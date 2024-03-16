@@ -120,14 +120,7 @@ const Posts = ({ posts }: IPostProps) => {
 };
 
 export const getServerSideProps = (async ({ req }) => {
-  const blogSelect = await prisma.blog.findMany({
-    orderBy: {
-      date: 'desc',
-    },
-    where: {
-      publish: 'true',
-    },
-  });
+  const blogSelect = await prisma.blog.findMany();
 
   const posts: PostsType[] = JSON.parse(JSON.stringify(blogSelect));
 

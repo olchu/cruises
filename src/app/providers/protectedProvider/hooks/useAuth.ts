@@ -11,6 +11,7 @@ export const useAuth = () => {
       // Session is still loading, do nothing
       return;
     }
+    console.log(session)
 
     if (!session) {
       // User is not authenticated, redirect to the login page

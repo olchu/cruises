@@ -1,4 +1,10 @@
-import NextAuth, { NextAuthOptions, Session } from 'next-auth';
+import NextAuth, {
+  Account,
+  NextAuthOptions,
+  Profile,
+  Session,
+  User,
+} from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import YandexProvider from 'next-auth/providers/yandex';
 import prisma from 'prisma/client';
@@ -15,20 +21,34 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  // callbacks: {
-  //   async session({ session }: { session: Session & { isAdmin: boolean } }) {
-  //     const users = await prisma.users.findMany();
-  //     const adminUsers = users
-  //       .filter((user) => user.permitions === 'rw')
-  //       .map((user) => user.email);
-  //     if (adminUsers.includes(session.user?.email || '')) {
-  //       session.isAdmin = true;
-  //       return session;
-  //     } else {
-  //       return session;
-  //     }
-  //   },
-  // },
+  callbacks: {
+    async signIn(params: {
+      user: User;
+      account: Account;
+      profile: Profile;
+      email?: string;
+    }) {
+      const { user, account, profile, email } = params;
+      console.log('!!!!!!!!!!!!!', user);
+      console.log('!!!!!!!!!!!!!', account);
+      console.log('!!!!!!!!!!!!!', profile);
+      console.log('!!!!!!!!!!!!!', email);
+      const userDB = await prisma.admins.findFirst({
+        where: {
+          email: user?.email || '',
+        },
+      });
+      const isAllowedToSignIn = userDB ? true : false;
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        // Return false to display a default error message
+        return '/404';
+        // Or you can return a URL to redirect to:
+        // return '/unauthorized'
+      }
+    },
+  },
 };
- 
-export default NextAuth(authOptions as unknown as  NextAuthOptions);
+
+export default NextAuth(authOptions as unknown as NextAuthOptions);

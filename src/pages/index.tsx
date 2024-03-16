@@ -18,6 +18,8 @@ import { BlogPreview } from '@/features/blogPreview/ui/BlogPreview';
 import { NewsPreview } from '@/features/newsPreview';
 import { getShips } from '@/shared/api/getShips';
 import { getCities } from '@/shared/api/getCities';
+import { getSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -26,9 +28,18 @@ interface HomeProps {
   ships: ShipsType[];
   citiesStart: CruiseType[];
   citiesEnd: CruiseType[];
+  session: Session | null;
 }
 
-const Home = ({ cruises, posts, ships, citiesStart, citiesEnd }: HomeProps) => {
+const Home = ({
+  cruises,
+  posts,
+  ships,
+  citiesStart,
+  citiesEnd,
+  session,
+}: HomeProps) => {
+  console.log('session', session);
   return (
     <>
       <Head>
@@ -69,12 +80,17 @@ const Home = ({ cruises, posts, ships, citiesStart, citiesEnd }: HomeProps) => {
         citiesEnd={citiesEnd}
         citiesStart={citiesStart}
       />
-
-      <NewsPreview posts={posts} />
-
       <StockWidget />
 
+      {/* TODO о речных круизах */}
+
+
+      {/* Рекомендации */}
       <CruisesCarousel cruises={cruises} />
+
+      {/* Популярные напрвления */}
+      
+      <NewsPreview posts={posts} />
 
       <BlueBlock />
 
@@ -85,7 +101,9 @@ const Home = ({ cruises, posts, ships, citiesStart, citiesEnd }: HomeProps) => {
   );
 };
 
-export const getServerSideProps = (async ({ req }) => {
+export const getServerSideProps = (async (context) => {
+  const { req } = context;
+  const session = await getSession(context);
   const cruisesSelect = await prisma.cruises.findMany({
     where: {
       dateStart: {
@@ -134,6 +152,7 @@ export const getServerSideProps = (async ({ req }) => {
       ships: sortedShips,
       citiesStart,
       citiesEnd,
+      session,
     },
   };
 }) satisfies GetServerSideProps<HomeProps>;

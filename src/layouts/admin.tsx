@@ -15,6 +15,10 @@ const adminUrl = '/admin';
 
 const adminsMenu = [
   {
+    title: 'Страницы',
+    href: adminUrl + '/pages',
+  },
+  {
     title: 'Посты',
     href: adminUrl + '/posts',
   },
