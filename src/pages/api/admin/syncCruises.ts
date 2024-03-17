@@ -51,6 +51,9 @@ export default async function handler(
             included: cruise.included,
             excluded: cruise.excluded,
             image: cruise.image,
+            type: cruise.type,
+            class: cruise.class,
+            provider: cruise.provider,
           },
         });
         response.push({ id: cruise.extId, status: 'ok' });
@@ -80,6 +83,9 @@ export default async function handler(
             included: cruise.included,
             excluded: cruise.excluded,
             image: cruise.image,
+            type: cruise.type,
+            class: cruise.class,
+            provider: cruise.provider,
           },
         });
         console.log('????? res ?????');

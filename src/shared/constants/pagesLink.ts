@@ -9,4 +9,8 @@ export const pagesLink = {
   sale: '/sale',
   info: '/info',
   about: '/about',
+  russiaRiver: '/pages/russian-river',
+  sea: '/pages/sea',
+  expedition: '/pages/expedition',
+  cruise2024: '/pages/cruise2024',
 };

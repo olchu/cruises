@@ -21,7 +21,13 @@ export default async function handler(
         }
       > = {};
       for (const key in query) {
-        const optionKey = ['cityStart', 'cityEnd'].includes(key)
+        const optionKey = [
+          'cityStart',
+          'cityEnd',
+          'type',
+          'class',
+          'provider',
+        ].includes(key)
           ? 'contains'
           : 'in';
         objQuery[key] = {
@@ -30,7 +36,6 @@ export default async function handler(
       }
       return objQuery;
     });
-
 
     const where = {
       OR: options,

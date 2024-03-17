@@ -4,23 +4,23 @@ import { pagesLink } from './pagesLink';
 export const menuList: LinkItemType[] = [
   {
     title: 'Круизы',
-    link: pagesLink.home,
+    link: pagesLink.russiaRiver,
     sub: [
       {
         title: 'Речные круизы',
-        link: pagesLink.home,
+        link: pagesLink.russiaRiver,
       },
       {
         title: 'Морские круизы',
-        link: pagesLink.home,
+        link: pagesLink.sea,
       },
       {
         title: 'Экспедиции',
-        link: pagesLink.home,
+        link: pagesLink.expedition,
       },
       {
         title: 'Круизы 2024',
-        link: pagesLink.home,
+        link: pagesLink.cruise2024,
       },
     ],
   },
