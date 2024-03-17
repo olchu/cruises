@@ -11,26 +11,90 @@ import { MobileMenu } from './MobileMenu';
 import { AiFillPhone } from 'react-icons/ai';
 import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { Logo } from '@/shared/ui/logo';
+import { LinkItemType } from '@/shared/types/menuListType';
 
+const LinkItem = ({
+  link,
+  isActive,
+}: {
+  link: LinkItemType;
+  isActive?: boolean;
+}) => {
+  const [isShowSub, setIsShowSub] = useState(false);
+
+  return (
+    <Box
+      h="full"
+      onMouseEnter={() => setIsShowSub(true)}
+      onMouseLeave={() => setIsShowSub(false)}
+    >
+      {link?.sub ? (
+        <Box
+          as={'div'}
+          h="full"
+          display="flex"
+          alignItems="center"
+          fontSize="18px"
+          color="primary"
+          cursor="pointer"
+          _hover={{
+            color: 'blue',
+          }}
+        >
+          {link.title}
+        </Box>
+      ) : (
+        <Link
+          as={NextLink}
+          h="full"
+          display="flex"
+          alignItems="center"
+          href={link.link}
+          fontSize="18px"
+          color="primary"
+          _hover={{
+            textDecoration: 'none',
+            color: 'blue',
+          }}
+        >
+          {link.title}
+        </Link>
+      )}
+
+      {link?.sub && isShowSub && (
+        <Box
+          position="absolute"
+          width="full"
+          bg="white"
+          left="0"
+          bottom="-45px"
+          zIndex="2"
+          h="45px"
+        >
+          <MainContainer
+            h="full"
+            pl="123px"
+            gap="12px"
+            display="flex"
+            flexDirection="row"
+          >
+            {link?.sub?.map((subLink) => {
+              return <LinkItem key={subLink.title} link={subLink} />;
+            })}
+          </MainContainer>
+        </Box>
+      )}
+    </Box>
+  );
+};
 export const MenuList = () => {
   const router = useRouter();
   return (
     <>
-      {menuList.map((menu) => {
-        const isActive = router.pathname === menu.link;
+      {menuList.map((link) => {
+        const isActive = router.pathname === link.link;
 
-        return (
-          <Link
-            as={NextLink}
-            key={menu.title}
-            href={menu.link}
-
-            // borderBottom={isActive ? '3px solid' : 'none'}
-            // borderColor="primary"
-          >
-            {menu.title}
-          </Link>
-        );
+        return <LinkItem key={link.title} link={link} isActive={isActive} />;
       })}
     </>
   );
@@ -69,7 +133,7 @@ export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
   }, [isMatchMedia]);
 
   return (
-    <Box as="header" bg="lightBlue">
+    <Box as="header" bg="lightBlue" position="relative">
       <MainContainer>
         {!isMobile ? (
           <HStack height="65px" gap="10px" px="3" alignContent="center">
