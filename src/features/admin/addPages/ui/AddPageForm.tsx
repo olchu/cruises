@@ -83,7 +83,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
       title: page?.title || '',
       slug: page?.slug || '',
       active: page?.active === 1,
-      query: page?.query || '',
+      query: JSON.stringify(page?.query) || '',
     },
     onSubmit: async (values) => {
       console.log('body', { ...values, content });
