@@ -88,3 +88,16 @@ body {
   background-color: transparent !important;
   font-size: 18px !important;
 }
+
+.Heroswiper {
+  .swiper-pagination {
+    left: unset !important;
+    right: 20 !important;
+  }
+  .swiper-pagination-bullet {
+    border-radius: unset;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #165d9f;
+  }
+}

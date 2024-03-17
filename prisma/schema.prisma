@@ -93,3 +93,19 @@ model admins {
   email String  @db.VarChar(255)
   role  String? @db.VarChar(255)
 }
+
+model hero {
+  id          Int    @id @default(autoincrement())
+  active      Int
+  title       String @db.Text
+  description String @db.Text
+  img         String @db.VarChar(255)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model recommendations {
+  id    Int?
+  query Json?
+
+  @@ignore
+}

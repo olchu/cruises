@@ -15,9 +15,10 @@ interface CruisesCarouselProps {
 }
 
 export const CruisesCarousel: FC<CruisesCarouselProps> = ({ cruises }) => {
+
   return (
     <Box as="section" py={{ base: '30px', lg: '60px' }} bg="lightBlue" w="100%">
-      <Heading mb={{ base: '30px', lg: '60px' }}>Ближайшие круизы</Heading>
+      <Heading mb={{ base: '30px', lg: '60px' }}>Рекомендации</Heading>
 
       <Swiper
         mousewheel={true}

@@ -4,6 +4,7 @@ export type CruiseType = Prisma.cruises;
 export type ShipsType = Prisma.ships;
 export type PostsType = Prisma.blog; //TODO переименовать типы
 export type PagesPrismaType = Prisma.pages;
+export type HeroPrismaType = Prisma.hero;
 
 export type TagPrismaType = {
   key: {

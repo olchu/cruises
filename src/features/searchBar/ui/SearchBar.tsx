@@ -1,7 +1,7 @@
 'use client';
 
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { HStack, Button, Text, Flex, BoxProps, Select } from '@chakra-ui/react';
+import { HStack, Button, Text, Flex, BoxProps, Select, Box } from '@chakra-ui/react';
 import { SearchBarInput } from './SearchBarInput';
 import { BiCalendar } from 'react-icons/bi';
 import { BiSolidShip } from 'react-icons/bi';
@@ -42,7 +42,7 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
       {...otherProps}
     >
       <Flex
-        gap={{ base: '20px' }}
+        gap={{ base: '10px' }}
         flexDirection={{ base: 'column', lg: 'row' }}
         alignItems={{ base: 'none', lg: 'flex-end' }}
         w="100%"
@@ -104,7 +104,7 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
           Поиск
         </Button>
       </Flex>
-      <Text color="accent" mt="12px" fontWeight="bold">
+      <Text color="accent" mt="12px" fontWeight="bold" mx={{base:"auto", lg:'inherit'}}>
         расширенный поиск
       </Text>
     </WhiteTransparent>

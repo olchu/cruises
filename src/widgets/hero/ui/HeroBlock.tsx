@@ -1,109 +1,126 @@
-import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { SearchBar } from '@/features/searchBar';
+'use client';
+
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Box, HStack, Spacer, Text, VStack } from '@chakra-ui/react';
-import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
+import { Box, Heading, VStack } from '@chakra-ui/react';
+import {
+  CruiseType,
+  HeroPrismaType,
+  ShipsType,
+} from '@/shared/types/prismaResponse';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
-export const HeroBlock = ({
-  ships,
-  citiesStart,
-  citiesEnd,
-}: {
-  ships: ShipsType[];
-  citiesStart: CruiseType[];
-  citiesEnd: CruiseType[];
-}) => {
+export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
+  const [swiper, setSwiper] = useState<any>(null);
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.on('slideChange', () => {
+        setActiveSlideIndex(swiper.realIndex);
+      });
+    }
+  }, [swiper]);
+
+  const handlePaginationClick = (index: number) => {
+    if (swiper && swiper.slideTo) {
+      swiper.slideTo(index);
+    }
+  };
   return (
-    <>
-      <Box
-        as="section"
-        h={{ lg: '534px' }}
-        w="full"
-        py={{ base: '20px', lg: '60px' }}
-        px={{ base: '20px', md: '0' }}
-        position="relative"
-        background={`linear-gradient(180deg, rgba(1, 42, 81, 0.70) 27.6%, rgba(255, 255, 255, 0.00) 100%), url("/img/hero_bg.png"), lightgray 50% / cover no-repeat;`}
-        bgSize="cover"
+    <Box
+      h={{ base: '200px', md: '400px', lg: '700px' }}
+      w="full"
+      overflow="hidden"
+      position="relative"
+    >
+      <Swiper
+        mousewheel={false}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="Heroswiper"
+        onSwiper={setSwiper}
+        simulateTouch={false}
+        loop={true}
+        autoplay={{
+          delay: 8000,
+          disableOnInteraction: false,
+        }}
       >
-        <MainContainer h="100%">
-          <VStack h="100%">
-            <HStack
-              justifyContent={{ base: 'center', md: 'space-between' }}
-              alignItems="flex-start"
-              width="100%"
-            >
-              <VStack
-                gap="30px"
-                justifyContent={'end'}
-                alignItems={{ base: 'center', md: 'flex-end' }}
-                textAlign={{ base: 'center', md: 'inherit' }}
-              >
-                <WhiteTransparent>
-                  <Text
-                    fontSize={{ base: '26px', lg: '40px' }}
-                    fontWeight="bold"
-                    whiteSpace="pre-wrap"
-                    color="white"
-                    px="30px"
-                  >
-                    {'ВОЛГО-БАЛТИЙСКИЕ\nПУТЕШЕСТВИЯ'}
-                  </Text>
-                </WhiteTransparent>
-                <WhiteTransparent>
-                  <Text
-                    fontSize={{ base: '16px', lg: '26px' }}
-                    whiteSpace="pre-wrap"
-                    color="white"
-                    px="30px"
-                  >
-                    С 2000 года на круизном рынке
-                  </Text>
-                </WhiteTransparent>
-              </VStack>
-
-              {/* <WhiteTransparent display={{ base: 'none', md: 'inherit' }}>
-                <Text
-                  fontSize={{ base: '26px', lg: '40px' }}
-                  fontWeight="bold"
-                  whiteSpace="pre-wrap"
-                  color="white"
-                  px="30px"
+        {heroList.map(({ id, title, img }) => {
+          return (
+            <SwiperSlide key={id}>
+              <Box position="relative">
+                <Box
+                  position="relative"
+                  _after={{
+                    content: "''",
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    display: 'block',
+                    background: `linear-gradient(90deg, rgb(0 47 91 / 72%) 27.6%, rgba(255, 255, 255, 0.00) 100%);`,
+                  }}
+                  h={{ base: '200px', md: '400px', lg: '700px' }}
                 >
-                  2263
-                </Text>
-                <Text
-                  fontSize={{ base: '14px', lg: '26px' }}
-                  fontWeight="bold"
-                  color="white"
-                >
-                  всего круизов
-                </Text>
-              </WhiteTransparent> */}
-            </HStack>
-
-            <Spacer />
-            <SearchBar
-              display={{ base: 'none', lg: 'flex' }}
-              ships={ships}
-              citiesEnd={citiesEnd}
-              citiesStart={citiesStart}
+                  <Image
+                    src={img}
+                    alt={''}
+                    fill={true}
+                    style={{ objectFit: 'cover' }}
+                  />
+                </Box>
+                <Box w="full" position="absolute" top="0" left="0" h="full">
+                  <MainContainer
+                    my={'auto'}
+                    maxW={'1400px'}
+                    px={{ base: 'section.mobile', lg: 'section.desktop' }}
+                    py={{ base: '30px', md: '70px', lg: '100px' }}
+                    whiteSpace="pre-wrap"
+                  >
+                    <Heading
+                      as="h1"
+                      fontSize={{ base: '30px', md: '50px', lg: '70px' }}
+                      color="white"
+                      fontWeight="900"
+                      w={{ base: '100%', md: '60%', lg: '60%' }}
+                    >
+                      <a href="">{title}</a>
+                    </Heading>
+                  </MainContainer>
+                </Box>
+              </Box>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+      <VStack
+        className="custom-pagination"
+        position="absolute"
+        top="50%"
+        right="20px"
+        transform="translateY(-50%)"
+        zIndex={1}
+      >
+        {heroList.length > 1 &&
+          heroList.map((_, index) => (
+            <Box
+              as="span"
+              key={index}
+              p="6px"
+              bg={activeSlideIndex === index ? 'primary' : 'white'}
+              border={activeSlideIndex === index ? '"1px solid"' : 'none'}
+              borderColor={activeSlideIndex === index ? 'white' : 'inherit'}
+              onClick={() => handlePaginationClick(index)}
+              opacity="0.7"
+              cursor="pointer"
             />
-          </VStack>
-        </MainContainer>
-      </Box>
-
-      <Box
-        as="section"
-        w="full"
-        bg="secondary"
-        display={{ base: 'flex', lg: 'none' }}
-      >
-        <SearchBar
-          ships={ships}
-          citiesEnd={citiesEnd}
-          citiesStart={citiesStart}
-        />
-      </Box>
-    </>
+          ))}
+      </VStack>
+    </Box>
   );
 };

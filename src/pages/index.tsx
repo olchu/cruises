@@ -1,5 +1,6 @@
 import {
   CruiseType,
+  HeroPrismaType,
   PostsType,
   ShipsType,
 } from '@/shared/types/prismaResponse';
@@ -13,13 +14,18 @@ import UAParser from 'ua-parser-js';
 import { StockWidget } from '@/widgets/stock';
 import { BlueBlock } from '@/entities/blueBlock';
 import { ProviderLogos } from '@/entities/providerLogos';
-import { CruisesCarousel } from '@/widgets/cruisesCarousel';
+import { CruisesCarousel } from '@/entities/cruisesCarousel';
 import { BlogPreview } from '@/features/blogPreview/ui/BlogPreview';
 import { NewsPreview } from '@/features/newsPreview';
 import { getShips } from '@/shared/api/getShips';
 import { getCities } from '@/shared/api/getCities';
 import { getSession } from 'next-auth/react';
 import { Session } from 'next-auth';
+import { Recommendations } from '@/widgets/recommendations';
+import { Box } from '@chakra-ui/react';
+import { SearchBar } from '@/features/searchBar';
+import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
+import { Heading } from '@/shared/ui/heading';
 
 interface HomeProps {
   cruises: CruiseType[];
@@ -29,6 +35,7 @@ interface HomeProps {
   citiesStart: CruiseType[];
   citiesEnd: CruiseType[];
   session: Session | null;
+  heroList: HeroPrismaType[];
 }
 
 const Home = ({
@@ -38,8 +45,8 @@ const Home = ({
   citiesStart,
   citiesEnd,
   session,
+  heroList,
 }: HomeProps) => {
-  console.log('session', session);
   return (
     <>
       <Head>
@@ -75,21 +82,46 @@ const Home = ({
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
-      <HeroBlock
-        ships={ships}
-        citiesEnd={citiesEnd}
-        citiesStart={citiesStart}
-      />
+      <Box as="section" w="full" position="relative">
+        <HeroBlock heroList={heroList} />
+        <MainContainer
+          display={{ base: 'none', lg: 'flex' }}
+          position="absolute"
+          zIndex="2"
+          bottom="60px"
+          left="50%"
+          transform="translateX(-50%)"
+        >
+          <SearchBar
+            ships={ships}
+            citiesEnd={citiesEnd}
+            citiesStart={citiesStart}
+          />
+        </MainContainer>
+      </Box>
+
       <StockWidget />
+
+      <MainContainer
+        display={{ base: 'flex', lg: 'none' }}
+        flexDirection="column"
+      >
+        <Heading mb={{ base: '20px' }}>Поиск</Heading>
+        <SearchBar
+          ships={ships}
+          citiesEnd={citiesEnd}
+          citiesStart={citiesStart}
+        />
+      </MainContainer>
 
       {/* TODO о речных круизах */}
 
-
       {/* Рекомендации */}
+      {/* <Recommendations /> */}
       <CruisesCarousel cruises={cruises} />
 
       {/* Популярные напрвления */}
-      
+
       <NewsPreview posts={posts} />
 
       <BlueBlock />
@@ -113,6 +145,13 @@ export const getServerSideProps = (async (context) => {
     take: 20,
   });
 
+  const heroSelect = await prisma.hero.findMany({
+    where: {
+      active: 1,
+    },
+  });
+  const heroList: HeroPrismaType[] = JSON.parse(JSON.stringify(heroSelect));
+
   const blogSelect = await prisma.blog.findMany({
     orderBy: {
       date: 'desc',
@@ -126,15 +165,6 @@ export const getServerSideProps = (async (context) => {
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
   const posts: PostsType[] = JSON.parse(JSON.stringify(blogSelect));
   const ships = await getShips();
-  const sortedShips = ships.sort((a, b) => {
-    if (a.name.toLowerCase() < b.name.toLowerCase()) {
-      return -1;
-    }
-    if (a.name.toLowerCase() > b.name.toLowerCase()) {
-      return 1;
-    }
-    return 0;
-  });
   const citiesStart = await getCities('cityStart');
   const citiesEnd = await getCities('cityEnd');
 
@@ -149,10 +179,11 @@ export const getServerSideProps = (async (context) => {
       cruises: cruises,
       isMobileDevice,
       posts,
-      ships: sortedShips,
+      ships,
       citiesStart,
       citiesEnd,
       session,
+      heroList,
     },
   };
 }) satisfies GetServerSideProps<HomeProps>;

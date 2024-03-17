@@ -27,7 +27,7 @@ export const BlueBlock = () => {
       <Box
         w="full"
         h={{ base: '230px', lg: 'full' }}
-        bgImage="/img/blueBlock.jpeg"
+        bgImage="/img/hero_bg.png"
         bgPosition="center"
         bgSize="cover"
       />
