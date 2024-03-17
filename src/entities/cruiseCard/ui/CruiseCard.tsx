@@ -6,11 +6,12 @@ import {
   Text,
   VStack,
   Link,
+Image,
   Spacer,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import moment from 'moment';
-import Image from 'next/image';
+//import Image from 'next/image';
 import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
 
@@ -47,7 +48,7 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
       bg="white"
     >
       <Box w="full" h="190px" position="relative">
-        <Image fill src={image} alt={title} style={{ objectFit: 'cover' }}/>
+        <Image boxSize="100%" objectFit="cover" src={image} alt={title} style={{ objectFit: 'cover' }}/>
       </Box>
 
       <VStack w="full" gap="10px" alignItems="flex-start" p="12px">
