@@ -10,7 +10,7 @@ export default async function handler(
 ) {
   try {
     const { query, body } = req;
-    const queries = JSON.parse(body);
+    const queries = body;
 
     const options = queries.map((query: Query) => {
       const objQuery: Record<
@@ -30,6 +30,7 @@ export default async function handler(
       }
       return objQuery;
     });
+
 
     const where = {
       OR: options,

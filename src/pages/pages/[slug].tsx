@@ -56,7 +56,7 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
 
     setCruisesCount(totalCount);
 
-    setCruises([...cruises, ...cruisesRes]);
+    setCruises([...cruises, ...cruisesRes || []]);
     setSkip((prev) => prev + itemsOnPage);
 
     setIsLoading(false);
