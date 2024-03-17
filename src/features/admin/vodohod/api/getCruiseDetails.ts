@@ -19,7 +19,7 @@ export const getCruiseDetails = async (id: number, token: any) => {
     const days = moment(result.duration * 1000).format('D');
     const routesCity = result.route.map((i) => i.name);
 
-    const route = await getCruiseRoute(responce, token) ||{};
+    const route = (await getCruiseRoute(responce, token)) || {};
 
     return {
       extId: result.id,
@@ -44,6 +44,9 @@ export const getCruiseDetails = async (id: number, token: any) => {
       included: result.included,
       excluded: result.excluded,
       image: result.image,
+      class: '',
+      type: '',
+      provider: '',
     };
   } catch (error) {}
 };

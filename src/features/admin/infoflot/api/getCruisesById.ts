@@ -30,7 +30,7 @@ export const getCruisesById = async (
     console.log('info.photos[0].filename', info);
   }
 
-  const prepareCruises: DBCruiseData = {
+  return {
     extId: extId,
     title: info.beautifulName || '',
     dateStart: new Date(info.dateStartTimestamp * 1000),
@@ -57,9 +57,10 @@ export const getCruisesById = async (
     citiesInRoute: info.route.split(' – '),
     route: route,
     prices,
+    class: ship.class || '',
+    type: ship.type || '',
+    provider: ship.provider || '',
   };
-
-  return prepareCruises;
 };
 
 interface InfoflotCruiseResponse {

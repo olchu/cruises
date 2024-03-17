@@ -1,4 +1,3 @@
-import { ShipsDataType } from '@/pages/admin/vodohod';
 import {
   Box,
   Button,
@@ -21,6 +20,7 @@ import { useToast } from '@chakra-ui/react';
 import { deleteUnusedCruise } from '../../api/deleteUnusedCruise';
 import { DBCruiseData } from '@/shared/types/dbCruisesType';
 import { Providers } from '@/shared/constants/providers';
+import { ShipsType } from '@/shared/types/prismaResponse';
 
 type DataTypeItem = {
   isLoading: boolean;
@@ -31,7 +31,7 @@ type DataTypeItem = {
 
 type DataType = Record<number, DataTypeItem>;
 
-export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
+export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   const [data, setData] = useState<DataType>({});
   const { getToken, token } = useGetToken();
   const toast = useToast();
@@ -47,10 +47,10 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
     });
   };
 
-  const handleGetCruise = async (extId: number, id: number) => {
+  const handleGetCruise = async (extId: number, id: number, index: number) => {
     setIsLoadingTrue(extId);
     if (token) {
-      const data = await getCruiseList(extId, id, token);
+      const data = await getCruiseList(extId, id, token, ships[index]);
       setData((prevSate) => {
         return {
           ...prevSate,
@@ -69,7 +69,7 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
   const handleGetCruiseList = async () => {
     for (let ship of ships) {
       if (!data[ship.extId]?.isLoaded) {
-        await setTimeout(() => handleGetCruise(ship.extId, ship.id), 5000);
+        // await setTimeout(() => handleGetCruise(ship.extId, ship.id), 5000);
       }
     }
   };
@@ -165,7 +165,7 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
               </Tr>
             </Thead>
             <Tbody>
-              {ships.map((ship) => {
+              {ships.map((ship, index) => {
                 return (
                   <Tr key={ship.id}>
                     <Td>{ship.id}</Td>
@@ -186,7 +186,9 @@ export const Cruises = ({ ships }: { ships: ShipsDataType[] }) => {
                           <Button
                             colorScheme="yellow"
                             size="xs"
-                            onClick={() => handleGetCruise(ship.extId, ship.id)}
+                            onClick={() =>
+                              handleGetCruise(ship.extId, ship.id, index)
+                            }
                             isLoading={data[ship.extId]?.isLoading}
                           >
                             загрузить

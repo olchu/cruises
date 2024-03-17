@@ -28,19 +28,3 @@ export default async function handler(
     return res.status(500).json(error);
   }
 }
-
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   try {
-//     const result = await prisma.cruises.createMany({
-//       data: req.body.cruises,
-//       skipDuplicates: true,
-//     });
-
-//     return res.status(200).json(result);
-//   } catch (error) {
-//     return res.status(500).json(error);
-//   }
-// }

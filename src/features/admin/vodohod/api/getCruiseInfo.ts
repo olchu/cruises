@@ -1,6 +1,9 @@
 import { getCruiseDetails } from '@/features/admin/vodohod/api/getCruiseDetails';
 import { getTarif } from '@/features/admin/vodohod/api/getTarif';
+import { ShipsContext } from '@/pages/admin/vodohod';
 import { DBCruiseData } from '@/shared/types/dbCruisesType';
+import { ShipsType } from '@/shared/types/prismaResponse';
+import { useContext } from 'react';
 
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -9,7 +12,8 @@ function timeout(ms: number) {
 export const getCruiseInfo = async (
   cruises: CruisesDataRes[],
   shipId: number,
-  token: string
+  token: string,
+  ship: ShipsType
 ) => {
   let dbCruises: DBCruiseData[] = [];
   for (let cruise of cruises) {
@@ -21,6 +25,11 @@ export const getCruiseInfo = async (
       cruiseDetails.minDiscountPrice = tarifs?.minimum.minPriceDiscont || 0;
       cruiseDetails.prices = tarifs?.tarifs || {};
       cruiseDetails.shipId = shipId;
+      cruiseDetails.shipId = shipId;
+      cruiseDetails.class = ship?.class || '';
+      cruiseDetails.type = ship?.type || '';
+      cruiseDetails.provider = ship?.provider || '';
+
       dbCruises.push(cruiseDetails);
     }
   }

@@ -1,6 +1,5 @@
 import AdminLayout from '@/layouts/admin';
 import { Cruises, Ships } from '@/features/admin/vodohod/ui';
-import { DBShipsData } from '@/features/admin/vodohod/ui/ships/utils/prepareShips';
 import { Providers } from '@/shared/constants/providers';
 import {
   Heading,
@@ -12,21 +11,20 @@ import {
 } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 import prisma from 'prisma/client';
-import { ReactElement } from 'react';
+import { createContext, ReactElement } from 'react';
+import { ShipsType } from '@/shared/types/prismaResponse';
 
-export interface ShipsDataType extends DBShipsData {
-  id: number;
-}
+export const ShipsContext = createContext<ShipsType[]>([]);
 
 const Vodohod = ({
   data,
 }: {
   data: {
-    ships: ShipsDataType[];
+    ships: ShipsType[];
   };
 }) => {
   return (
-    <>
+    <ShipsContext.Provider value={data.ships}>
       <Heading mb={8}>ВОДОХОД api</Heading>
       <Tabs variant="soft-rounded">
         <TabList>
@@ -45,7 +43,7 @@ const Vodohod = ({
           <TabPanel>типы кают</TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </ShipsContext.Provider>
   );
 };
 
@@ -56,7 +54,9 @@ Vodohod.getLayout = function getLayout(page: ReactElement) {
 export default Vodohod;
 
 export const getStaticProps: GetStaticProps<{
-  data: any;
+  data: {
+    ships: ShipsType[];
+  };
 }> = async () => {
   const shipsSelect = await prisma.ships.findMany({
     where: {
@@ -67,6 +67,6 @@ export const getStaticProps: GetStaticProps<{
   const ships = JSON.parse(JSON.stringify(shipsSelect));
 
   return {
-    props: { data: { ships: ships || [] } },
+    props: { data: { ships: shipsSelect || [] } },
   };
 };

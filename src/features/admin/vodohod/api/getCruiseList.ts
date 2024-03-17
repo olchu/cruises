@@ -1,4 +1,5 @@
 import { DBCruiseData } from '@/shared/types/dbCruisesType';
+import { ShipsType } from '@/shared/types/prismaResponse';
 import {  getCruiseInfo } from './getCruiseInfo';
 
 const URL = 'https://api-crs.vodohod.com/json/v3/cruises';
@@ -14,7 +15,8 @@ export type CruiseDataType = Record<number, CruiseDataTypeItem>;
 export const getCruiseList = async (
   extShipId: number,
   shipId: number,
-  token: string
+  token: string,
+  ship:ShipsType
 ) => {
   const dateFrom = Date.now() / 1000;
   let prepare: CruiseDataType = {};
@@ -30,7 +32,7 @@ export const getCruiseList = async (
     });
     const data: CruiseListResponce = await res.json();
 
-    const cruises = await getCruiseInfo(data.result.data, shipId, token);
+    const cruises = await getCruiseInfo(data.result.data, shipId, token,ship);
 
     return {
       preparedData: cruises,
