@@ -14,6 +14,8 @@ import styled from '@emotion/styled';
 import moment from 'moment';
 import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
+import { format, compareAsc } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 interface CreuseCardProps {
   cruise: CruiseType;
@@ -54,8 +56,33 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
           maxW={{ base: 'full', lg: '300px' }}
           w={{ base: 'full', lg: 'auto' }}
           height={{ base: '150px', lg: 'auto' }}
+          minHeight={{ base: '150px', lg: '220px' }}
+          position="relative"
         >
           <Image boxSize="100%" objectFit="cover" src={image} alt={title} />
+          <VStack
+            position="absolute"
+            left="0"
+            bottom="0"
+            w="full"
+            h="full"
+            zIndex={2}
+            fontWeight="900"
+            color="white"
+            justifyContent="center"
+            background="radial-gradient(circle, rgba(0,0,0,0.3) 20%, rgba(255,255,255,0) 90%)"
+          >
+            <Text fontSize="80px" lineHeight="80px">
+              {format(dateStart, 'dd', {
+                locale: ru,
+              })}
+            </Text>
+            <Text fontSize="40px" lineHeight="40px">
+              {format(dateStart, 'MMM', {
+                locale: ru,
+              }).replace('.', '')}
+            </Text>
+          </VStack>
         </Box>
 
         <VStack w="full" gap="10px" alignItems="flex-start" p="8px">
