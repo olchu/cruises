@@ -70,18 +70,17 @@ const LinkItem = ({
           width="full"
           bg="white"
           left="0"
-          bottom="-45px"
+          top="65px"
           zIndex="2"
-          h="45px"
           boxShadow="md"
-          p="6px"
+          p="12px"
         >
           <MainContainer
             h="full"
-            pl="123px"
+            pl="115px"
             gap="12px"
             display="flex"
-            flexDirection="row"
+            flexDirection="column"
           >
             {link?.sub?.map((subLink) => {
               return <LinkItem key={subLink.title} link={subLink} />;
