@@ -12,6 +12,9 @@ import { AiFillPhone } from 'react-icons/ai';
 import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { Logo } from '@/shared/ui/logo';
 import { LinkItemType } from '@/shared/types/menuListType';
+import { pagesLink } from '@/shared/constants/pagesLink';
+import { ShipsList } from '@/entities/shipsList';
+import shipsData from '../../../../public/ships.json';
 
 const LinkItem = ({
   link,
@@ -70,6 +73,8 @@ const LinkItem = ({
           bottom="-45px"
           zIndex="2"
           h="45px"
+          boxShadow="md"
+          p="6px"
         >
           <MainContainer
             h="full"
@@ -84,6 +89,29 @@ const LinkItem = ({
           </MainContainer>
         </Box>
       )}
+
+      {link.link === pagesLink.ships && isShowSub && (
+        <Box
+          position="absolute"
+          width="full"
+          bg="white"
+          left="0"
+          top="65"
+          zIndex="3"
+          boxShadow="md"
+          p="6px"
+        >
+          <MainContainer
+            h="full"
+            pl="123px"
+            gap="12px"
+            display="flex"
+            flexDirection="row"
+          >
+            <ShipsList ships={shipsData} />
+          </MainContainer>
+        </Box>
+      )}
     </Box>
   );
 };
@@ -93,7 +121,6 @@ export const MenuList = () => {
     <>
       {menuList.map((link) => {
         const isActive = router.pathname === link.link;
-
         return <LinkItem key={link.title} link={link} isActive={isActive} />;
       })}
     </>

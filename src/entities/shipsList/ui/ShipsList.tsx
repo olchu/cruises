@@ -42,16 +42,20 @@ export const ShipsList = ({ ships }: ShipListProps) => {
                       >
                         {classType}
                       </Text>
-                      {shipsOfClass.map((ship) => (
-                        <Text
-                          key={ship.id}
-                          fontSize="14px"
-                          color="primary"
-                          p="6px 4px"
-                        >
-                          <Link href={`/ship/${ship.id}`}>{ship.name}</Link>
-                        </Text>
-                      ))}
+                      {shipsOfClass
+                        .sort((p, n) => {
+                          return p.name >= n.name ? 1 : -1;
+                        })
+                        .map((ship) => (
+                          <Text
+                            key={ship.id}
+                            fontSize="14px"
+                            color="primary"
+                            p="6px 4px"
+                          >
+                            <Link href={`/ship/${ship.id}`}>{ship.name}</Link>
+                          </Text>
+                        ))}
                     </>
                   );
                 })}

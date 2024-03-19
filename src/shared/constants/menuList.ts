@@ -27,6 +27,7 @@ export const menuList: LinkItemType[] = [
   {
     title: 'Теплоходы',
     link: pagesLink.ships,
+    sub: [],
   },
   {
     title: 'Направления',
