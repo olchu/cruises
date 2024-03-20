@@ -2,7 +2,7 @@ import { ShipsList } from '@/entities/shipsList';
 import { MainLayout } from '@/layouts/main';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { ReactElement } from 'react';
-import shipsData from '../../../public/ships.json';
+import shipsData from '../../public/ships.json';
 
 const ShipsListPage = () => {
   // console.log('ships', shipsData);
