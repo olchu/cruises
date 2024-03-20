@@ -1,3 +1,4 @@
+import { colorsMaping } from '@/features/topMenu/config/colorsMaping';
 import ships from '@/pages/ships';
 import { ShipListProps } from '@/shared/types/shipList';
 import { Text, Box } from '@chakra-ui/react';
@@ -25,6 +26,7 @@ export const ShipsList = ({ ships }: ShipListProps) => {
                 fontWeight="bold"
                 fontSize="20px"
                 mt="12px"
+                color={colorsMaping[type]}
               >
                 {type}
               </Text>
@@ -37,8 +39,9 @@ export const ShipsList = ({ ships }: ShipListProps) => {
                         key={classType}
                         fontWeight="bold"
                         fontSize="16px"
-                        opacity="0.8"
+                        opacity="0.7"
                         my="6px"
+                        color={colorsMaping[type]}
                       >
                         {classType}
                       </Text>
@@ -50,8 +53,8 @@ export const ShipsList = ({ ships }: ShipListProps) => {
                           <Text
                             key={ship.id}
                             fontSize="14px"
-                            color="primary"
                             p="6px 4px"
+                            color={colorsMaping[type]}
                           >
                             <Link href={`/ship/${ship.id}`}>{ship.name}</Link>
                           </Text>

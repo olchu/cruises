@@ -3,11 +3,16 @@ import { Box, Text } from '@chakra-ui/react';
 
 export const GoToOldSite = () => {
   return (
-    <Box bg="warning" >
-      <MainContainer overflow="hidden" p="8px"  maxW={'1400px'}>
-        <Text mx="auto" textAlign="center">
-          Это новая версия сайта. Прежняя версия сайта продолжает
-          работать здесь: <a href="https://vbp.ru/">vbp.ru</a>.
+    <Box bg="success">
+      <MainContainer
+        overflow="hidden"
+        p={{ base: '4px', md: '8px' }}
+        maxW={'1400px'}
+        h="full"
+      >
+        <Text mx="auto" textAlign="center" fontSize={{ base: '14px', md: '16px' }}>
+          Это новая версия сайта. Прежняя версия сайта продолжает работать
+          здесь: <a href="https://vbp.ru/">vbp.ru</a>.
         </Text>
       </MainContainer>
     </Box>

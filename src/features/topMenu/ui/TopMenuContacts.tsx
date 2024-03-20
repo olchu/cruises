@@ -5,7 +5,7 @@ import { MdOutlinePhoneAndroid } from 'react-icons/md';
 
 export const TopMenuContacts = () => {
   return (
-    <VStack gap="4px" alignContent="center" pr="12px">
+    <HStack gap="4px" alignContent="center" pr="12px">
       {phones.map((phone) => {
         const link = `tel:${phone}`;
         return (
@@ -17,6 +17,6 @@ export const TopMenuContacts = () => {
           </HStack>
         );
       })}
-    </VStack>
+    </HStack>
   );
 };

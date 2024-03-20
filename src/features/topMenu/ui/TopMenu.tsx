@@ -4,7 +4,6 @@ import NextLink from 'next/link';
 import { Link } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-
 import { TopMenuContacts } from './TopMenuContacts';
 import { socials } from '@/shared/constants/socialContacts';
 import { MobileMenu } from './MobileMenu';
@@ -126,25 +125,7 @@ export const MenuList = () => {
   );
 };
 
-export const Social = () => {
-  return (
-    <>
-      {socials.map(({ alias, url, Icon }) => {
-        return (
-          <Link
-            key={alias}
-            as={NextLink}
-            href={url}
-            color="primary"
-            fontSize="25px"
-          >
-            <Icon />
-          </Link>
-        );
-      })}
-    </>
-  );
-};
+
 
 interface TopMenuProps {
   isMobileDevice?: boolean;
@@ -166,8 +147,8 @@ export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
             <Logo />
             <MenuList />
             <Spacer />
-            <TopMenuContacts />
-            <Social />
+            {/* <TopMenuContacts /> */}
+            {/* <Social /> */}
           </HStack>
         ) : (
           <HStack
