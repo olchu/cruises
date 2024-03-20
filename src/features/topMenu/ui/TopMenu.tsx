@@ -29,6 +29,7 @@ const LinkItem = ({
       h="full"
       onMouseEnter={() => setIsShowSub(true)}
       onMouseLeave={() => setIsShowSub(false)}
+     
     >
       {link?.sub ? (
         <Box
@@ -36,11 +37,12 @@ const LinkItem = ({
           h="full"
           display="flex"
           alignItems="center"
-          fontSize="18px"
+          fontSize="20px"
           color="primary"
           cursor="pointer"
           _hover={{
             color: 'blue',
+            // boxShadow: 'inset 0px -4px #165D9F'
           }}
         >
           {link.title}
@@ -52,11 +54,12 @@ const LinkItem = ({
           display="flex"
           alignItems="center"
           href={link.link}
-          fontSize="18px"
+          fontSize="20px"
           color="primary"
           _hover={{
             textDecoration: 'none',
             color: 'blue',
+            // boxShadow: 'inset 0px -4px #165D9F'
           }}
         >
           {link.title}
@@ -116,16 +119,14 @@ const LinkItem = ({
 export const MenuList = () => {
   const router = useRouter();
   return (
-    <>
+    <HStack gap="20px" h="full">
       {menuList.map((link) => {
         const isActive = router.pathname === link.link;
         return <LinkItem key={link.title} link={link} isActive={isActive} />;
       })}
-    </>
+    </HStack>
   );
 };
-
-
 
 interface TopMenuProps {
   isMobileDevice?: boolean;
