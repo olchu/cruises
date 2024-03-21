@@ -8,16 +8,48 @@ import {
   useDisclosure,
   Flex,
   Text,
-  Box, Link,
-  HStack
+  Box,
+  Link,
+  HStack,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { GrMenu } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
-import { menuList } from '@/shared/constants/menuList';
 import { phones } from '@/shared/constants/contactsPhone';
 import { MdOutlinePhoneAndroid } from 'react-icons/md';
 import { socials } from '@/shared/constants/socialContacts';
+import { pagesLink } from '@/shared/constants/pagesLink';
+
+const menuList = [
+  {
+    title: 'Круизы',
+    link: pagesLink.contacts,
+  },
+  {
+    title: 'Теплоходы',
+    link: pagesLink.contacts,
+  },
+  {
+    title: 'Направления',
+    link: pagesLink.contacts,
+  },
+  {
+    title: 'Скидки',
+    link: pagesLink.contacts,
+  },
+  {
+    title: 'Полезная информация',
+    link: pagesLink.contacts,
+  },
+  {
+    title: 'О компании',
+    link: pagesLink.contacts,
+  },
+  {
+    title: 'Поиск',
+    link: pagesLink.search,
+  },
+];
 
 export const MobileMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

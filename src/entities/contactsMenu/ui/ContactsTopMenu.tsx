@@ -4,6 +4,9 @@ import { Box, HStack, Link, Spacer, Text } from '@chakra-ui/react';
 import { MdOutlinePhoneAndroid } from 'react-icons/md';
 import { MainContainer } from '../../../shared/ui/mainContainer/MainContainer';
 import NextLink from 'next/link';
+import { Logo } from '@/shared/ui/logo';
+import Image from 'next/image';
+import { pagesLink } from '@/shared/constants/pagesLink';
 
 export const ContactsTopMenu = () => {
   return (
@@ -12,7 +15,23 @@ export const ContactsTopMenu = () => {
       color="white"
       display={{ base: 'none', lg: 'flex' }}
     >
-      <MainContainer display="flex" alignItems="center" gap="20px" py="12px" px="3">
+      <MainContainer
+        display="flex"
+        alignItems="center"
+        gap="20px"
+        py="12px"
+        px="3"
+      >
+        <Box as={Link} href={pagesLink.home} mr={4}>
+          <Image
+            priority
+            src="/logoWhite.svg"
+            width={85}
+            height={45}
+            alt="VBP"
+            className="mr-[20px]"
+          />
+        </Box>
         <Text
           fontSize="24px"
           fontWeight="bold"
