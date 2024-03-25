@@ -10,7 +10,7 @@ import { Providers } from '@/shared/constants/providers';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { Box, Img, Text, VStack } from '@chakra-ui/react';
+import { Box, HStack, Img, Stack, Text, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
@@ -25,6 +25,11 @@ export type ShipDetailsPageProps = {
 
 const ShipDetails = ({ ship }: ShipDetailsPageProps) => {
   const captain = JSON.parse(ship?.captain || '');
+
+  const handleBeforeInjection = (svg: SVGSVGElement) => {
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', 'auto');
+  };
   return (
     <>
       <Head>
@@ -79,34 +84,60 @@ const ShipDetails = ({ ship }: ShipDetailsPageProps) => {
           </MainContainer>
         </Box>
 
-        <MainContainer mt={{ base: 'section.mobile', md: 'section.desktop' }}>
-          <Text>Сервисы на борту</Text>
+        <MainContainer p={{ base: 'section.mobile', lg: 'section.desktop' }}>
+          <Stack
+            display={{ base: 'column', md: 'row' }}
+            justifyContent="space-between"
+            alignItems="flex-start"
+          >
+            <Box>
+              <Text fontSize="22px" fontWeight="bold" mb="12px">
+                Сервисы на борту
+              </Text>
+              <Box
+                whiteSpace="pre-wrap"
+                dangerouslySetInnerHTML={{
+                  __html: ship?.services || '',
+                }}
+              />
+            </Box>
+            {captain?.name && captain?.image && (
+              <Box>
+                <Text fontSize="22px" fontWeight="bold" textAlign="center">
+                  Капитан
+                </Text>
+                <Box
+                  mx="auto"
+                  w="150px"
+                  h="150px"
+                  bgImage={captain?.image!}
+                  bgPosition="center"
+                  bgSize="cover"
+                />
+                <Text fontWeight="bold" textAlign="center">
+                  {captain.name}
+                </Text>
+              </Box>
+            )}
+          </Stack>
+
+          <Text fontSize="22px" fontWeight="bold" mb="12px">
+            Описание
+          </Text>
           <Box
             whiteSpace="pre-wrap"
             dangerouslySetInnerHTML={{
-              __html: ship?.services || '',
+              __html: ship?.description || '',
             }}
           />
 
-          <Box>
-            <Box
-              w="200px"
-              h="200px"
-              bgImage={captain?.image!}
-              bgPosition="center"
-              bgSize="contain"
+          <Box w="full">
+            <ReactSVG
+              src={ship?.scheme || ''}
+              width="100%"
+              beforeInjection={handleBeforeInjection}
             />
-            <Text>{captain.name}</Text>
           </Box>
-
-          <Box
-            whiteSpace="pre-wrap"
-            dangerouslySetInnerHTML={{
-              __html: ship?.description?.replaceAll('\r', '') || '',
-            }}
-          />
-
-          <ReactSVG src={ship?.scheme || ''} />
         </MainContainer>
       </VStack>
     </>
