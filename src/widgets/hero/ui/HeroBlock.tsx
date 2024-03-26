@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Link from 'next/link';
 
 export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
   const [swiper, setSwiper] = useState<any>(null);
@@ -51,48 +52,50 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
           disableOnInteraction: false,
         }}
       >
-        {heroList.map(({ id, title, img }) => {
+        {heroList.map(({ id, title, img, link }) => {
           return (
             <SwiperSlide key={id}>
               <Box position="relative">
-                <Box
-                  position="relative"
-                  _after={{
-                    content: "''",
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    display: 'block',
-                    background: `linear-gradient(90deg, rgb(0 47 91 / 72%) 27.6%, rgba(255, 255, 255, 0.00) 100%);`,
-                  }}
-                  h={{ base: '200px', md: '400px', lg: '700px' }}
-                >
-                  <Image
-                    src={img}
-                    alt={''}
-                    fill={true}
-                    style={{ objectFit: 'cover' }}
-                  />
-                </Box>
-                <Box w="full" position="absolute" top="0" left="0" h="full">
-                  <MainContainer
-                    my={'auto'}
-                    maxW={'1400px'}
-                    px={{ base: 'section.mobile', lg: 'section.desktop' }}
-                    py={{ base: '30px', md: '70px', lg: '100px' }}
-                    whiteSpace="pre-wrap"
+                <Link href={link}>
+                  <Box
+                    position="relative"
+                    _after={{
+                      content: "''",
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      display: 'block',
+                      background: `linear-gradient(90deg, rgb(0 47 91 / 72%) 27.6%, rgba(255, 255, 255, 0.00) 100%);`,
+                    }}
+                    h={{ base: '200px', md: '400px', lg: '700px' }}
                   >
-                    <Heading
-                      as="h1"
-                      fontSize={{ base: '30px', md: '50px', lg: '70px' }}
-                      color="white"
-                      fontWeight="900"
-                      w={{ base: '100%', md: '60%', lg: '60%' }}
+                    <Image
+                      src={img}
+                      alt={title}
+                      fill={true}
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </Box>
+                  <Box w="full" position="absolute" top="0" left="0" h="full">
+                    <MainContainer
+                      my={'auto'}
+                      maxW={'1400px'}
+                      px={{ base: 'section.mobile', lg: 'section.desktop' }}
+                      py={{ base: '30px', md: '70px', lg: '100px' }}
+                      whiteSpace="pre-wrap"
                     >
-                      <a href="">{title}</a>
-                    </Heading>
-                  </MainContainer>
-                </Box>
+                      <Heading
+                        as="h2"
+                        fontSize={{ base: '30px', md: '50px', lg: '60px' }}
+                        color="white"
+                        fontWeight="900"
+                        w={{ base: '100%', md: '70%', lg: '70%' }}
+                      >
+                        {title.replace(/\\n/g, '\n')}
+                      </Heading>
+                    </MainContainer>
+                  </Box>
+                </Link>
               </Box>
             </SwiperSlide>
           );
