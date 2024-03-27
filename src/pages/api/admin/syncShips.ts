@@ -1,7 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Providers } from '@/shared/constants/providers';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
+import fs from 'fs-extra';
+import axios from 'axios';
+import path from 'path';
+import sharp from 'sharp';
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,8 +17,33 @@ export default async function handler(
 
     for (const i in ships) {
       const ship = ships[i];
-      // req.body?.ships.forEach(async (ship: ShipsType) => {
-      console.log('             ');
+      const shipImgUrl = ship.img;
+      let imgPath = '';
+
+      if (shipImgUrl) {
+        console.log('!!!!!!    img    !!!!!!!!');
+        const imgName = `ship_${provider}_${ship.extId}.jpg`; // Генерируем уникальное имя файла
+        imgPath = path.join('uploads', 'ships', imgName); // Путь, куда сохранить файл
+
+        const fileExists = await fs.pathExists(imgPath);
+
+        if (!fileExists) {
+          console.log('file not');
+          // Загружаем изображение по URL
+          const response = await axios.get(shipImgUrl, {
+            responseType: 'arraybuffer',
+          });
+
+          // Оптимизируем изображение с помощью sharp
+          const optimizedImageBuffer = await sharp(response.data)
+            .jpeg({ quality: 70 }) // Устанавливаем качество JPEG
+            .toBuffer();
+
+          // Сохраняем оптимизированное изображение на сервере
+          await fs.outputFile(imgPath, optimizedImageBuffer);
+        }
+      }
+
       const selectShip = await prisma.ships.findFirst({
         where: {
           loadFrom: provider,
@@ -28,14 +56,11 @@ export default async function handler(
           where: {
             id: selectShip?.id,
           },
-          data: { ...ship },
+          data: { ...ship, img: `/${imgPath}` },
         });
       } else {
-        console.log('****** new *******');
-        console.log('name', ship);
-
         const createRes = await prisma.ships.create({
-          data: ship,
+          data: { ...ship, img: `/${imgPath}` },
         });
         console.log('createRes', createRes);
       }
