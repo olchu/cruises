@@ -21,25 +21,20 @@ export default async function handler(
       let imgPath = '';
 
       if (shipImgUrl) {
-        console.log('!!!!!!    img    !!!!!!!!');
-        const imgName = `ship_${provider}_${ship.extId}.jpg`; // Генерируем уникальное имя файла
-        imgPath = path.join('uploads', 'ships', imgName); // Путь, куда сохранить файл
+        const imgName = `ship_${provider}_${ship.extId}.jpg`;
+        imgPath = path.join('uploads', 'ships', imgName);
 
         const fileExists = await fs.pathExists(imgPath);
 
         if (!fileExists) {
-          console.log('file not');
-          // Загружаем изображение по URL
           const response = await axios.get(shipImgUrl, {
             responseType: 'arraybuffer',
           });
 
-          // Оптимизируем изображение с помощью sharp
           const optimizedImageBuffer = await sharp(response.data)
-            .jpeg({ quality: 70 }) // Устанавливаем качество JPEG
+            .jpeg({ quality: 70 })
             .toBuffer();
 
-          // Сохраняем оптимизированное изображение на сервере
           await fs.outputFile(imgPath, optimizedImageBuffer);
         }
       }
@@ -62,7 +57,6 @@ export default async function handler(
         const createRes = await prisma.ships.create({
           data: { ...ship, img: `/${imgPath}` },
         });
-        console.log('createRes', createRes);
       }
 
       response.push({ id: ship.extId, status: 'ok' });

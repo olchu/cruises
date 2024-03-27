@@ -2,6 +2,7 @@ import {
   ShipsData,
   useGetShips,
 } from '@/features/admin/vodohod/api/useGetShips';
+import { Providers } from '@/shared/constants/providers';
 import { Stack, Button, Text, ListItem, OrderedList } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { DBShipsData, prepareShips } from '../utils/prepareShips';
@@ -13,10 +14,13 @@ export const GetShipsFromProvider = () => {
   const handleSync = async () => {
     if (!prepareData) return;
 
-    const res = await fetch('/api/vodohod/syncShips', {
+    const res = await fetch('/api/admin/syncShips', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ships: prepareData }),
+      body: JSON.stringify({
+        ships: prepareData,
+        provider: Providers.vodohod,
+      }),
     });
   };
 
