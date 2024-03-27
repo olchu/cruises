@@ -25,7 +25,7 @@ export const InfoBox: FC<BoxProps & InfoBox> = (props) => {
       href={url}
       {...props}
     >
-      <WhiteTransparent color="warning" opacity="1">
+      <WhiteTransparent titleBg="warning" opacityTitleBg="1">
         <Text
           fontSize="18px"
           p="8px"

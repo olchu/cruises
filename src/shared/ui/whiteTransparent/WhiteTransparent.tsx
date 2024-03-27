@@ -1,8 +1,8 @@
 import { Box, BoxProps } from '@chakra-ui/react';
 import { FC } from 'react';
 
-export const WhiteTransparent: FC<BoxProps & { color?: string,opacity?: string}> = (props) => {
-  const { children,color,opacity } = props;
+export const WhiteTransparent: FC<BoxProps & { titleBg?: string,opacityTitleBg?: string}> = (props) => {
+  const { children,titleBg,opacityTitleBg } = props;
 
   return (
     <Box
@@ -12,14 +12,14 @@ export const WhiteTransparent: FC<BoxProps & { color?: string,opacity?: string}>
       flexDirection="column"
       alignItems="center"
       _before={{
-        background: color || 'white',
+        background: titleBg || 'white',
         content: '""',
         position: 'absolute',
         top: 0,
         left: 0,
         height: '100%',
         width: '100%',
-        opacity: opacity || '0.2',
+        opacity: opacityTitleBg || '0.2',
       }}
       {...props}
     >
