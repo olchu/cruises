@@ -56,7 +56,7 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
           return (
             <SwiperSlide key={id}>
               <Box position="relative">
-                <Link href={link}>
+                <Link href={link} >
                   <Box
                     position="relative"
                     _after={{
@@ -73,6 +73,7 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
                       src={img}
                       alt={title}
                       fill={true}
+                      priority={true}
                       style={{ objectFit: 'cover' }}
                     />
                   </Box>

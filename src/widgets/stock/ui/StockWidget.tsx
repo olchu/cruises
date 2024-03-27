@@ -27,17 +27,17 @@ export const StockWidget = () => {
             <InfoBox
               w={{ base: '100%', md: '60%' }}
               h={infoBlockHeight}
-              img="/img/2.jpeg"
-              title="Круизы по черному морю"
-              description="Рассписание на 2023 год"
+              img="/img/pensioner.webp"
+              title="Скидка 5%"
+              description="Круизы для пенсионеров"
               url="#"
             />
             <InfoBox
               w={{ base: '100%', md: '40%' }}
               h={infoBlockHeight}
-              img="/img/3.jpeg"
-              title="Скидка 11% + 5%"
-              description="Сезонная скидка до 15 марта"
+              img="/img/1.jpeg"
+              title="Семейный отдых"
+              description='Акция "Дети бесплатно"'
               url="#"
             />
           </HStack>
@@ -50,17 +50,17 @@ export const StockWidget = () => {
             <InfoBox
               w={{ base: '100%', md: '40%' }}
               h={infoBlockHeight}
-              img="/img/4.jpeg"
-              title="Эконом класс стал еще дешевле"
-              description="Скидка 20% до 31 января"
+              img="/img/expedition.jpg"
+              title="Уникальные маршруты"
+              description="Экспедиционные круизы"
               url="#"
             />
             <InfoBox
               w={{ base: '100%', md: '60%' }}
               h={infoBlockHeight}
-              img="/img/5.jpeg"
-              title="Супер Акция!!!"
-              description="Тут будет название акции"
+              img="/img/astoria.webp"
+              title="Морские круизы"
+              description="лайнер Astoria Grande"
               url="#"
             />
           </HStack>
@@ -68,9 +68,9 @@ export const StockWidget = () => {
         <InfoBox
           h={{ base: '220px', lg: 'inherit' }}
           w={{ base: '100%', lg: '35%' }}
-          img="/img/1.jpeg"
-          title="Акция “дети бесплатно”"
-          description="Семейные круизы по рекам России"
+          img="/img/pirogov.jpg"
+          title="т/х Григорий Пирогов"
+          description="Еще дешевле"
           url="#"
         />
       </HStack>

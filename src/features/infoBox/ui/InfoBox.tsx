@@ -25,13 +25,14 @@ export const InfoBox: FC<BoxProps & InfoBox> = (props) => {
       href={url}
       {...props}
     >
-      <WhiteTransparent>
+      <WhiteTransparent color="warning" opacity="1">
         <Text
           fontSize="18px"
           p="8px"
           fontWeight="bold"
-          color="primary"
+          color="white"
           textAlign="center"
+          zIndex={2}
         >
           {title}
         </Text>
