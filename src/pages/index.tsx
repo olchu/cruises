@@ -118,7 +118,7 @@ const Home = ({
 
       {/* Рекомендации */}
       {/* <Recommendations /> */}
-      <CruisesCarousel cruises={cruises} />
+      {/* <CruisesCarousel cruises={cruises} /> */}
 
       {/* Популярные напрвления */}
 
