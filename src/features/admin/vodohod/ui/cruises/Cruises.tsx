@@ -36,6 +36,8 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   const { getToken, token } = useGetToken();
   const toast = useToast();
 
+  console.log('ships', ships);
+
   useEffect(() => {
     if (token) return;
     getToken();

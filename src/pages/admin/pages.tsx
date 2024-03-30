@@ -64,6 +64,11 @@ const Pages = ({ pages, ships, citiesStart, citiesEnd }: PagesProps) => {
     onOpen();
   };
 
+  const handleClose = () => {
+    setEditableId(null);
+    onClose();
+  };
+
   return (
     <AdminPagesContext.Provider value={{ ships, citiesStart, citiesEnd }}>
       <Box>
@@ -121,7 +126,7 @@ const Pages = ({ pages, ships, citiesStart, citiesEnd }: PagesProps) => {
 
         <Modal
           isOpen={isOpen}
-          onClose={onClose}
+          onClose={handleClose}
           isCentered
           scrollBehavior="inside"
         >
