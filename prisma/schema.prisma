@@ -78,14 +78,15 @@ model news {
 }
 
 model pages {
-  id      Int     @id @default(autoincrement())
-  title   String? @db.VarChar(255)
-  images  String? @db.VarChar(255)
-  slug    String  @unique(map: "compilation_slug_key") @db.VarChar(255)
-  query   Json?
-  content String? @db.Text
-  active  Int
-  metaTag Json?
+  id          Int     @id @default(autoincrement())
+  title       String? @db.VarChar(255)
+  images      String? @db.VarChar(255)
+  slug        String  @unique(map: "compilation_slug_key") @db.VarChar(255)
+  query       Json?
+  content     String? @db.MediumText
+  active      Int
+  metaTag     Json?
+  itemsOnPage Int?
 }
 
 model admins {

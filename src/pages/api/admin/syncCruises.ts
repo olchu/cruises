@@ -3,6 +3,10 @@ import { Providers } from '@/shared/constants/providers';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
 import { Prisma } from '@prisma/client';
+import fs from 'fs-extra';
+import axios from 'axios';
+import path from 'path';
+import sharp from 'sharp';
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,6 +25,31 @@ export default async function handler(
           extId: cruise.extId,
         },
       });
+
+      const cruiseImgUrl = cruise.image;
+
+      let imgPath = '';
+
+      if (cruiseImgUrl) {
+        const imgNameSplit = cruiseImgUrl.split('/');
+        const imgName = imgNameSplit.at(-1);
+        console.log('!!!!!!   imgName    !!!! ', imgName);
+        imgPath = path.join('uploads', 'cruises', imgName);
+
+        const fileExists = await fs.pathExists(imgPath);
+
+        if (!fileExists) {
+          const response = await axios.get(cruiseImgUrl, {
+            responseType: 'arraybuffer',
+          });
+
+          const optimizedImageBuffer = await sharp(response.data)
+            .jpeg({ quality: 80 })
+            .toBuffer();
+
+          await fs.outputFile(imgPath, optimizedImageBuffer);
+        }
+      }
 
       if (selectCruise?.id) {
         console.log('update', selectCruise?.id);
@@ -50,6 +79,7 @@ export default async function handler(
             restaurants: cruise.restaurants,
             included: cruise.included,
             excluded: cruise.excluded,
+            // image: `/${imgPath}`,
             image: cruise.image,
             type: cruise.type,
             class: cruise.class,
@@ -88,7 +118,6 @@ export default async function handler(
             provider: cruise.provider,
           },
         });
-        console.log('????? res ?????');
         response.push({ id: cruise.extId, status: 'ok' });
       }
     }

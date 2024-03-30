@@ -1,7 +1,7 @@
 import { CruiseCardRow } from '@/entities/cruiseCardRow';
 import { CruisesTable } from '@/entities/cruisesTable';
 import { NoCruiseFound } from '@/entities/noCruiseFound';
-import { itemsOnPage } from '@/shared/constants/constants';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import {
   Spinner,
@@ -21,6 +21,7 @@ type SearchResultContentProps = {
   isFetching: boolean;
   cruises: CruiseType[];
   cruisesCount: number;
+  itemsOnPage?: number;
 };
 
 export const SearchResultContent = ({
@@ -29,6 +30,7 @@ export const SearchResultContent = ({
   cruises,
   cruisesCount,
   isFetching,
+  itemsOnPage = defaultItemsOnPage,
 }: SearchResultContentProps) => {
   const [isShowTable, setIsShowTable] = useState(false);
 

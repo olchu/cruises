@@ -24,6 +24,7 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['link'],
           ['clean'],
+          ['image']
         ],
       }}
     />

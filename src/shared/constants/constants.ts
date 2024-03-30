@@ -1,1 +1,1 @@
-export const itemsOnPage = 10;
+export const defaultItemsOnPage = 10;

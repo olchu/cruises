@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { TextEditor } from '@/features/textEditor';
 import { PagesPrismaType, TagPrismaType } from '@/shared/types/prismaResponse';
 import {
@@ -11,6 +12,7 @@ import {
   HStack,
   Image,
   Flex,
+  Textarea,
   ListItem,
   UnorderedList,
 } from '@chakra-ui/react';
@@ -104,6 +106,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
         formData.append('active', `${values.active}`);
         formData.append('content', content);
         formData.append('metaTag', JSON.stringify(metaTags));
+        formData.append('query', values.query);
 
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -175,19 +178,33 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
           </Box>
           <Box>
             <Text fontWeight="bold" mb="12px">
-              Строка запроса
+              Данные для запроса{' '}
+              <Text as="span" fontSize="14" fontWeight="normal">
+                (здесь пока вставляется JSON)
+              </Text>
             </Text>
-            <Input name="query" value={values.query} onChange={handleChange} />
+            <Textarea
+              name="query"
+              value={values.query}
+              onChange={handleChange}
+              placeholder="Here is a sample placeholder"
+            />
             <Box fontSize="12px" mt="12px">
-              <Text fontWeight="bold">Возможные значения(примеры)</Text>
+              <Text fontWeight="bold">
+                Это массив подборок. В подборке могут быть след. поля:
+              </Text>
               <UnorderedList>
-                <ListItem>dateStart=2024-03-13</ListItem>
-                <ListItem>dateEnd=2024-03-13</ListItem>
-                <ListItem>ship=10 или если несколько ship=10,20,30</ListItem>
-                <ListItem>cityFrom=Астрахань</ListItem>
-                <ListItem>cityEnd=Волгоград</ListItem>
-                <ListItem>days=4</ListItem>
-                <ListItem>можно задать id круизов id=1,2,3</ListItem>
+                <ListItem>"dateStart":"2024-03-13"</ListItem>
+                <ListItem>"dateEnd":"2024-03-13"</ListItem>
+                <ListItem>"cityFrom":"Астрахань"</ListItem>
+                <ListItem>"cityEnd":"Волгоград"</ListItem>
+                <ListItem>"days":4</ListItem>
+                <ListItem>
+                  "shipId":[10] или если несколько "shipId":[10,12,13]
+                </ListItem>
+                <ListItem>можно задать id конкретных круизов "id"=[1,2,3]</ListItem>
+                <ListItem>"class":"Эконом". Комфорт, Люкс, Эконом, Премиум, Стандарт</ListItem>
+                <ListItem>"type":"Речные по России". Речные по России, Экспедиции, Зарубежные, Речные по Беларуси</ListItem>
               </UnorderedList>
             </Box>
           </Box>
@@ -238,7 +255,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
               Опубликовано
             </Text>
             <Switch
-              name="publish"
+              name="active"
               isChecked={values.active}
               onChange={handleChange}
               size="lg"
@@ -247,7 +264,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
 
           <MetaTagsEdit tags={metaTags} setTag={setMetaTags} />
 
-          {/* <QueryEdit query={query} setQuery={setQuery}/> */}
+          {/* <QueryEdit query={query as string} setQuery={setQuery}/> */}
 
           <Button type="submit" isLoading={isSubmitting}>
             {page ? 'Обновить' : 'Создать'}

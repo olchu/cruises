@@ -9,18 +9,10 @@ import { GetStaticProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import prisma from 'prisma/client';
 import Head from 'next/head';
-import { itemsOnPage } from '@/shared/constants/constants';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { SearchResultContent } from '@/features/searchResultContent';
-import Image from 'next/image';
-import {
-  Box,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { MainImage } from '@/entities/pagesComponents/mainImage/MainImage';
 
 export type CompilationPageProps = {
   compilation: PagesPrismaType;
@@ -32,8 +24,10 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
   const [isFetching, setIsFetching] = useState(false);
   const [skip, setSkip] = useState(0);
   const [cruisesCount, setCruisesCount] = useState(0);
-  const metaTags = compilation.metaTag as TagPrismaType[];
-  const queries = compilation.query as string[];
+  const metaTags = compilation?.metaTag as TagPrismaType[];
+  const queries = compilation?.query as string[];
+  const itemsOnPage = compilation?.itemsOnPage || defaultItemsOnPage;
+  console.log('compilation?.itemsOnPage', compilation?.itemsOnPage);
 
   const getCruises = useCallback(async () => {
     if (!queries) {
@@ -56,7 +50,7 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
 
     setCruisesCount(totalCount);
 
-    setCruises([...cruises, ...cruisesRes || []]);
+    setCruises([...cruises, ...(cruisesRes || [])]);
     setSkip((prev) => prev + itemsOnPage);
 
     setIsLoading(false);
@@ -82,48 +76,12 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box
-        w="full"
-        h={{ base: '150px', lg: '250px' }}
-        minH={{ base: '150px', lg: '250px' }}
-        overflow="hidden"
-        position="relative"
-      >
-        <Image
-          src={compilation?.images || '/temp.jpg'}
-          alt={compilation.title || ''}
-          fill={true}
-          style={{ objectFit: 'cover' }}
+      {compilation?.images && (
+        <MainImage
+          title={compilation?.title || ''}
+          image={compilation?.images}
         />
-        <Box
-          as="span"
-          position="absolute"
-          px={{ base: 'section.mobile', lg: 'section.desktop' }}
-          py={{ base: 'section.mobile', lg: 'section.desktop' }}
-          bottom="0"
-          left="0"
-          bg="linear-gradient(0deg, rgba(0,0,0,0.8057598039215687) 40%, rgba(255,255,255,0) 100%)"
-          w="full"
-          h="45%"
-        />
-        {compilation.title && (
-          <MainContainer as="div" maxW={'1400px'} position="relative" h="full">
-            <Text
-              position="absolute"
-              px={{ base: 'section.mobile', lg: 'section.desktop' }}
-              py={{ base: 'section.mobile', lg: 'section.desktop' }}
-              bottom="0"
-              left="0"
-              color="white"
-              fontSize="26px"
-              fontWeight="bold"
-              w="full"
-            >
-              {compilation.title}
-            </Text>
-          </MainContainer>
-        )}
-      </Box>
+      )}
       <MainContainer
         as="section"
         overflow="hidden"
@@ -137,18 +95,23 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
             <Tab fontSize="18px" fontWeight="bold" color="primary">
               Круизы
             </Tab>
-            {compilation?.content && <Tab fontSize="18px" fontWeight="bold" color="primary">Описание</Tab>}
+            {compilation?.content && (
+              <Tab fontSize="18px" fontWeight="bold" color="primary">
+                Описание
+              </Tab>
+            )}
           </TabList>
 
           <TabPanels>
             <TabPanel p="0">
-              {compilation.query && (
+              {compilation?.query && (
                 <SearchResultContent
                   handleGetMore={handleGetMore}
                   isLoading={isLoading}
                   isFetching={isFetching}
                   cruises={cruises}
                   cruisesCount={cruisesCount}
+                  itemsOnPage={itemsOnPage}
                 />
               )}
             </TabPanel>
@@ -181,28 +144,37 @@ export async function getStaticPaths() {
     },
   });
 
-  const paths = pages.map((page) => ({
-    params: { slug: page.slug },
-  }));
+  const paths = pages.map((page) => {
+    return {
+      params: { slug: page.slug.split('/') },
+    };
+  });
 
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!params || typeof params.slug !== 'string') {
+  if (!params) {
     return {
       notFound: true,
     };
   }
 
   try {
-    const slug = params?.slug as string;
+    const paramsSlug = params?.slug as string[];
+    const slug = paramsSlug.join('/');
 
     const compilation = await prisma.pages.findUnique({
       where: {
         slug: slug,
       },
     });
+
+    if (compilation === null || compilation.active === 0) {
+      return {
+        notFound: true,
+      };
+    }
 
     return {
       props: {

@@ -6,6 +6,7 @@ import { SearchBarSelect } from '@/features/searchBar/ui/SearchBarSelect';
 import { AdminPagesContext } from '@/pages/admin/pages';
 import { TagPrismaType } from '@/shared/types/prismaResponse';
 import { Box, Button, HStack, Input, VStack, Text } from '@chakra-ui/react';
+import { Prisma } from '@prisma/client';
 import { useFormik } from 'formik';
 import { Dispatch, SetStateAction, useContext } from 'react';
 import { BiSolidShip } from 'react-icons/bi';
@@ -22,7 +23,11 @@ export const QueryEdit = ({
   setQuery,
 }: {
   query: string;
-  setQuery: Dispatch<SetStateAction<string>>;
+  setQuery: Dispatch<
+    SetStateAction<
+      string | number | true | Prisma.JsonObject | Prisma.JsonArray
+    >
+  >;
 }) => {
   const { ships, citiesStart, citiesEnd } = useContext(AdminPagesContext);
 
@@ -48,61 +53,9 @@ export const QueryEdit = ({
         Формирование запроса
       </Text>
       <VStack gap="18px" w="full" alignItems="none">
-        <HStack gap="18px">
-          <SearchBarInputDate
-            placeholder="Отправление не ранее "
-            urlParamName={urlParamNames.dateStart}
-          />
-          <SearchBarInputDate
-            placeholder="Прибытие не ранее"
-            urlParamName={urlParamNames.dateEnd}
-          />
-          <SearchBarSelect
-            icon={<BiSolidShip />}
-            placeholder="Теплоход"
-            searchParamName="ship"
-          >
-            {ships &&
-              ships.map((ship) => {
-                return (
-                  <option key={ship.id} value={ship.id}>
-                    {ship.name}
-                  </option>
-                );
-              })}
-          </SearchBarSelect>
-          <SearchBarSelect
-            placeholder="От куда"
-            icon={<IoLocationSharp />}
-            searchParamName="cityFrom"
-          >
-            {citiesStart &&
-              citiesStart.map((city) => {
-                return (
-                  <option key={city.cityStart} value={city.cityStart}>
-                    {city.cityStart}
-                  </option>
-                );
-              })}
-          </SearchBarSelect>
-          <SearchBarSelect
-            placeholder="Куда"
-            icon={<IoLocationSharp />}
-            searchParamName="cityEnd"
-          >
-            {citiesEnd &&
-              citiesEnd.map((city) => {
-                return (
-                  <option key={city.cityEnd} value={city.cityEnd}>
-                    {city.cityEnd}
-                  </option>
-                );
-              })}
-          </SearchBarSelect>
-        </HStack>
-        <Text>query = {query}</Text>
+        {/* <Text>query = {query}</Text> */}
 
-        <Button type="submit">Добавить</Button>
+        <Button >Добавить</Button>
       </VStack>
       {/* </form> */}
     </Box>

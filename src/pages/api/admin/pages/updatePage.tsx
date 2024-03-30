@@ -32,7 +32,8 @@ const handler: NextApiHandler = async (req, res) => {
     for (let key in fields) {
       formFields[key] = fields?.[key]?.[0] || '';
     }
-    const postImages = JSON.parse(formFields.images) || [];
+
+    console.log('formFields.metaTag', formFields.query);
 
     const response = await prisma.pages.update({
       where: { id: parseInt(formFields.id) },
@@ -40,9 +41,10 @@ const handler: NextApiHandler = async (req, res) => {
         title: formFields.title,
         slug: formFields.slug,
         content: formFields.content,
-        active: 1,
+        active: formFields.active === 'true' ? 1 : 0,
         images: fileNames[0] || '',
         metaTag: JSON.parse(formFields.metaTag),
+        query: JSON.parse(formFields.query),
       },
     });
 
