@@ -7,7 +7,7 @@ import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { getCities } from '@/shared/api/getCities';
 import { getShips } from '@/shared/api/getShips';
 import { AsideSearchPanel } from '@/features/asideSearchPanel';
-import { itemsOnPage } from '@/shared/constants/constants';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { SearchResultContent } from '@/features/searchResultContent';
 import Head from 'next/head';
 
@@ -33,7 +33,7 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
         'api/searchCruises' +
           window.location.search +
           aditions +
-          `limit=${itemsOnPage}&skip=${skip}`
+          `limit=${defaultItemsOnPage}&skip=${skip}`
       );
       const { cruises: cruisesRes, totalCount } = await response.json();
 
@@ -43,7 +43,7 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
         setSkip(0);
       } else {
         setCruises([...cruises, ...cruisesRes]);
-        setSkip((prev) => prev + itemsOnPage);
+        setSkip((prev) => prev + defaultItemsOnPage);
       }
       setIsLoading(false);
       setIsFetching(false);
