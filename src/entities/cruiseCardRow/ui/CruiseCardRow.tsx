@@ -16,6 +16,7 @@ import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
 import { format, compareAsc } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Image from 'next/image';
+import { useMemo } from 'react';
 
 interface CreuseCardProps {
   cruise: CruiseType;
@@ -42,6 +43,8 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
   const formatedStart = moment(dateStart);
   const formatedEnd = moment(dateEnd);
 
+  const img = useMemo(() => image || shipImg || '', []);
+
   return (
     <>
       <HStack
@@ -61,9 +64,10 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
         >
           <Image
             fill
-            src={image || shipImg || ''}
+            src={img}
             alt={title}
             style={{ objectFit: 'cover' }}
+            priority
           />
           <VStack
             position="absolute"
