@@ -50,6 +50,7 @@ export const getCruisesById = async (
     image: Array.isArray(info.photos)
       ? info.photos[0].filename
       : info.photos || '',
+    shipImg: ship.img || '',
     minPrice: minPrice,
     minDiscountPrice: minPriceDiscount,
     citiesInRoute: info.route.split(' – '),

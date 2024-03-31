@@ -29,6 +29,7 @@ export const getCruiseInfo = async (
       cruiseDetails.class = ship?.class || '';
       cruiseDetails.type = ship?.type || '';
       cruiseDetails.provider = ship?.provider || '';
+      cruiseDetails.shipImg = ship?.img || '';
 
       dbCruises.push(cruiseDetails);
     }

@@ -93,7 +93,7 @@ const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
           <Box
             w="full"
             h="200px"
-            bgImage={cruise?.image}
+            bgImage={cruise?.image || cruise?.shipImg || ''}
             bgPosition="center"
             bgSize="cover"
           >

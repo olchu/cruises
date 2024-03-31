@@ -15,6 +15,7 @@ export const LinkItem = ({
       onMouseEnter={() => setIsShowSub(true)}
       onMouseLeave={() => setIsShowSub(false)}
       h="full"
+      zIndex={10}
     >
       <Box
         h="full"

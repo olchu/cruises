@@ -41,6 +41,7 @@ export const SearchResultContent = ({
 
     return `Показать еще ${difrent > itemsOnPage ? itemsOnPage : difrent}`;
   }, [cruises, cruisesCount]);
+  
   return isLoading ? (
     <VStack
       w="full"

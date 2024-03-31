@@ -3,7 +3,6 @@ import {
   Box,
   Flex,
   HStack,
-  Image,
   Text,
   VStack,
   Link,
@@ -16,6 +15,7 @@ import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
 import { format, compareAsc } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import Image from 'next/image';
 
 interface CreuseCardProps {
   cruise: CruiseType;
@@ -35,6 +35,7 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
     minPrice,
     minDiscountPrice,
     image,
+    shipImg,
     id,
     title,
   } = cruise;
@@ -53,13 +54,17 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
         flexDirection={{ base: 'column', lg: 'row' }}
       >
         <Box
-          maxW={{ base: 'full', lg: '300px' }}
-          w={{ base: 'full', lg: 'auto' }}
-          height={{ base: '150px', lg: 'auto' }}
-          minHeight={{ base: '150px', lg: '220px' }}
+          w={{ base: 'full', lg: '300px' }}
+          minW={{ base: 'full', lg: '300px' }}
+          height={{ base: '150px', lg: '220px' }}
           position="relative"
         >
-          <Image boxSize="100%" objectFit="cover" src={image} alt={title} />
+          <Image
+            fill
+            src={image || shipImg || ''}
+            alt={title}
+            style={{ objectFit: 'cover' }}
+          />
           <VStack
             position="absolute"
             left="0"

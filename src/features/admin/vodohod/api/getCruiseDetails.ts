@@ -48,6 +48,7 @@ export const getCruiseDetails = async (id: number, token: any) => {
       class: '',
       type: '',
       provider: '',
+      shipImg: '',
     };
   } catch (error) {}
 };
