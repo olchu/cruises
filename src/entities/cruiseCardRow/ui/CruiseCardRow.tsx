@@ -7,6 +7,7 @@ import {
   VStack,
   Link,
   Spacer,
+  Image,
   Divider,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -15,7 +16,7 @@ import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
 import { format, compareAsc } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useMemo } from 'react';
 
 interface CreuseCardProps {
@@ -63,11 +64,12 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
           position="relative"
         >
           <Image
-            fill
+            w="full"
+            h="full"
             src={img}
             alt={title}
             style={{ objectFit: 'cover' }}
-            priority
+          
           />
           <VStack
             position="absolute"
