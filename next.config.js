@@ -1,20 +1,19 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: false,
   images: {
-    formats: ["image/avif", "image/webp"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "new.vbp.ru",
-        port: "",
-        pathname: "/uploads/**",
-      },
-    ],
+    formats: ['image/avif', 'image/webp'],
+    domains: ['new.vbp.ru'], // Добавляем домен, чтобы использовать для изображений
   },
-  // images: {
-  //  // domains: ['storage-crs.vodohod.com'], // Добавьте хостинг изображений в список разрешенных хостов
-  // },
-}
-
-module.exports = nextConfig
+  async rewrites() {
+    return [
+      {
+        source: '/uploads/:path*', // Путь для изображений
+        destination: '/api/uploads/:path*', // Путь, куда должен быть перенаправлен запрос
+      },
+      {
+        source: '/api/auth/signin', // Путь для изображений
+        destination: '/api/auth/signin', // Путь, куда должен быть перенаправлен запрос
+      },
+    ];
+  },
+};
