@@ -3,7 +3,6 @@ import {
   urlParamNames,
 } from '@/features/searchBar/ui/SearchBarInputDate';
 import { SearchBarSelect } from '@/features/searchBar/ui/SearchBarSelect';
-import { AdminPagesContext } from '@/pages/admin/pages';
 import { TagPrismaType } from '@/shared/types/prismaResponse';
 import { Box, Button, HStack, Input, VStack, Text } from '@chakra-ui/react';
 import { Prisma } from '@prisma/client';
@@ -29,8 +28,6 @@ export const QueryEdit = ({
     >
   >;
 }) => {
-  const { ships, citiesStart, citiesEnd } = useContext(AdminPagesContext);
-
   // const {
   //   handleSubmit,
   //   handleChange,
@@ -55,7 +52,7 @@ export const QueryEdit = ({
       <VStack gap="18px" w="full" alignItems="none">
         {/* <Text>query = {query}</Text> */}
 
-        <Button >Добавить</Button>
+        <Button>Добавить</Button>
       </VStack>
       {/* </form> */}
     </Box>
