@@ -22,7 +22,7 @@ export const AdminPagesContext = createContext(initialState);
 const Pages = () => {
   return (
     <Box>
-        <Link href='/admin/pages'> назад</Link>
+      <Link href="/admin/pages"> назад</Link>
       <Heading as="h2" size="xl" mb="30px">
         Создание страницы
       </Heading>

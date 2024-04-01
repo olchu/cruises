@@ -1,4 +1,3 @@
-import { AddPageForm } from '@/features/admin/addPages';
 import AdminLayout from '@/layouts/admin';
 import { PagesPrismaType } from '@/shared/types/prismaResponse';
 import {
@@ -13,18 +12,18 @@ import {
   Tr,
   Button,
   HStack,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
   useDisclosure,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { MdEdit } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
@@ -35,6 +34,9 @@ type PagesProps = {
 
 const Pages = ({ pages }: PagesProps) => {
   const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [delPageId, setDelPageId] = useState<number | null>(null);
+  const cancelRef = useRef(null);
 
   const handleEdit = (id: number) => {
     router.push(`/admin/pages/edit/${id}`);
@@ -42,6 +44,22 @@ const Pages = ({ pages }: PagesProps) => {
 
   const handleAdd = () => {
     router.push('/admin/pages/add');
+  };
+
+  const handleDeletePage = async () => {
+    if (!delPageId) return;
+
+    fetch(`/api/admin/pages/delPage?id=${delPageId}`).then((res) => {
+      if (res.ok) {
+        setDelPageId(null);
+        router.reload();
+      }
+    });
+  };
+
+  const handleOpenDelModal = (id: number) => {
+    setDelPageId(id);
+    onOpen();
   };
 
   return (
@@ -75,7 +93,7 @@ const Pages = ({ pages }: PagesProps) => {
                   <Td>{id}</Td>
                   <Td>/{slug}</Td>
                   <Td>{title}</Td>
-                  <Td>{active === 1 ? 'Активна' : 'Не виден'}</Td>
+                  <Td>{active === 1 ? 'Активна' : 'Не видна'}</Td>
                   <Td>
                     <HStack gap="16px" justifyContent="center">
                       <Box
@@ -86,7 +104,12 @@ const Pages = ({ pages }: PagesProps) => {
                       >
                         <MdEdit />
                       </Box>
-                      <Box color="red.500" p="10px" cursor="pointer">
+                      <Box
+                        color="red.500"
+                        p="10px"
+                        cursor="pointer"
+                        onClick={() => handleOpenDelModal(id)}
+                      >
                         <MdDelete />
                       </Box>
                     </HStack>
@@ -97,6 +120,32 @@ const Pages = ({ pages }: PagesProps) => {
           </Tbody>
         </Table>
       </TableContainer>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Удаление страницы
+            </AlertDialogHeader>
+
+            <AlertDialogBody>Точно хочешь удалить?</AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Отмена
+              </Button>
+              <Button colorScheme="red" onClick={handleDeletePage} ml={3}>
+                Удалить
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Box>
   );
 };

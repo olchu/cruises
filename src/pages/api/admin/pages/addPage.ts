@@ -40,7 +40,7 @@ const handler: NextApiHandler = async (req, res) => {
         seoDescription: formFields.seoDescription,
         seoKeywords: formFields.seoKeywords,
         seoCanonicalUrl: formFields.seoCanonicalUrl,
-        active: 1,
+        active: formFields.active === 'true' ? 1 : 0,
         images: fileNames[0] || '',
         metaTag: JSON.parse(formFields.metaTag),
       },
