@@ -5,7 +5,7 @@ import {
 } from '@/shared/types/prismaResponse';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import prisma from 'prisma/client';
 import Head from 'next/head';
@@ -137,23 +137,23 @@ CompilationPage.getLayout = function getLayout(page: ReactElement) {
 
 export default CompilationPage;
 
-export async function getStaticPaths() {
-  const pages = await prisma.pages.findMany({
-    select: {
-      slug: true,
-    },
-  });
+// export async function getStaticPaths() {
+//   const pages = await prisma.pages.findMany({
+//     select: {
+//       slug: true,
+//     },
+//   });
 
-  const paths = pages.map((page) => {
-    return {
-      params: { slug: page.slug.split('/') },
-    };
-  });
+//   const paths = pages.map((page) => {
+//     return {
+//       params: { slug: page.slug.split('/') },
+//     };
+//   });
 
-  return { paths, fallback: true };
-}
+//   return { paths, fallback: true };
+// }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (!params) {
     return {
       notFound: true,
@@ -182,7 +182,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     };
   } catch (error) {
-    console.error('Error loading static props', error);
+    console.error('Error loading server side props', error);
     return {
       notFound: true,
     };
