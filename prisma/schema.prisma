@@ -56,6 +56,7 @@ model cruises {
   type             String?  @db.VarChar(255)
   provider         String?  @db.VarChar(255)
   shipImg          String?  @db.VarChar(255)
+  discounts        Json?
 }
 
 model blog {
@@ -79,15 +80,19 @@ model news {
 }
 
 model pages {
-  id          Int     @id @default(autoincrement())
-  title       String? @db.VarChar(255)
-  images      String? @db.VarChar(255)
-  slug        String  @unique(map: "compilation_slug_key") @db.VarChar(255)
-  query       Json?
-  content     String? @db.MediumText
-  active      Int
-  metaTag     Json?
-  itemsOnPage Int?
+  id              Int     @id @default(autoincrement())
+  title           String? @db.VarChar(255)
+  images          String? @db.VarChar(255)
+  slug            String  @unique(map: "compilation_slug_key") @db.VarChar(255)
+  query           Json?
+  content         String? @db.MediumText
+  active          Int
+  metaTag         Json?
+  itemsOnPage     Int?
+  seoTitle        String? @db.VarChar(255)
+  seoDescription  String? @db.Text
+  seoKeywords     String? @db.Text
+  seoCanonicalUrl String? @db.VarChar(255)
 }
 
 model admins {

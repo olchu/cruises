@@ -15,9 +15,11 @@ import {
   Textarea,
   ListItem,
   UnorderedList,
+  Heading,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import { FC, useState } from 'react';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { MetaTagsEdit } from './MetaTagsEdit';
 
@@ -26,10 +28,14 @@ type AddPage = {
   slug: string;
   active: boolean;
   query: string;
+  seoTitle: string;
+  seoDescription: string;
+  seoKeywords: string;
+  seoCanonicalUrl: string;
 };
 
 type AddPageFrom = {
-  page?: PagesPrismaType;
+  page?: PagesPrismaType | null;
 };
 
 const ADD_API = '/api/admin/pages/addPage';
@@ -45,11 +51,11 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
     return page?.images || '';
   });
 
+  const router = useRouter();
+
   const [metaTags, setMetaTags] = useState<TagPrismaType[]>(
     Array.isArray(page?.metaTag) ? (page?.metaTag as TagPrismaType[]) : []
   );
-
-  const [query, setQuery] = useState(page?.query || '');
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -86,11 +92,14 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
       slug: page?.slug || '',
       active: page?.active === 1,
       query: JSON.stringify(page?.query) || '',
+      seoTitle: page?.seoTitle || '',
+      seoDescription: page?.seoDescription || '',
+      seoKeywords: page?.seoKeywords || '',
+      seoCanonicalUrl: page?.seoCanonicalUrl || '',
     },
     onSubmit: async (values) => {
       console.log('body', { ...values, content });
       if (true) {
-        console.log();
         const formData = new FormData();
         if (uploadedFiles) formData.append('files', uploadedFiles);
 
@@ -105,8 +114,12 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
         formData.append('slug', values.slug);
         formData.append('active', `${values.active}`);
         formData.append('content', content);
-        formData.append('metaTag', JSON.stringify(metaTags));
+        formData.append('metaTag', JSON.stringify([]));
         formData.append('query', values.query);
+        formData.append('seoTitle', values.seoTitle);
+        formData.append('seoDescription', values.seoDescription);
+        formData.append('seoKeywords', values.seoKeywords);
+        formData.append('seoCanonicalUrl', values.seoCanonicalUrl);
 
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -115,15 +128,16 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
 
         const res = await response.json();
 
-        const toatsTitle = page ? 'Пост обновлен' : 'Пост создан';
+        const toatsTitle = page ? 'Страница обновлена' : 'Страница создана';
         const toatsDescription = page
-          ? 'Обновлен пост с id='
-          : 'Новый пост создан с id=';
+          ? 'Обновлена страница с url=/'
+          : 'Новая страница создана с url=/';
         const toatsError = page
-          ? 'Ошибка при обновлении поста'
-          : 'Ошибка при создании поста';
+          ? 'Ошибка при обновлении страницы'
+          : 'Ошибка при создании страницы';
 
         if (res.status === 'ok') {
+          router.push('/admin/pages');
           toast({
             title: toatsTitle,
             description: toatsDescription + res.post.id,
@@ -144,6 +158,11 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
       }
     },
   });
+
+  useEffect(() => {
+    if (page) return;
+    setFieldValue('seoCanonicalUrl', `https://new.vbp.ru/${values.slug}`);
+  }, [values.slug]);
 
   const image = uploadImages || postImages;
 
@@ -168,50 +187,22 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
                 onChange={handleChange}
               />
             </Box>
+            <Box>
+              <Text fontWeight="bold" mb="12px">
+                Опубликовано
+              </Text>
+              <Switch
+                name="active"
+                isChecked={values.active}
+                onChange={handleChange}
+                size="lg"
+              />
+            </Box>
           </HStack>
 
           <Box>
             <Text fontWeight="bold" mb="12px">
-              Контент
-            </Text>
-            <TextEditor value={content} onChange={setContent} />
-          </Box>
-          <Box>
-            <Text fontWeight="bold" mb="12px">
-              Данные для запроса{' '}
-              <Text as="span" fontSize="14" fontWeight="normal">
-                (здесь пока вставляется JSON)
-              </Text>
-            </Text>
-            <Textarea
-              name="query"
-              value={values.query}
-              onChange={handleChange}
-              placeholder="Here is a sample placeholder"
-            />
-            <Box fontSize="12px" mt="12px">
-              <Text fontWeight="bold">
-                Это массив подборок. В подборке могут быть след. поля:
-              </Text>
-              <UnorderedList>
-                <ListItem>"dateStart":"2024-03-13"</ListItem>
-                <ListItem>"dateEnd":"2024-03-13"</ListItem>
-                <ListItem>"cityFrom":"Астрахань"</ListItem>
-                <ListItem>"cityEnd":"Волгоград"</ListItem>
-                <ListItem>"days":4</ListItem>
-                <ListItem>
-                  "shipId":[10] или если несколько "shipId":[10,12,13]
-                </ListItem>
-                <ListItem>можно задать id конкретных круизов "id"=[1,2,3]</ListItem>
-                <ListItem>"class":"Эконом". Комфорт, Люкс, Эконом, Премиум, Стандарт</ListItem>
-                <ListItem>"type":"Речные по России". Речные по России, Экспедиции, Зарубежные, Речные по Беларуси</ListItem>
-              </UnorderedList>
-            </Box>
-          </Box>
-
-          <Box>
-            <Text fontWeight="bold" mb="12px">
-              Фото
+              Картинка в заголовке
             </Text>
             <HStack gap="10px" mb="16px">
               {image && (
@@ -252,19 +243,90 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
 
           <Box>
             <Text fontWeight="bold" mb="12px">
-              Опубликовано
+              Контент
             </Text>
-            <Switch
-              name="active"
-              isChecked={values.active}
+            <TextEditor value={content} onChange={setContent} />
+          </Box>
+          <Box>
+            <Text fontWeight="bold" mb="12px">
+              Данные для запроса{' '}
+              <Text as="span" fontSize="14" fontWeight="normal">
+                (здесь пока вставляется JSON)
+              </Text>
+            </Text>
+            <Textarea
+              name="query"
+              value={values.query}
               onChange={handleChange}
-              size="lg"
+              placeholder="Here is a sample placeholder"
+            />
+            <Box fontSize="12px" mt="12px">
+              <Text fontWeight="bold">
+                Это массив подборок. В подборке могут быть след. поля:
+              </Text>
+              <UnorderedList>
+                <ListItem>"dateStart":"2024-03-13"</ListItem>
+                <ListItem>"dateEnd":"2024-03-13"</ListItem>
+                <ListItem>"cityFrom":"Астрахань"</ListItem>
+                <ListItem>"cityEnd":"Волгоград"</ListItem>
+                <ListItem>"days":4</ListItem>
+                <ListItem>
+                  "shipId":[10] или если несколько "shipId":[10,12,13]
+                </ListItem>
+                <ListItem>
+                  можно задать id конкретных круизов "id"=[1,2,3]
+                </ListItem>
+                <ListItem>
+                  "class":"Эконом". Комфорт, Люкс, Эконом, Премиум, Стандарт
+                </ListItem>
+                <ListItem>
+                  "type":"Речные по России". Речные по России, Экспедиции,
+                  Зарубежные, Речные по Беларуси
+                </ListItem>
+              </UnorderedList>
+            </Box>
+          </Box>
+
+          <Box>
+            <Heading as="h3" size="md" mb="12px">
+              SEO
+            </Heading>
+
+            <Text fontWeight="bold" mb="12px">
+              SEO title
+            </Text>
+            <Input
+              name="seoTitle"
+              value={values.seoTitle}
+              onChange={handleChange}
+            />
+            <Text fontWeight="bold" mb="12px">
+              SEO description
+            </Text>
+            <Textarea
+              name="seoDescription"
+              value={values.seoDescription}
+              onChange={handleChange}
+            />
+            <Text fontWeight="bold" mb="12px">
+              SEO keywords
+            </Text>
+            <Input
+              name="seoKeywords"
+              value={values.seoKeywords}
+              onChange={handleChange}
+            />
+            <Text fontWeight="bold" mb="12px">
+              SEO сanonical
+            </Text>
+            <Input
+              name="seoCanonicalUrl"
+              value={values.seoCanonicalUrl}
+              onChange={handleChange}
             />
           </Box>
 
-          <MetaTagsEdit tags={metaTags} setTag={setMetaTags} />
-
-          {/* <QueryEdit query={query as string} setQuery={setQuery}/> */}
+          {/* <MetaTagsEdit tags={metaTags} setTag={setMetaTags} /> */}
 
           <Button type="submit" isLoading={isSubmitting}>
             {page ? 'Обновить' : 'Создать'}
