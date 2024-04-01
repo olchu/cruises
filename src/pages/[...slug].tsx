@@ -68,11 +68,22 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
   return (
     <>
       <Head>
-        <title>{compilation?.title}</title>
-        {metaTags?.map(({ key, content }, index) => {
+        {/* {metaTags?.map(({ key, content }, index) => {
           const props = { [key.name]: key.val, content };
           return <meta key={index} {...props} />;
-        })}
+        })} */}
+        <title>{compilation?.seoTitle}</title>
+
+        {compilation.seoKeywords && (
+          <meta name="keywords" content={compilation.seoKeywords} />
+        )}
+        {compilation.seoDescription && (
+          <meta name="description" content={compilation.seoDescription} />
+        )}
+
+        {compilation?.seoCanonicalUrl && (
+          <link rel="canonical" href={compilation?.seoCanonicalUrl} />
+        )}
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
