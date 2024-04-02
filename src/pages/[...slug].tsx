@@ -13,21 +13,29 @@ import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { SearchResultContent } from '@/features/searchResultContent';
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { MainImage } from '@/entities/pagesComponents/mainImage/MainImage';
+import axios from 'axios';
 
 export type CompilationPageProps = {
   compilation: PagesPrismaType;
+  initialCruises: CruiseType[];
+  totalCount: number;
 };
 
-const CompilationPage = ({ compilation }: CompilationPageProps) => {
-  const [cruises, setCruises] = useState<CruiseType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const CompilationPage = ({
+  compilation,
+  initialCruises,
+  totalCount,
+}: CompilationPageProps) => {
+  const [cruises, setCruises] = useState<CruiseType[]>(initialCruises);
+  const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [skip, setSkip] = useState(0);
-  const [cruisesCount, setCruisesCount] = useState(0);
+  const [skip, setSkip] = useState(
+    compilation.itemsOnPage || defaultItemsOnPage
+  );
+  const [cruisesCount, setCruisesCount] = useState(totalCount);
   const metaTags = compilation?.metaTag as TagPrismaType[];
   const queries = compilation?.query as string[];
   const itemsOnPage = compilation?.itemsOnPage || defaultItemsOnPage;
-  console.log('compilation?.itemsOnPage', compilation?.itemsOnPage);
 
   const getCruises = useCallback(async () => {
     if (!queries) {
@@ -60,10 +68,6 @@ const CompilationPage = ({ compilation }: CompilationPageProps) => {
   const handleGetMore = () => {
     getCruises();
   };
-
-  useEffect(() => {
-    getCruises();
-  }, []);
 
   return (
     <>
@@ -164,6 +168,8 @@ export default CompilationPage;
 //   return { paths, fallback: true };
 // }
 
+type Query = Record<string, any[] | string>;
+
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (!params) {
     return {
@@ -186,10 +192,63 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         notFound: true,
       };
     }
+    let initialCruises: CruiseType[] = [];
+    let totalCount = 0;
+
+    const query = compilation.query as Query[];
+
+    if (compilation.query) {
+      const options = query.map((query: Query) => {
+        const objQuery: Record<
+          string,
+          {
+            in?: any[];
+            contains?: string;
+          }
+        > = {};
+        for (const key in query) {
+          const optionKey = [
+            'cityStart',
+            'cityEnd',
+            'type',
+            'class',
+            'provider',
+          ].includes(key)
+            ? 'contains'
+            : 'in';
+          objQuery[key] = {
+            [optionKey]: query[key],
+          };
+        }
+        return objQuery;
+      });
+
+      const where = {
+        OR: options,
+      };
+
+      const cruiseSelect = await prisma.cruises.findMany({
+        where: where,
+        orderBy: {
+          dateStart: 'asc',
+        },
+        take: compilation.itemsOnPage || defaultItemsOnPage,
+        skip: 0,
+      });
+      const cruises = await JSON.parse(JSON.stringify(cruiseSelect));
+      initialCruises = [...cruises];
+
+      const totalCountres = await prisma.cruises.count({
+        where: where,
+      });
+      totalCount = await JSON.parse(JSON.stringify(totalCountres));
+    }
 
     return {
       props: {
         compilation,
+        initialCruises,
+        totalCount,
       },
     };
   } catch (error) {
