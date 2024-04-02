@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import { saveFile } from '@/shared/lib/serverUtils/saveFile';
 import prisma from 'prisma/client';
 import { getNextPageId } from '@/shared/lib/serverUtils/getNextPageId';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 
 export const config = {
   api: {
@@ -43,6 +44,7 @@ const handler: NextApiHandler = async (req, res) => {
         active: formFields.active === 'true' ? 1 : 0,
         images: fileNames[0] || '',
         metaTag: JSON.parse(formFields.metaTag),
+        itemsOnPage: Number(formFields.itemsOnPage) || defaultItemsOnPage,
       },
     });
 

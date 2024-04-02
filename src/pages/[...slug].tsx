@@ -21,6 +21,8 @@ export type CompilationPageProps = {
   totalCount: number;
 };
 
+const countLoadMore = defaultItemsOnPage;
+
 const CompilationPage = ({
   compilation,
   initialCruises,
@@ -35,7 +37,6 @@ const CompilationPage = ({
   const [cruisesCount, setCruisesCount] = useState(totalCount);
   const metaTags = compilation?.metaTag as TagPrismaType[];
   const queries = compilation?.query as string[];
-  const itemsOnPage = compilation?.itemsOnPage || defaultItemsOnPage;
 
   const getCruises = useCallback(async () => {
     if (!queries) {
@@ -45,7 +46,7 @@ const CompilationPage = ({
     setIsFetching(true);
 
     const response = await fetch(
-      `/api/getCompilation?limit=${itemsOnPage}&skip=${skip}`,
+      `/api/getCompilation?limit=${countLoadMore}&skip=${skip}`,
       {
         method: 'POST',
         body: JSON.stringify(queries),
@@ -56,10 +57,10 @@ const CompilationPage = ({
     );
     const { cruises: cruisesRes, totalCount } = await response.json();
 
-    setCruisesCount(totalCount);
+    setCruisesCount(totalCount); // TODO зачем каждый раз обновлять и запрашивать кол-во круизов?
 
     setCruises([...cruises, ...(cruisesRes || [])]);
-    setSkip((prev) => prev + itemsOnPage);
+    setSkip((prev) => prev + countLoadMore);
 
     setIsLoading(false);
     setIsFetching(false);
@@ -126,7 +127,7 @@ const CompilationPage = ({
                   isFetching={isFetching}
                   cruises={cruises}
                   cruisesCount={cruisesCount}
-                  itemsOnPage={itemsOnPage}
+                  itemsOnPage={countLoadMore}
                 />
               )}
             </TabPanel>

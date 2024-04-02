@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { TextEditor } from '@/features/textEditor';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { PagesPrismaType, TagPrismaType } from '@/shared/types/prismaResponse';
 import {
   VStack,
@@ -32,6 +33,7 @@ type AddPage = {
   seoDescription: string;
   seoKeywords: string;
   seoCanonicalUrl: string;
+  itemsOnPage: number;
 };
 
 type AddPageFrom = {
@@ -96,6 +98,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
       seoDescription: page?.seoDescription || '',
       seoKeywords: page?.seoKeywords || '',
       seoCanonicalUrl: page?.seoCanonicalUrl || '',
+      itemsOnPage: page?.itemsOnPage || defaultItemsOnPage,
     },
     onSubmit: async (values) => {
       console.log('body', { ...values, content });
@@ -120,6 +123,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
         formData.append('seoDescription', values.seoDescription);
         formData.append('seoKeywords', values.seoKeywords);
         formData.append('seoCanonicalUrl', values.seoCanonicalUrl);
+        formData.append('itemsOnPage', `${values.itemsOnPage}`);
 
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -285,6 +289,17 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
                 </ListItem>
               </UnorderedList>
             </Box>
+          </Box>
+          <Box>
+            <Text fontWeight="bold" mb="12px">
+              Количество на странице
+            </Text>
+            <Input
+              name="itemsOnPage"
+              type="number"
+              value={values.itemsOnPage}
+              onChange={handleChange}
+            />
           </Box>
 
           <Box>

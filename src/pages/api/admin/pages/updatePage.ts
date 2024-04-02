@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import { saveFile } from '@/shared/lib/serverUtils/saveFile';
 import prisma from 'prisma/client';
 import { getNextPageId } from '@/shared/lib/serverUtils/getNextPageId';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 
 export const config = {
   api: {
@@ -49,6 +50,7 @@ const handler: NextApiHandler = async (req, res) => {
         seoDescription: formFields.seoDescription,
         seoKeywords: formFields.seoKeywords,
         seoCanonicalUrl: formFields.seoCanonicalUrl,
+        itemsOnPage: Number(formFields.itemsOnPage) || defaultItemsOnPage,
       },
     });
 
