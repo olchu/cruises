@@ -49,16 +49,15 @@ export const SearchResultContent = ({
       alignItems="center"
       alignSelf="center"
       justifyContent="center"
-      p={{ base: '12px', lg: '18px' }}
+      // p={{ base: '12px', lg: '18px' }}
     >
       <Spinner size="lg" />
     </VStack>
   ) : (
     <VStack
       w="full"
-      h="full"
       alignItems="flex-start"
-      p={{ base: '12px', lg: '18px' }}
+      // p={{ base: '12px', lg: '18px' }}
       gap="20px"
     >
       {cruises?.length === 0 ? (
