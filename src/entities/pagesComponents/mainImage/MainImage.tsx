@@ -11,8 +11,8 @@ export const MainImage = ({ image, title }: MainImageProps) => {
   return (
     <Box
       w="full"
-      h={{ base: '150px', lg: '250px' }}
-      minH={{ base: '150px', lg: '250px' }}
+      h={{ base: '120px', lg: '200px' }}
+      minH={{ base: '120px', lg: '200px' }}
       overflow="hidden"
       position="relative"
     >
@@ -22,17 +22,6 @@ export const MainImage = ({ image, title }: MainImageProps) => {
         fill={true}
         style={{ objectFit: 'cover' }}
         priority
-      />
-      <Box
-        as="span"
-        position="absolute"
-        px={{ base: 'section.mobile', lg: 'section.desktop' }}
-        py={{ base: 'section.mobile', lg: 'section.desktop' }}
-        bottom="0"
-        left="0"
-        bg="linear-gradient(0deg, rgba(0,0,0,0.8057598039215687) 40%, rgba(255,255,255,0) 100%)"
-        w="full"
-        h="45%"
       />
     </Box>
   );
