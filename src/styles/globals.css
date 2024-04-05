@@ -101,3 +101,22 @@ body {
     background-color: #165d9f;
   }
 }
+
+.compilationContainer h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.compilationContainer p {
+  margin-bottom: 4px;
+}
+
+.compilationContainer h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.noWrap {
+   text-wrap: nowrap;
+}

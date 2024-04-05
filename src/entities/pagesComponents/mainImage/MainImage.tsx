@@ -21,6 +21,7 @@ export const MainImage = ({ image, title }: MainImageProps) => {
         alt={title || ''}
         fill={true}
         style={{ objectFit: 'cover' }}
+        priority
       />
       <Box
         as="span"
@@ -33,23 +34,6 @@ export const MainImage = ({ image, title }: MainImageProps) => {
         w="full"
         h="45%"
       />
-      {title && (
-        <MainContainer as="div" maxW={'1400px'} position="relative" h="full">
-          <Text
-            position="absolute"
-            px={{ base: 'section.mobile', lg: 'section.desktop' }}
-            py={{ base: 'section.mobile', lg: 'section.desktop' }}
-            bottom="0"
-            left="0"
-            color="white"
-            fontSize="26px"
-            fontWeight="bold"
-            w="full"
-          >
-            {title}
-          </Text>
-        </MainContainer>
-      )}
     </Box>
   );
 };

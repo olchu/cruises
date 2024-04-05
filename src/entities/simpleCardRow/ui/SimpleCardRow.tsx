@@ -6,28 +6,18 @@ import {
   Text,
   VStack,
   Link,
-  Spacer,
-  Image,
   Divider,
 } from '@chakra-ui/react';
-import styled from '@emotion/styled';
 import moment from 'moment';
 import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
-import { format, compareAsc } from 'date-fns';
-import { ru } from 'date-fns/locale';
-// import Image from 'next/image';
 import { useMemo } from 'react';
 
 interface CreuseCardProps {
   cruise: CruiseType;
 }
 
-const Trunceted = styled(Flex)`
-  color: red;
-`;
-
-export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
+export const SimpleCardRow = ({ cruise }: CreuseCardProps) => {
   const {
     shipName,
     shortRoute,
@@ -39,7 +29,8 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
     image,
     shipImg,
     id,
-    title,
+    cityStart,
+    cityEnd,
   } = cruise;
   const formatedStart = moment(dateStart);
   const formatedEnd = moment(dateEnd);
@@ -57,65 +48,26 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
         display="flex"
         flexDirection={{ base: 'column', lg: 'row' }}
       >
-        <Box
-          w={{ base: 'full', lg: '300px' }}
-          minW={{ base: 'full', lg: '300px' }}
-          height={{ base: '150px', lg: '220px' }}
-          position="relative"
-        >
-          <Image
-            w="full"
-            h="full"
-            src={img}
-            alt={title}
-            style={{ objectFit: 'cover' }}
-          
-          />
-          <VStack
-            position="absolute"
-            left="0"
-            bottom="0"
-            w="full"
-            h="full"
-            zIndex={2}
-            fontWeight="900"
-            color="white"
-            justifyContent="center"
-            background="radial-gradient(circle, rgba(0,0,0,0.3) 20%, rgba(255,255,255,0) 90%)"
-          >
-            <Text fontSize="80px" lineHeight="80px">
-              {format(dateStart, 'dd', {
-                locale: ru,
-              })}
-            </Text>
-            <Text fontSize="40px" lineHeight="40px">
-              {format(dateStart, 'MMM', {
-                locale: ru,
-              }).replace('.', '')}
-            </Text>
-          </VStack>
-        </Box>
-
-        <VStack w="full" gap="10px" alignItems="flex-start" p="8px">
-          <Flex alignItems="center" fontSize="20px" fontWeight="bold">
+        <VStack w="full" gap="6px" alignItems="flex-start" p="8px">
+          <Flex alignItems="center" fontSize="18px" fontWeight="bold">
             <Box w="25px" opacity={0.9}>
               <FaShip />
             </Box>
-            <Text fontSize="20px" ml="14px">
+            <Text fontSize="18px" ml="14px">
               {shipName}
             </Text>
           </Flex>
 
-          <Flex alignItems="center" fontSize="20px">
+          <Flex alignItems="center" fontSize="18px">
             <Box w="25px" opacity={0.9}>
               <FaRoute />
             </Box>
-            <Text title={shortRoute} fontSize="12px" ml="14px" noOfLines={3}>
-              {shortRoute}
+            <Text title={shortRoute} fontSize="12px" ml="14px">
+              {cityStart} → {cityEnd}
             </Text>
           </Flex>
 
-          <Flex alignItems="center" fontSize="20px">
+          <Flex alignItems="center" fontSize="18px">
             <Box w="25px" opacity={0.9}>
               <FaCalendarDays />
             </Box>
@@ -125,7 +77,7 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
             </Text>
           </Flex>
 
-          <Flex alignItems="center" fontSize="20px">
+          <Flex alignItems="center" fontSize="18px">
             <Box w="25px" opacity={0.9}>
               <FaSun />
             </Box>
@@ -137,7 +89,7 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
             <Box>
               <Text color="accent" fontWeight="bold" fontSize="16px">
                 от{' '}
-                <Text fontSize="24px" as="span">
+                <Text fontSize="18px" as="span">
                   {(minDiscountPrice / 100)
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}

@@ -11,7 +11,15 @@ import prisma from 'prisma/client';
 import Head from 'next/head';
 import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { SearchResultContent } from '@/features/searchResultContent';
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import {
+  Box,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from '@chakra-ui/react';
 import { MainImage } from '@/entities/pagesComponents/mainImage/MainImage';
 import axios from 'axios';
 import {
@@ -107,6 +115,7 @@ const CompilationPage = ({
           image={compilation?.images}
         />
       )}
+
       <MainContainer
         as="section"
         overflow="hidden"
@@ -115,8 +124,14 @@ const CompilationPage = ({
         maxW={'1400px'}
         h="full"
       >
+        {compilation?.title && (
+          <Text as="h1" fontSize="28px" fontWeight="bold" w="full" mb="18px">
+            {compilation?.title}
+          </Text>
+        )}
         <Box w="full" h="full" display={{ base: 'none', lg: 'block' }}>
           <Box
+            className="compilationContainer"
             dangerouslySetInnerHTML={{
               __html: content[0] || '',
             }}
@@ -134,6 +149,7 @@ const CompilationPage = ({
           )}
           <Box
             mt="20px"
+            className="compilationContainer"
             dangerouslySetInnerHTML={{
               __html: content[1] || '',
             }}

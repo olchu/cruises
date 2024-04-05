@@ -1,6 +1,9 @@
+'use client';
+
 import { CruiseCardRow } from '@/entities/cruiseCardRow';
 import { CruisesTable } from '@/entities/cruisesTable';
 import { NoCruiseFound } from '@/entities/noCruiseFound';
+import { SimpleCardRow } from '@/entities/simpleCardRow';
 import { defaultItemsOnPage } from '@/shared/constants/constants';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import {
@@ -11,6 +14,7 @@ import {
   Switch,
   Button,
   Text,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { IoMdRepeat } from 'react-icons/io';
@@ -33,6 +37,7 @@ export const SearchResultContent = ({
   itemsOnPage = defaultItemsOnPage,
 }: SearchResultContentProps) => {
   const [isShowTable, setIsShowTable] = useState(false);
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)');
 
   const btnText = useMemo(() => {
     if (cruises.length === 0) return '';
@@ -41,7 +46,7 @@ export const SearchResultContent = ({
 
     return `Показать еще ${difrent > itemsOnPage ? itemsOnPage : difrent}`;
   }, [cruises, cruisesCount]);
-  
+
   return isLoading ? (
     <VStack
       w="full"
@@ -80,7 +85,15 @@ export const SearchResultContent = ({
         </HStack>
       )}
       {isShowTable ? (
-        <CruisesTable cruises={cruises} />
+        isLargerThan800 ? (
+          <CruisesTable cruises={cruises} />
+        ) : (
+          <VStack gap="12px" w="full">
+            {cruises.map((cruise) => (
+              <SimpleCardRow key={cruise.id} cruise={cruise} />
+            ))}
+          </VStack>
+        )
       ) : (
         cruises?.map((cruise) => {
           return <CruiseCardRow cruise={cruise} key={cruise.id} />;
