@@ -184,6 +184,7 @@ const CompilationPage = ({
             {content[0] && (
               <TabPanel>
                 <Box
+                 className="compilationContainer"
                   dangerouslySetInnerHTML={{
                     __html: content.join('') || '',
                   }}

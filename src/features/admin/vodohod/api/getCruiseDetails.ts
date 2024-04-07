@@ -21,6 +21,10 @@ export const getCruiseDetails = async (id: number, token: any) => {
 
     const route = (await getCruiseRoute(responce, token)) || {};
 
+    const offers = result.offers.map((offer) => {
+      return offer.name;
+    });
+
     return {
       extId: result.id,
       title: result.name,
@@ -49,6 +53,7 @@ export const getCruiseDetails = async (id: number, token: any) => {
       type: '',
       provider: '',
       shipImg: '',
+      offers: offers,
     };
   } catch (error) {}
 };

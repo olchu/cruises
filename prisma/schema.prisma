@@ -56,7 +56,7 @@ model cruises {
   type             String?  @db.VarChar(255)
   provider         String?  @db.VarChar(255)
   shipImg          String?  @db.VarChar(255)
-  discounts        Json?
+  offers           Json?
 }
 
 model blog {
