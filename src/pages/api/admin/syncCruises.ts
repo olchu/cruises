@@ -85,6 +85,7 @@ export default async function handler(
             class: cruise.class,
             provider: cruise.provider,
             offers: cruise.offers,
+            discounts: cruise.discounts,
           },
         });
         response.push({ id: cruise.extId, status: 'ok' });
@@ -119,6 +120,7 @@ export default async function handler(
             class: cruise.class,
             provider: cruise.provider,
             offers: cruise.offers,
+            discounts: cruise.discounts,
           },
         });
         response.push({ id: cruise.extId, status: 'ok' });

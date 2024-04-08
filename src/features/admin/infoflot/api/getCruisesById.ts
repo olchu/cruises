@@ -25,17 +25,25 @@ export const getCruisesById = async (
 
   const shortRoute = info.routeShort.split(' – ');
 
-  const regex = /«([^»]+)»/g; //ищем что в кавычках
+  const regex = /Акция\s*«([^»]+)»|([^«]+)$/;
+
   let offers: string[] = [];
+  let discounts: string[] = [];
 
   info.sug.map(({ title }) => {
-    let match;
-    while ((match = regex.exec(title)) !== null) {
-      offers.push(match[1]);
+    const matches = title.match(regex);
+    if (matches) {
+      // Если найдено слово "Акция"
+      if (matches[1]) {
+        offers.push(matches[1]);
+      } else {
+        discounts.push(title);
+      }
     }
   });
 
   console.log('offers ', offers);
+  console.log('discounts ', discounts);
 
   return {
     extId: extId,
