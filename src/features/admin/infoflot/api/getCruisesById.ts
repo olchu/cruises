@@ -30,6 +30,18 @@ export const getCruisesById = async (
     console.log('info.photos[0].filename', info);
   }
 
+  const regex = /«([^»]+)»/g; //ищем что в кавычках
+  let offers: string[] = [];
+
+  info.sug.map(({ title }) => {
+    let match;
+    while ((match = regex.exec(title)) !== null) {
+      offers.push(match[1]);
+    }
+  });
+
+  console.log('offers ', offers);
+
   return {
     extId: extId,
     title: info.beautifulName || '',
@@ -59,6 +71,7 @@ export const getCruisesById = async (
     class: ship.class || '',
     type: ship.type || '',
     provider: ship.provider || '',
+    offers,
   };
 };
 
