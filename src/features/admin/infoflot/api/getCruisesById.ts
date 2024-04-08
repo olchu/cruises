@@ -15,7 +15,6 @@ export const getCruisesById = async (
     ` https://restapi.infoflot.com/cruises/${extId}?key=${infoflotKey}`
   );
   const info: InfoflotCruiseResponse = await infoRes.json();
-  // console.log('info', info);
 
   const { prices, minPriceDiscount, minPrice } = await getPriceseById(
     extId,
@@ -25,10 +24,6 @@ export const getCruisesById = async (
   const route = getRoutes(info.timetable);
 
   const shortRoute = info.routeShort.split(' – ');
-
-  if (!Array.isArray(info.photos)) {
-    console.log('info.photos[0].filename', info);
-  }
 
   const regex = /«([^»]+)»/g; //ищем что в кавычках
   let offers: string[] = [];
