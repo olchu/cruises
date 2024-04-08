@@ -42,11 +42,15 @@ export const getServerSideProps = (async ({ req }) => {
     },
   });
 
-  const offersArray: string[] = cruises.flatMap((cruise) => cruise.offers);
-  const offersUnique = [...new Set(offersArray)];
+  const offersArray: string[] = cruises.flatMap(
+    (cruise) => cruise.offers as string
+  );
+  const offersUnique = Array.from(new Set(offersArray));
 
-  const discountArray: string[] = cruises.flatMap((cruise) => cruise.discounts);
-  const discountsUnique = [...new Set(discountArray)];
+  const discountArray: string[] = cruises.flatMap(
+    (cruise) => cruise.discounts as string
+  );
+  const discountsUnique = Array.from(new Set(discountArray));
 
   return { props: { offers: offersUnique, discounts: discountsUnique } };
 }) satisfies GetServerSideProps<OffersProps>;
