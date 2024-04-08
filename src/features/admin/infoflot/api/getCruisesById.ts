@@ -75,6 +75,7 @@ export const getCruisesById = async (
     type: ship.type || '',
     provider: ship.provider || '',
     offers,
+    discounts,
   };
 };
 
