@@ -20,21 +20,56 @@ export const getCompilation = async ({
       {
         in?: any[];
         contains?: string;
+        array_contains?: string;
+        gte?: Date;
+        lte?: Date;
       }
     > = {};
     for (const key in query) {
-      const optionKey = [
-        'cityStart',
-        'cityEnd',
-        'type',
-        'class',
-        'provider',
-      ].includes(key)
-        ? 'contains'
-        : 'in';
-      objQuery[key] = {
-        [optionKey]: query[key],
-      };
+      switch (true) {
+        case ['offers', 'citiesInRoute', 'discounts', 'rivers'].includes(key): {
+          const val = query[key] as string;
+          objQuery[key] = {
+            array_contains: val,
+          };
+          break;
+        }
+
+        case ['cityStart', 'cityEnd', 'type', 'class', 'provider'].includes(
+          key
+        ): {
+          const val = query[key] as string;
+          objQuery[key] = {
+            contains: val,
+          };
+          break;
+        }
+
+        case key === 'dateStart': {
+          const val = query[key] as string;
+          objQuery[key] = {
+            gte: new Date(val),
+          };
+          break;
+        }
+
+        case key === 'dateEnd': {
+          const val = query[key] as string;
+          const endDate = new Date(new Date(val).getTime() + 86400000);
+          endDate.setUTCHours(0, 0, 0, 0); // Устанавливаем время на полночь UTC
+          objQuery[key] = {
+            lte: endDate,
+          };
+          break;
+        }
+
+        default:
+          const val = query[key] as any[];
+          objQuery[key] = {
+            in: val,
+          };
+          break;
+      }
     }
     return objQuery;
   });
