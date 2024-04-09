@@ -8,7 +8,7 @@ export const getRoutes = (table: Timetable[]) => {
 
   for (const i in table) {
     const route: DBInfoRouteType = {
-      city: table[i].city.name,
+      city: table[i]?.city?.name || '',
       dateIn: new Date(table[i].dateArrival).getTime(),
       dateOut: new Date(table[i].dateDeparture).getTime(),
       annotation: table[i].description,
