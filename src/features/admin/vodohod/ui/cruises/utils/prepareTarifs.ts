@@ -23,9 +23,10 @@ export const prepareTarifs = (decks: Deck[]) => {
       if (tarif) {
         tarif.accommodations.forEach((p) => {
           if (price?.dicountedVal) {
-            if (price?.dicountedVal > p.price.discountedValue)
+            if (price?.dicountedVal > p.price.discountedValue) {
               price.dicountedVal = p.price.discountedValue;
-            price.val = p.price.value;
+              price.val = p.price.value;
+            }
           } else {
             price.dicountedVal = p.price.discountedValue;
             price.val = p.price.value;
