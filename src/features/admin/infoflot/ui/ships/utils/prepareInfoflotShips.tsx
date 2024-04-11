@@ -1,6 +1,4 @@
 import { Providers } from '@/shared/constants/providers';
-import { ShipsData } from '@/features/admin/vodohod/api/useGetShips';
-import { renderToStaticMarkup } from 'react-dom/server';
 
 type CabisPhotos = Record<string, string[]>;
 

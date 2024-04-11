@@ -1,22 +1,12 @@
-import { CruiseShortAbout } from '@/entities/cruiseDetails';
-import { CruiseBody } from '@/entities/cruiseDetails/ui/cruiseBody/CruiseBody';
-import {
-  FreeCabinsType,
-  FreeCabinsWithIDType,
-  useGetFreeCabins,
-} from '@/entities/cruiseDetails/utils/useGetPrice';
 import { MainLayout } from '@/layouts/main';
-import { Providers } from '@/shared/constants/providers';
-import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
+import { ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { Box, HStack, Img, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Stack, Text, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
-import React, { ReactElement } from 'react';
-import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { ReactElement } from 'react';
 import { ReactSVG } from 'react-svg';
 
 export type ShipDetailsPageProps = {

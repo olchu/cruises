@@ -6,16 +6,14 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Input,
+  ModalBody, Input,
   Textarea,
   Text,
   FormControl,
   FormHelperText,
   FormLabel,
   HStack,
-  Box,
+  Box
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { useState } from 'react';

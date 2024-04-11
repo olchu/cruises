@@ -1,5 +1,4 @@
 import { colorsMaping } from '@/features/topMenu/config/colorsMaping';
-import ships from '@/pages/ships';
 import { ShipListProps } from '@/shared/types/shipList';
 import { Text, Box } from '@chakra-ui/react';
 import Link from 'next/link';

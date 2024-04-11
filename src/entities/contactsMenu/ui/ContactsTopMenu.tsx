@@ -4,7 +4,6 @@ import { Box, HStack, Link, Spacer, Text } from '@chakra-ui/react';
 import { MdOutlinePhoneAndroid } from 'react-icons/md';
 import { MainContainer } from '../../../shared/ui/mainContainer/MainContainer';
 import NextLink from 'next/link';
-import { Logo } from '@/shared/ui/logo';
 import Image from 'next/image';
 import { pagesLink } from '@/shared/constants/pagesLink';
 

@@ -5,9 +5,7 @@ import Image from 'next/image';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Box, Heading, VStack } from '@chakra-ui/react';
 import {
-  CruiseType,
-  HeroPrismaType,
-  ShipsType,
+  HeroPrismaType
 } from '@/shared/types/prismaResponse';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';

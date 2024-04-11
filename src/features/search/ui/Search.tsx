@@ -1,7 +1,6 @@
 'use client';
 
-import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { Button, Flex, BoxProps } from '@chakra-ui/react';
+import { BoxProps } from '@chakra-ui/react';
 import { BiSolidShip } from 'react-icons/bi';
 import { IoLocationSharp } from 'react-icons/io5';
 import { FC } from 'react';

@@ -1,15 +1,11 @@
 'use client';
 
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { HStack, Button, Text, Flex, BoxProps, Select, Box } from '@chakra-ui/react';
-import { SearchBarInput } from './SearchBarInput';
-import { BiCalendar } from 'react-icons/bi';
+import { Button, Text, Flex, BoxProps } from '@chakra-ui/react';
 import { BiSolidShip } from 'react-icons/bi';
 import { IoLocationSharp } from 'react-icons/io5';
-import { FC, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { FC, useState } from 'react';
 import { SearchBarInputDate, urlParamNames } from './SearchBarInputDate';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SearchBarSelect } from './SearchBarSelect';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';

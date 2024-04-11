@@ -3,9 +3,9 @@ import {
   PagesPrismaType,
   TagPrismaType,
 } from '@/shared/types/prismaResponse';
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useMemo, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
-import { GetServerSideProps, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import prisma from 'prisma/client';
 import Head from 'next/head';
@@ -21,7 +21,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MainImage } from '@/entities/pagesComponents/mainImage/MainImage';
-import axios from 'axios';
 import {
   CompilationQueryType,
   getCompilation,

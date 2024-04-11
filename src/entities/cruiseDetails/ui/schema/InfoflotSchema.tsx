@@ -1,6 +1,6 @@
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
-import { Button, HStack, VStack } from '@chakra-ui/react';
-import { useContext, useEffect, useMemo, useRef } from 'react';
+import { Button, HStack } from '@chakra-ui/react';
+import { useContext, useMemo, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { SchemaProp } from './Schema';
 import './style.css';

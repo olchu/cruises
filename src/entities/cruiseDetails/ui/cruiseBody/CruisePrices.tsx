@@ -3,12 +3,10 @@ import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
   HStack,
-  Heading,
-  Switch,
-  VStack,
+  Heading, VStack,
   Box,
   Text,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { CabinType, IncomingPrices, PriceType } from '../../type/cruisePrices';

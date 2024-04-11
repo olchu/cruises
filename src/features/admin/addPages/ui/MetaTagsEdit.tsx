@@ -1,4 +1,3 @@
-import pages from '@/pages';
 import { TagPrismaType } from '@/shared/types/prismaResponse';
 import {
   Box,
@@ -22,7 +21,6 @@ import {
 } from '@chakra-ui/react';
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { MdEdit, MdDelete } from 'react-icons/md';
-import { AddPageForm } from './AddPageForm';
 import { TagEditForm } from './TagEditForm';
 
 export const MetaTagsEdit = ({

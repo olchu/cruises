@@ -5,16 +5,14 @@ import {
   HStack,
   Text,
   VStack,
-  Link,
-  Spacer,
-  Image,
-  Divider,
+  Link, Image,
+  Divider
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import moment from 'moment';
 import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
-import { format, compareAsc } from 'date-fns';
+import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 // import Image from 'next/image';
 import { useMemo } from 'react';

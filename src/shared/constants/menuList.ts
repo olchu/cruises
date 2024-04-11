@@ -1,4 +1,3 @@
-import { LinkItemType } from '../types/menuListType';
 import { pagesLink } from './pagesLink';
 
 export const cruiseLinks = [

@@ -1,5 +1,5 @@
 import { Container, ContainerProps } from '@chakra-ui/react';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 export const MainContainer: FC<ContainerProps> = (props) => {
   const { children } = props;

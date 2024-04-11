@@ -1,7 +1,6 @@
-import { ShipsData } from '@/features/admin/vodohod/api/useGetShips';
 import { Providers } from '@/shared/constants/providers';
 import { Stack, Button, Text, ListItem, OrderedList } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getShipFromInfoflot } from '../../../api/getShipFromInfoflot';
 import {
   DBShipsData,

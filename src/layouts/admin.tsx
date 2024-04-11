@@ -2,12 +2,10 @@
 import { ProtectedRoute } from '@/app/providers/protectedProvider';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
 import {
-  Box,
-  Button,
-  ChakraProvider,
+  Box, ChakraProvider,
   HStack,
   Text,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 

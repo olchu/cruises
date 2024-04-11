@@ -1,5 +1,4 @@
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
-import { DBRouteType } from '@/shared/types/dbCruisesType';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
   HStack,
@@ -12,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { CruisePrices } from './CruisePrices';
-import { CruiseRoute } from './CruiseRoute';
 
 const menu = [
   { title: 'Описание', link: '#about' },

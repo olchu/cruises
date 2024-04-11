@@ -1,15 +1,6 @@
-import {
-  SearchBarInputDate,
-  urlParamNames,
-} from '@/features/searchBar/ui/SearchBarInputDate';
-import { SearchBarSelect } from '@/features/searchBar/ui/SearchBarSelect';
-import { TagPrismaType } from '@/shared/types/prismaResponse';
-import { Box, Button, HStack, Input, VStack, Text } from '@chakra-ui/react';
+import { Box, Button, VStack, Text } from '@chakra-ui/react';
 import { Prisma } from '@prisma/client';
-import { useFormik } from 'formik';
-import { Dispatch, SetStateAction, useContext } from 'react';
-import { BiSolidShip } from 'react-icons/bi';
-import { IoLocationSharp } from 'react-icons/io5';
+import { Dispatch, SetStateAction } from 'react';
 
 type FormikQueryEditType = {
   name: string;

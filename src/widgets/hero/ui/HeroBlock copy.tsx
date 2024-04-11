@@ -1,9 +1,7 @@
 'use client';
 
-import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
-import { SearchBar } from '@/features/searchBar';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Box, HStack, Spacer, Text, VStack } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import Swiper from 'swiper';
 import { Pagination } from 'swiper/modules';

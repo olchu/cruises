@@ -2,15 +2,12 @@
 
 import { BoxProps, Button, Select, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { relative } from 'path';
 import { IoClose } from 'react-icons/io5';
 import {
   ChangeEvent,
   FC,
   JSXElementConstructor,
-  ReactElement,
-  useEffect,
-  useState,
+  ReactElement, useState
 } from 'react';
 
 export const SearchBarSelect: FC<

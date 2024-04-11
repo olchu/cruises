@@ -1,6 +1,5 @@
 import AdminLayout from '@/layouts/admin';
-import { PostsType } from '@/shared/types/prismaResponse';
-import { Box, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, Text, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';

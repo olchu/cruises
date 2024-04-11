@@ -1,5 +1,4 @@
 import { Providers } from '@/shared/constants/providers';
-import { DBCruiseData } from '@/shared/types/dbCruisesType';
 import { ShipsType } from '@/shared/types/prismaResponse';
 import { getPriceseById } from './getPriceseById';
 import { getRoutes } from './getRoutes';

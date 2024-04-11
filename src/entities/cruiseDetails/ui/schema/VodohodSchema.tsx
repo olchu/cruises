@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useContext, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { Button, HStack } from '@chakra-ui/react';

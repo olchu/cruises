@@ -1,6 +1,6 @@
 import Prisma from '@prisma/client';
 import prisma from 'prisma/client';
-import { CruiseType, ShipsType } from '../types/prismaResponse';
+import { CruiseType } from '../types/prismaResponse';
 
 export const getCities = async (groupBy: keyof Prisma.cruises) => {
   const citiesSelect = await prisma.cruises.groupBy({

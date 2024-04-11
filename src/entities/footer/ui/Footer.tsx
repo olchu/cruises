@@ -1,5 +1,5 @@
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Box, Text, useMediaQuery, Link } from '@chakra-ui/react';
+import { Box, Text, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
 export const Footer = () => {

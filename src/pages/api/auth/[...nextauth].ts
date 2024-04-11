@@ -1,12 +1,9 @@
 import NextAuth, {
   Account,
   NextAuthOptions,
-  Profile,
-  Session,
-  User,
+  Profile, User
 } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import YandexProvider from 'next-auth/providers/yandex';
 import prisma from 'prisma/client';
 
 export const authOptions = {

@@ -1,9 +1,7 @@
 import { getCruiseDetails } from '@/features/admin/vodohod/api/getCruiseDetails';
 import { getTarif } from '@/features/admin/vodohod/api/getTarif';
-import { ShipsContext } from '@/pages/admin/vodohod';
 import { DBCruiseData } from '@/shared/types/dbCruisesType';
 import { ShipsType } from '@/shared/types/prismaResponse';
-import { useContext } from 'react';
 
 function timeout(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));

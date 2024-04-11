@@ -1,15 +1,13 @@
 import { AddPageForm } from '@/features/admin/addPages';
 import AdminLayout from '@/layouts/admin';
 import {
-  CruiseType,
-  PagesPrismaType,
-  ShipsType,
+  PagesPrismaType
 } from '@/shared/types/prismaResponse';
-import { Box, Heading, Button, HStack, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, HStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import prisma from 'prisma/client';
-import { createContext, ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
 type PageProps = {
   page: PagesPrismaType | null;

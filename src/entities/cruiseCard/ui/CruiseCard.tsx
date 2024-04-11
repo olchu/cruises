@@ -6,7 +6,7 @@ import {
   Text,
   VStack,
   Link,
-Image,
+  Image,
   Spacer,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';

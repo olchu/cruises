@@ -5,7 +5,7 @@ import { TopMenu } from '@/features/topMenu';
 import { LayoutProps } from '@/shared/types/pageWithLayouts';
 import { ContactsTopMenu } from '@/entities/contactsMenu';
 import { CookieBanner } from '@/widgets/cookieBanner';
-import { Box, Spacer, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 
 export const MainLayout: LayoutProps = ({ children, isMobileDevice }) => {
   return (

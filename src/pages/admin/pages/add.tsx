@@ -1,9 +1,9 @@
 import { AddPageForm } from '@/features/admin/addPages';
 import AdminLayout from '@/layouts/admin';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
-import { Box, Heading, Button, HStack, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, HStack } from '@chakra-ui/react';
 import Link from 'next/link';
-import { createContext, ReactElement, useState } from 'react';
+import { createContext, ReactElement } from 'react';
 
 const initialState: ContextType = {
   ships: [],

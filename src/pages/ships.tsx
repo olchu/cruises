@@ -5,7 +5,6 @@ import { ReactElement } from 'react';
 import shipsData from '../../public/ships.json';
 
 const ShipsListPage = () => {
-  // console.log('ships', shipsData);
   return (
     <MainContainer
       px={{ base: 'section.mobile', lg: 'section.desktop' }}
