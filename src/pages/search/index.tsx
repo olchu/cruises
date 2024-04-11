@@ -37,6 +37,7 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
       );
       const { cruises: cruisesRes, totalCount } = await response.json();
 
+      console.log('cruisesRes',cruisesRes)
       setCruisesCount(totalCount);
       if (newSearch) {
         setCruises([...cruisesRes]);

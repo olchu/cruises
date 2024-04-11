@@ -1,4 +1,5 @@
 import { InfoBox } from '@/features/infoBox/ui/InfoBox';
+import { pagesLink } from '@/shared/constants/pagesLink';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { HStack, VStack } from '@chakra-ui/react';
 
@@ -30,7 +31,7 @@ export const StockWidget = () => {
               img="/img/pensioner.webp"
               title="Скидка 5%"
               description="Круизы для пенсионеров"
-              url="#"
+              url={pagesLink.pensioneram}
             />
             <InfoBox
               w={{ base: '100%', md: '40%' }}
@@ -38,7 +39,7 @@ export const StockWidget = () => {
               img="/img/1.jpeg"
               title="Семейный отдых"
               description='Акция "Дети бесплатно"'
-              url="#"
+              url={pagesLink.detiBesplatno}
             />
           </HStack>
           <HStack
@@ -53,7 +54,7 @@ export const StockWidget = () => {
               img="/img/expedition.jpg"
               title="Уникальные маршруты"
               description="Экспедиционные круизы"
-              url="#"
+              url={pagesLink.expedition}
             />
             <InfoBox
               w={{ base: '100%', md: '60%' }}
@@ -71,7 +72,7 @@ export const StockWidget = () => {
           img="/img/pirogov.jpg"
           title="т/х Григорий Пирогов"
           description="Еще дешевле"
-          url="#"
+          url={pagesLink.pirogov}
         />
       </HStack>
     </MainContainer>

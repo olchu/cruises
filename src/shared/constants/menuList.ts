@@ -20,43 +20,39 @@ export const cruiseLinks = [
   },
   {
     title: 'Круизы 2025',
-    link: pagesLink.cruise2024,
+    link: pagesLink.cruise2025,
   },
 ];
 
 export const saleLinks = [
-  { title: 'Акция дети бесплатно', link: pagesLink.routes },
+  { title: 'Акция дети бесплатно', link: pagesLink.detiBesplatno },
   {
     title: 'Скидка пенсионерам',
-    link: pagesLink.routes,
+    link: pagesLink.pensioneram,
   },
   {
     title: 'Льготные скидки',
-    link: pagesLink.routes,
+    link: pagesLink.lygotnyeSkidki,
   },
   {
     title: 'Скидка раннего бронирования',
-    link: pagesLink.routes,
-  },
-  {
-    title: 'Скидка раннего бронирования',
-    link: pagesLink.routes,
+    link: pagesLink.ranneeBronirovanie,
   },
   {
     title: 'Групповая скидка',
-    link: pagesLink.routes,
+    link: pagesLink.gruppam,
   },
   {
     title: 'Годовщина свадьбы',
-    link: pagesLink.routes,
+    link: pagesLink.godovshina,
   },
   {
     title: 'Скидка молодоженам',
-    link: pagesLink.routes,
+    link: pagesLink.molodojenam,
   },
   {
     title: 'Скидка постоянного клиента',
-    link: pagesLink.routes,
+    link: pagesLink.postoyannymKlientam,
   },
 ];
 
