@@ -1,3 +1,5 @@
+'use client';
+
 import {
   aboutLinks,
   cruiseLinks,
@@ -8,13 +10,27 @@ import { Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { LinkItem } from './LinkItem';
 import { ShipsList } from '@/entities/shipsList';
-import shipsData from '../../../../public/ships.json';
 import { RoutesList } from '@/entities/routesList/ui/RoutesList';
+import { GroupedShips } from '@/shared/types/shipList';
+import axios from 'axios';
+import { useState, useLayoutEffect } from 'react';
 
 export const MenuList = () => {
+  const [ships, setShips] = useState<GroupedShips | null>(null);
+
+  const getShipsMenu = async () => {
+    const { data } = await axios.get('/ships.json');
+    console.log('data', data);
+    setShips(data);
+  };
+
+  useLayoutEffect(() => {
+    getShipsMenu();
+  }, []);
+
   return (
     <>
-      <LinkItem name="Круизы">
+      <LinkItem link="/cruises" name="Круизы">
         {cruiseLinks.map((link) => {
           return (
             <Link
@@ -37,15 +53,15 @@ export const MenuList = () => {
         })}
       </LinkItem>
 
-      <LinkItem name="Теплоходы">
-        <ShipsList ships={shipsData} />
+      <LinkItem link="/ships" name="Теплоходы">
+        <ShipsList ships={ships} />
       </LinkItem>
 
-      <LinkItem name="Направления">
+      <LinkItem link="/routes" name="Направления">
         <RoutesList />
       </LinkItem>
 
-      <LinkItem name="Скидки">
+      <LinkItem link="/sales" name="Скидки">
         {saleLinks.map((link) => {
           return (
             <Link
@@ -68,7 +84,7 @@ export const MenuList = () => {
         })}
       </LinkItem>
 
-      <LinkItem name="Полезная информация">
+      <LinkItem link="/info" name="Полезная информация">
         {infoLinks.map((link) => {
           return (
             <Link
@@ -91,7 +107,7 @@ export const MenuList = () => {
         })}
       </LinkItem>
 
-      <LinkItem name="О компании">
+      <LinkItem link="/about" name="О компании">
         {aboutLinks.map((link) => {
           return (
             <Link

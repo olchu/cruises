@@ -20,8 +20,8 @@ const Menu = () => {
     <Box>
       <Text>сформировать меню теплоходов</Text>
       <Button onClick={getShipsMenu}>сформировать</Button>
-      {shipsMenu && <Text>{JSON.stringify(shipsMenu)}</Text>}
       <Button onClick={saveShipsMenu}>сохранить</Button>
+      {shipsMenu && <Text>{JSON.stringify(shipsMenu)}</Text>}
     </Box>
   );
 };

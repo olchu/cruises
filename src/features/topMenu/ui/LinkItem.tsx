@@ -1,13 +1,15 @@
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 
 export const LinkItem = ({
   children,
   name,
+  link,
 }: {
   name: string;
   children: React.ReactNode;
+  link: string;
 }) => {
   const [isShowSub, setIsShowSub] = useState(false);
   return (
@@ -24,6 +26,11 @@ export const LinkItem = ({
         fontSize="20px"
         color="primary"
         px="12px"
+        as="a"
+        href={link}
+        onClick={(e: MouseEvent) => {
+          e.preventDefault();
+        }}
         cursor="pointer"
         boxShadow={isShowSub ? 'inset 0px -4px #165D9F' : 'none'}
         _hover={{
