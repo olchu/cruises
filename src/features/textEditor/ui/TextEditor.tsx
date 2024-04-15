@@ -16,7 +16,8 @@ const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import('react-quill');
 
-    //
+    //@ts-ignore
+    // eslint-disable-next-line react/display-name
     return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
   },
   {
@@ -34,6 +35,7 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
     input.click();
 
     input.onchange = async () => {
+      //@ts-ignore
       const file = input.files[0];
       if (file) {
         const formData = new FormData();
@@ -50,6 +52,7 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
           console.log('altText', altText);
 
           console.log('imageUrl', imageUrl);
+          //@ts-ignore
           const quill = quillRef.current.getEditor();
           const range = quill.getSelection(true);
 
@@ -90,6 +93,7 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
 
   return (
     <ReactQuill
+      //@ts-ignore
       forwardedRef={quillRef}
       theme="snow"
       value={value}
