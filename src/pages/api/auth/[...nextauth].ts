@@ -26,10 +26,10 @@ export const authOptions = {
       email?: string;
     }) {
       const { user, account, profile, email } = params;
-      console.log('!!!!!!!!!!!!!', user);
-      console.log('!!!!!!!!!!!!!', account);
-      console.log('!!!!!!!!!!!!!', profile);
-      console.log('!!!!!!!!!!!!!', email);
+      // console.log('!!!!!!!!!!!!!', user);
+      // console.log('!!!!!!!!!!!!!', account);
+      // console.log('!!!!!!!!!!!!!', profile);
+      // console.log('!!!!!!!!!!!!!', email);
       const userDB = await prisma.admins.findFirst({
         where: {
           email: user?.email || '',

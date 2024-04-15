@@ -37,13 +37,14 @@ const handler: NextApiHandler = async (req, res) => {
         title: formFields.title,
         slug: formFields.slug,
         content: formFields.content,
+        active: formFields.active === 'true' ? 1 : 0,
+        images: fileNames[0] || '',
+        metaTag: JSON.parse(formFields.metaTag), // TODO пока не используется. не знаю нужен ли будет
+        query: JSON.parse(formFields.query),
         seoTitle: formFields.seoTitle,
         seoDescription: formFields.seoDescription,
         seoKeywords: formFields.seoKeywords,
         seoCanonicalUrl: formFields.seoCanonicalUrl,
-        active: formFields.active === 'true' ? 1 : 0,
-        images: fileNames[0] || '',
-        metaTag: JSON.parse(formFields.metaTag),
         itemsOnPage: Number(formFields.itemsOnPage) || defaultItemsOnPage,
       },
     });

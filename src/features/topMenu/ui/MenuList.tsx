@@ -24,7 +24,7 @@ export const MenuList = () => {
     setShips(data);
   };
 
-  useLayoutEffect(() => {
+  useLayoutEffect(() => {   //TODO ругается. надо сделать как клиент
     getShipsMenu();
   }, []);
 
