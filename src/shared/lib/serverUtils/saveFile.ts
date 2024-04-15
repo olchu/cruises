@@ -24,11 +24,23 @@ export const saveFile = (
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
 
-      const fileNames = Array.isArray(files.files)
-        ? files.files.map((file: any) => {
-            return `${pathTo}/` + file.newFilename;
-          })
-        : [];
+      // console.log('typeof', typeof files.image);
+      // console.log('Array.isArray(files.files)', Array.isArray(files.files));
+      // console.log('files', files);
+
+      let fileNames: string[] = [];
+
+      if (Array.isArray(files.files)) {
+        files.files.map((file: any) => {
+          fileNames.push(`${pathTo}/` + file.newFilename);
+        });
+      }
+
+      if (Array.isArray(files.image)) {
+        files.image.map((file: any) => {
+          fileNames.push(`${pathTo}/` + file.newFilename);
+        });
+      }
 
       resolve({ fields, fileNames });
     });
