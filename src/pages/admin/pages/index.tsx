@@ -21,6 +21,7 @@ import {
   AlertDialogOverlay,
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { ReactElement, useRef, useState } from 'react';
@@ -63,90 +64,95 @@ const Pages = ({ pages }: PagesProps) => {
   };
 
   return (
-    <Box>
-      <Heading as="h1" size="2xl" mb="30px">
-        Страницы
-      </Heading>
+    <>
+      <Head>
+        <title>Список страниц</title>
+      </Head>
+      <Box>
+        <Heading as="h1" size="2xl" mb="30px">
+          Страницы
+        </Heading>
 
-      <HStack justifyContent="flex-end" mb="16px">
-        <Button colorScheme="green" onClick={handleAdd}>
-          Добавить <TiPlus />
-        </Button>
-      </HStack>
+        <HStack justifyContent="flex-end" mb="16px">
+          <Button colorScheme="green" onClick={handleAdd}>
+            Добавить <TiPlus />
+          </Button>
+        </HStack>
 
-      <TableContainer>
-        <Table variant="striped" colorScheme="gray">
-          <Thead>
-            <Tr>
-              <Th>Id</Th>
-              <Th>url</Th>
-              <Th>Заголовок</Th>
-              <Th>Статус</Th>
-              <Th>Редактировать</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {pages.map(({ id, title, active, slug }, index) => {
-              // const formatedDate = moment(date).format('DD.MM.YYYY');
-              return (
-                <Tr key={id}>
-                  <Td>{id}</Td>
-                  <Td>/{slug}</Td>
-                  <Td>{title}</Td>
-                  <Td>{active === 1 ? 'Активна' : 'Не видна'}</Td>
-                  <Td>
-                    <HStack gap="16px" justifyContent="center">
-                      <Box
-                        color="teal.500"
-                        p="10px"
-                        cursor="pointer"
-                        onClick={() => handleEdit(id)}
-                      >
-                        <MdEdit />
-                      </Box>
-                      <Box
-                        color="red.500"
-                        p="10px"
-                        cursor="pointer"
-                        onClick={() => handleOpenDelModal(id)}
-                      >
-                        <MdDelete />
-                      </Box>
-                    </HStack>
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-      <AlertDialog
-        motionPreset="slideInBottom"
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-        isOpen={isOpen}
-        isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Удаление страницы
-            </AlertDialogHeader>
+        <TableContainer>
+          <Table variant="striped" colorScheme="gray">
+            <Thead>
+              <Tr>
+                <Th>Id</Th>
+                <Th>url</Th>
+                <Th>Заголовок</Th>
+                <Th>Статус</Th>
+                <Th>Редактировать</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {pages.map(({ id, title, active, slug }, index) => {
+                // const formatedDate = moment(date).format('DD.MM.YYYY');
+                return (
+                  <Tr key={id}>
+                    <Td>{id}</Td>
+                    <Td>/{slug}</Td>
+                    <Td>{title}</Td>
+                    <Td>{active === 1 ? 'Активна' : 'Не видна'}</Td>
+                    <Td>
+                      <HStack gap="16px" justifyContent="center">
+                        <Box
+                          color="teal.500"
+                          p="10px"
+                          cursor="pointer"
+                          onClick={() => handleEdit(id)}
+                        >
+                          <MdEdit />
+                        </Box>
+                        <Box
+                          color="red.500"
+                          p="10px"
+                          cursor="pointer"
+                          onClick={() => handleOpenDelModal(id)}
+                        >
+                          <MdDelete />
+                        </Box>
+                      </HStack>
+                    </Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+        <AlertDialog
+          motionPreset="slideInBottom"
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isOpen={isOpen}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Удаление страницы
+              </AlertDialogHeader>
 
-            <AlertDialogBody>Точно хочешь удалить?</AlertDialogBody>
+              <AlertDialogBody>Точно хочешь удалить?</AlertDialogBody>
 
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Отмена
-              </Button>
-              <Button colorScheme="red" onClick={handleDeletePage} ml={3}>
-                Удалить
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </Box>
+              <AlertDialogFooter>
+                <Button ref={cancelRef} onClick={onClose}>
+                  Отмена
+                </Button>
+                <Button colorScheme="red" onClick={handleDeletePage} ml={3}>
+                  Удалить
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
+      </Box>
+    </>
   );
 };
 

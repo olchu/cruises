@@ -4,7 +4,7 @@ import Head from 'next/head';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainLayout } from '@/layouts/main';
-import { Box, Stack, Text, VStack } from '@chakra-ui/react';
+import { Stack, Text, VStack } from '@chakra-ui/react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Heading } from '@/shared/ui/heading';
 import Image from 'next/image';

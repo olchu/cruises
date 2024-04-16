@@ -1,10 +1,9 @@
 import { AddPageForm } from '@/features/admin/addPages';
 import AdminLayout from '@/layouts/admin';
-import {
-  PagesPrismaType
-} from '@/shared/types/prismaResponse';
+import { PagesPrismaType } from '@/shared/types/prismaResponse';
 import { Box, Heading, HStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
@@ -15,16 +14,21 @@ type PageProps = {
 
 const Pages = ({ page }: PageProps) => {
   return (
-    <Box>
-      <Link href="/admin/pages"> назад</Link>
-      <Heading as="h2" size="xl" mb="30px">
-        Редактирование страницы
-      </Heading>
+    <>
+      <Head>
+        <title>Редактирование страницы</title>
+      </Head>
+      <Box>
+        <Link href="/admin/pages"> назад</Link>
+        <Heading as="h2" size="xl" mb="30px">
+          Редактирование страницы
+        </Heading>
 
-      <HStack justifyContent="flex-end" mb="16px"></HStack>
+        <HStack justifyContent="flex-end" mb="16px"></HStack>
 
-      <AddPageForm page={page} />
-    </Box>
+        <AddPageForm page={page} />
+      </Box>
+    </>
   );
 };
 

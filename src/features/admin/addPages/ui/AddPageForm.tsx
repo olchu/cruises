@@ -22,7 +22,6 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
-import { MetaTagsEdit } from './MetaTagsEdit';
 
 type AddPage = {
   title: string;
@@ -92,7 +91,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
     initialValues: {
       title: page?.title || '',
       slug: page?.slug || '',
-      active: page?.active === 1,
+      active: page?.active === 0 ? false : true,
       query: JSON.stringify(page?.query) || '',
       seoTitle: page?.seoTitle || '',
       seoDescription: page?.seoDescription || '',

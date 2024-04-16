@@ -49,9 +49,6 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
         if (response.ok) {
           const { imageUrl } = await response.json();
           const altText = window.prompt('Введите текст для alt', '');
-          console.log('altText', altText);
-
-          console.log('imageUrl', imageUrl);
           //@ts-ignore
           const quill = quillRef.current.getEditor();
           const range = quill.getSelection(true);
@@ -85,7 +82,6 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
       handlers: {
         image: () => {
           imageHandler();
-          console.log('ref', quillRef);
         },
       },
     };

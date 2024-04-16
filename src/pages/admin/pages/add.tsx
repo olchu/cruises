@@ -2,6 +2,7 @@ import { AddPageForm } from '@/features/admin/addPages';
 import AdminLayout from '@/layouts/admin';
 import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { Box, Heading, HStack } from '@chakra-ui/react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { createContext, ReactElement } from 'react';
 
@@ -21,16 +22,21 @@ export const AdminPagesContext = createContext(initialState);
 
 const Pages = () => {
   return (
-    <Box>
-      <Link href="/admin/pages"> назад</Link>
-      <Heading as="h2" size="xl" mb="30px">
-        Создание страницы
-      </Heading>
+    <>
+      <Head>
+        <title>Создание страницы</title>
+      </Head>
+      <Box>
+        <Link href="/admin/pages"> назад</Link>
+        <Heading as="h2" size="xl" mb="30px">
+          Создание страницы
+        </Heading>
 
-      <HStack justifyContent="flex-end" mb="16px"></HStack>
+        <HStack justifyContent="flex-end" mb="16px"></HStack>
 
-      <AddPageForm />
-    </Box>
+        <AddPageForm />
+      </Box>
+    </>
   );
 };
 
