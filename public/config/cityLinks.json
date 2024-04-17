@@ -1,0 +1,42 @@
+[
+  {
+    "title": "из Москвы",
+    "link": "/gorod/moscow"
+  },
+  {
+    "title": "из Санкт-Петербурга",
+    "link": "/gorod/piter"
+  },
+  {
+    "title": "из Ярославля",
+    "link": "/gorod/yaroslavl"
+  },
+  {
+    "title": "из Нижнего Новгорода",
+    "link": "/gorod/niznij-novgorod"
+  },
+  {
+    "title": "из Казани",
+    "link": "/gorod/kazan"
+  },
+  {
+    "title": "из Волгограда",
+    "link": "/gorod/volgograd"
+  },
+  {
+    "title": "из Самары",
+    "link": "/gorod/samara"
+  },
+  {
+    "title": "из Ростова",
+    "link": "/gorod/rostov"
+  },
+  {
+    "title": "из Перми",
+    "link": "/gorod/perm"
+  },
+  {
+    "title": "из Сочи",
+    "link": "/morskie-kruizy/kruiz-chernoe-more/Sochi"
+  }
+]

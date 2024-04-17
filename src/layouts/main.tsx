@@ -7,14 +7,15 @@ import { ContactsTopMenu } from '@/entities/contactsMenu';
 import { CookieBanner } from '@/widgets/cookieBanner';
 import { VStack } from '@chakra-ui/react';
 
-export const MainLayout: LayoutProps = ({ children, isMobileDevice }) => {
+export const MainLayout: LayoutProps = (props) => {
+  console.log('props', props);
   return (
     <ThemeProvider>
       <GoToOldSite />
       <ContactsTopMenu />
-      <TopMenu isMobileDevice={isMobileDevice} />
+      <TopMenu isMobileDevice={props.isMobileDevice} />
       <VStack as="main" gap="0" flex={1}>
-        {children}
+        {props.children}
       </VStack>
       {/* <Spacer /> */}
       <CookieBanner />

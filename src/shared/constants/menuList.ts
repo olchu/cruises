@@ -58,47 +58,43 @@ export const saleLinks = [
 export const routeCityLinks = [
   {
     title: 'из Москвы',
-    link: pagesLink.routes,
+    link: '/gorod/moscow',
   },
   {
     title: 'из Санкт-Петербурга',
-    link: pagesLink.routes,
+    link: '/gorod/piter',
   },
   {
     title: 'из Ярославля',
-    link: pagesLink.routes,
+    link: '/gorod/yaroslavl',
   },
   {
     title: 'из Нижнего Новгорода',
-    link: pagesLink.routes,
+    link: '/gorod/niznij-novgorod',
   },
   {
     title: 'из Казани',
-    link: pagesLink.routes,
+    link: '/gorod/kazan',
   },
   {
     title: 'из Волгограда',
-    link: pagesLink.routes,
+    link: '/gorod/volgograd',
   },
   {
     title: 'из Самары',
-    link: pagesLink.routes,
+    link: '/gorod/samara',
   },
   {
     title: 'из Ростова',
-    link: pagesLink.routes,
-  },
-  {
-    title: 'на Дону',
-    link: pagesLink.routes,
+    link: '/gorod/rostov',
   },
   {
     title: 'из Перми',
-    link: pagesLink.routes,
+    link: '/gorod/perm',
   },
   {
     title: 'из Сочи',
-    link: pagesLink.routes,
+    link: '/morskie-kruizy/kruiz-chernoe-more/Sochi',
   },
 ];
 

@@ -25,22 +25,22 @@ const Infoflot = ({
     ships: ShipsType[];
   };
 }) => {
-  console.log('infoflot ships',data.ships)
+  console.log('infoflot ships', data.ships);
   return (
     <ThemeContext.Provider value={{ ships: data.ships }}>
       <Heading mb={8}>Infoflot api</Heading>
       <Tabs variant="soft-rounded">
         <TabList>
-          <Tab>Теплоходы</Tab>
           <Tab>Круизы</Tab>
+          <Tab>Теплоходы</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
-            <Ships />
+            <Cruises ships={data.ships} />
           </TabPanel>
           <TabPanel>
-            <Cruises ships={data.ships} />
+            <Ships />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps<{
   });
 
   // const ships = JSON.parse(JSON.stringify(shipsSelect));
-  const ships =shipsSelect;
+  const ships = shipsSelect;
 
   return {
     props: { data: { ships: ships || [] } },

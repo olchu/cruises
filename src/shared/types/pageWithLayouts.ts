@@ -11,8 +11,10 @@ export type PageWithLayoutType =
 export type LayoutProps = ({
   children,
   isMobileDevice,
+  menu,
 }: {
   children: ReactElement;
   isMobileDevice?: boolean;
+  menu?: any;
 }) => ReactElement;
 export default PageWithLayoutType;

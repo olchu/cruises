@@ -28,19 +28,17 @@ const Vodohod = ({
       <Heading mb={8}>ВОДОХОД api</Heading>
       <Tabs variant="soft-rounded">
         <TabList>
-          <Tab>Теплоходы</Tab>
           <Tab>Круизы</Tab>
-          <Tab>Справочники</Tab>
+          <Tab>Теплоходы</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
-            <Ships />
-          </TabPanel>
-          <TabPanel>
             <Cruises ships={data.ships} />
           </TabPanel>
-          <TabPanel>типы кают</TabPanel>
+          <TabPanel>
+            <Ships />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </ShipsContext.Provider>

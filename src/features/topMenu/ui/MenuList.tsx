@@ -15,7 +15,7 @@ import { GroupedShips } from '@/shared/types/shipList';
 import axios from 'axios';
 import { useState, useLayoutEffect } from 'react';
 
-export const MenuList = () => {
+const MenuList = () => {
   const [ships, setShips] = useState<GroupedShips | null>(null);
 
   const getShipsMenu = async () => {
@@ -24,7 +24,8 @@ export const MenuList = () => {
     setShips(data);
   };
 
-  useLayoutEffect(() => {   //TODO ругается. надо сделать как клиент
+  useLayoutEffect(() => {
+    //TODO ругается. надо сделать как клиент
     getShipsMenu();
   }, []);
 
@@ -132,3 +133,5 @@ export const MenuList = () => {
     </>
   );
 };
+
+export default MenuList;

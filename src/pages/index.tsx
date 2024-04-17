@@ -36,6 +36,7 @@ interface HomeProps {
   citiesEnd: CruiseType[];
   session: Session | null;
   heroList: HeroPrismaType[];
+  menu?: string;
 }
 
 const Home = ({
@@ -46,7 +47,9 @@ const Home = ({
   citiesEnd,
   session,
   heroList,
+  menu,
 }: HomeProps) => {
+  console.log('menu page', menu);
   return (
     <>
       <Head>

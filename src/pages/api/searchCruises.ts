@@ -21,11 +21,17 @@ export default async function handler(
             lte: new Date(query.dateEnd as string),
           }
         : undefined,
-      cityStart: { contains: query?.cityFrom as string },
-      cityEnd: { contains: query?.cityEnd as string },
-      shipId: {
-        in: shipId?.split(',').map(Number) || [],
-      },
+      cityStart: query?.cityFrom
+        ? { contains: query?.cityFrom as string }
+        : undefined,
+      cityEnd: query?.cityEnd
+        ? { contains: query?.cityEnd as string }
+        : undefined,
+      shipId: shipId
+        ? {
+            in: shipId?.split(',').map(Number) || [],
+          }
+        : undefined,
       days: parseInt(query?.days as string) || undefined,
     };
 
