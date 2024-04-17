@@ -15,11 +15,11 @@ export const cruiseLinks = [
   },
   {
     title: 'Круизы 2024',
-    link: pagesLink.cruise2024,
+    link: '/general/2024',
   },
   {
     title: 'Круизы 2025',
-    link: pagesLink.cruise2025,
+    link: '/general/2025',
   },
 ];
 

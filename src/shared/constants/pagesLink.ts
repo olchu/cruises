@@ -10,7 +10,7 @@ export const pagesLink = {
   info: '/info',
   about: '/about',
   russiaRiver: '/russia-river',
-  sea: '/pages/sea',
+  sea: '/morskie-kruizy',
   expedition: '/expedition',
   cruise2024: '/cruise2024',
   cruise2025: '/cruise2025',
