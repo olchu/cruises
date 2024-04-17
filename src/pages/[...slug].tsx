@@ -1,9 +1,5 @@
-import {
-  CruiseType,
-  PagesPrismaType,
-  TagPrismaType,
-} from '@/shared/types/prismaResponse';
-import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { CruiseType, PagesPrismaType } from '@/shared/types/prismaResponse';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { MainLayout } from '@/layouts/main';
 import { GetServerSideProps } from 'next';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
@@ -45,14 +41,12 @@ const CompilationPage = ({
   const [skip, setSkip] = useState(
     compilation.itemsOnPage || defaultItemsOnPage
   );
-  const [cruisesCount, setCruisesCount] = useState(totalCount);
-  const metaTags = compilation?.metaTag as TagPrismaType[];
   const queries = compilation?.query as string[];
 
   const content = useMemo(() => {
     const content = compilation?.content || '';
     return content.split('[[compilation]]');
-  }, []);
+  }, [compilation?.content]);
 
   const getCruises = useCallback(async () => {
     if (!queries) {
@@ -73,14 +67,20 @@ const CompilationPage = ({
     );
     const { cruises: cruisesRes, totalCount } = await response.json();
 
-    setCruisesCount(totalCount); // TODO зачем каждый раз обновлять и запрашивать кол-во круизов?
-
     setCruises([...cruises, ...(cruisesRes || [])]);
     setSkip((prev) => prev + countLoadMore);
 
     setIsLoading(false);
     setIsFetching(false);
   }, [queries, cruises, skip]);
+
+  useEffect(() => {
+    setCruises(initialCruises);
+  }, [initialCruises]);
+
+  const cruisesCount = useMemo(() => {
+    return totalCount;
+  }, [totalCount]);
 
   const handleGetMore = () => {
     getCruises();
@@ -198,22 +198,6 @@ CompilationPage.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default CompilationPage;
-
-// export async function getStaticPaths() {
-//   const pages = await prisma.pages.findMany({
-//     select: {
-//       slug: true,
-//     },
-//   });
-
-//   const paths = pages.map((page) => {
-//     return {
-//       params: { slug: page.slug.split('/') },
-//     };
-//   });
-
-//   return { paths, fallback: true };
-// }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (!params) {
