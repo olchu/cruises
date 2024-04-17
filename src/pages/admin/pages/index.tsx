@@ -19,9 +19,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Link,
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import prisma from 'prisma/client';
 import { ReactElement, useRef, useState } from 'react';
@@ -96,7 +98,11 @@ const Pages = ({ pages }: PagesProps) => {
                 return (
                   <Tr key={id}>
                     <Td>{id}</Td>
-                    <Td>/{slug}</Td>
+                    <Td>
+                      <Link as={NextLink} color='teal.500' target="_blank" href={`/${slug}`}>
+                        /{slug}
+                      </Link>
+                    </Td>
                     <Td>{title}</Td>
                     <Td>{active === 1 ? 'Активна' : 'Не видна'}</Td>
                     <Td>
