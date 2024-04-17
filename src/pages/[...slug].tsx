@@ -132,7 +132,7 @@ const CompilationPage = ({
             }}
             mb="20px"
           />
-          {compilation?.query && (
+          {queries.length > 0 && (
             <SearchResultContent
               handleGetMore={handleGetMore}
               isLoading={isLoading}
