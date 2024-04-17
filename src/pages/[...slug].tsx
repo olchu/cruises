@@ -89,10 +89,6 @@ const CompilationPage = ({
   return (
     <>
       <Head>
-        {/* {metaTags?.map(({ key, content }, index) => {
-          const props = { [key.name]: key.val, content };
-          return <meta key={index} {...props} />;
-        })} */}
         <title>{compilation?.seoTitle}</title>
 
         {compilation.seoKeywords && (
@@ -183,7 +179,7 @@ const CompilationPage = ({
             {content[0] && (
               <TabPanel>
                 <Box
-                 className="compilationContainer"
+                  className="compilationContainer"
                   dangerouslySetInnerHTML={{
                     __html: content.join('') || '',
                   }}
