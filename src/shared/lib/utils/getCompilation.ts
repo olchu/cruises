@@ -1,4 +1,5 @@
 import { defaultItemsOnPage } from '@/shared/constants/constants';
+import { Prisma } from '@prisma/client';
 import prisma from 'prisma/client';
 
 export type CompilationQueryType = Record<string, any[] | string>;
@@ -23,6 +24,9 @@ export const getCompilation = async ({
         array_contains?: string;
         gte?: Date;
         lte?: Date;
+        not?: {
+          equals: Prisma.FieldRef<'cruises', 'Int'>;
+        };
       }
     > = {};
     for (const key in query) {
@@ -60,6 +64,17 @@ export const getCompilation = async ({
           objQuery[key] = {
             lte: endDate,
           };
+          break;
+        }
+        case key === 'allDiscounts': {
+          const val = query[key] as string;
+          if (val === 'true') {
+            objQuery['minDiscountPrice'] = {
+              not: {
+                equals: prisma.cruises.fields.minPrice,
+              },
+            };
+          }
           break;
         }
 
