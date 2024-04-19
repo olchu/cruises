@@ -24,9 +24,12 @@ export const getCompilation = async ({
         array_contains?: string;
         gte?: Date;
         lte?: Date;
+        equals?: number;
         not?: {
           equals: Prisma.FieldRef<'cruises', 'Int'>;
         };
+        path?: string;
+        string_contains?: string;
       }
     > = {};
     for (const key in query) {
@@ -66,6 +69,7 @@ export const getCompilation = async ({
           };
           break;
         }
+
         case key === 'allDiscounts': {
           const val = query[key] as string;
           if (val === 'true') {
@@ -75,6 +79,26 @@ export const getCompilation = async ({
               },
             };
           }
+          break;
+        }
+
+        case key === 'days': {
+          const val = Number(query[key] as string);
+          if (val) {
+            objQuery[key] = {
+              equals: val,
+            };
+          }
+          break;
+        }
+
+        case key === 'shortRoute': {
+          const val = query[key] as string;
+
+          objQuery[key] = {
+            contains: val,
+          };
+
           break;
         }
 

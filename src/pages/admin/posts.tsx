@@ -50,14 +50,14 @@ const Posts = ({ posts }: IPostProps) => {
       </Heading>
 
       <HStack justifyContent="flex-end" mb="16px">
-        <Button colorScheme="green">
+        <Button colorScheme="green" onClick={onOpen}>
           Добавить <TiPlus />
         </Button>
       </HStack>
 
       <TableContainer>
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
+
           <Thead>
             <Tr>
               <Th>Id</Th>
