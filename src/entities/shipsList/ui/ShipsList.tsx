@@ -2,8 +2,8 @@
 
 import { colorsMaping } from '@/features/topMenu/config/colorsMaping';
 import { GroupedShips } from '@/shared/types/shipList';
-import { Text, Box } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Text, Box, Link } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 export const ShipsList = ({ ships }: { ships: GroupedShips | null }) => {
   return (
@@ -16,6 +16,61 @@ export const ShipsList = ({ ships }: { ships: GroupedShips | null }) => {
         columnWidth: { base: 'inherit', md: '200px' },
       }}
     >
+      <Link
+        as={NextLink}
+        display="block"
+        fontSize="14px"
+        p="6px 4px"
+        href="/general/vodohod2022"
+      >
+        Круизы Водохода
+      </Link>
+      <Link
+        display="block"
+        as={NextLink}
+        fontSize="14px"
+        p="6px 4px"
+        href="/general/infoflot"
+      >
+        Круизы Инфофлота «Созвездие»
+      </Link>
+      <Link
+        display="block"
+        as={NextLink}
+        fontSize="14px"
+        p="6px 4px"
+        href="/general/bely-lebed"
+      >
+        Круизы «Белый лебедь»
+      </Link>
+      <Link
+        display="block"
+        as={NextLink}
+        fontSize="14px"
+        p="6px 4px"
+        href="/general/cezar"
+      >
+        Речные круизы «Цезарь Трэвел»
+      </Link>
+      <Link
+        display="block"
+        as={NextLink}
+        fontSize="14px"
+        p="6px 4px"
+        href="/general/doninturflot"
+      >
+        Круизы от Донинтурфлот
+      </Link>
+      <Link
+        display="block"
+        as={NextLink}
+        fontSize="14px"
+        p="6px 4px"
+        href="/general/mosturflot"
+      >
+        Круизы Мостурфлот
+      </Link>
+
       {ships &&
         Object.entries(ships) // TODO add memo
           .sort()

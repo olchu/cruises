@@ -23,4 +23,5 @@ export const pagesLink = {
   molodojenam: '/molodojenam',
   postoyannymKlientam: '/molodpostoyannym-klientam',
   gruppam: '/gruppam',
+  partners: 'about/partners',
 };
