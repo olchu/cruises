@@ -19,54 +19,66 @@ export const ShipsList = ({ ships }: { ships: GroupedShips | null }) => {
       <Link
         as={NextLink}
         display="block"
-        fontSize="14px"
+        fontWeight="bold"
+        fontSize="16px"
         p="6px 4px"
         href="/general/vodohod2022"
+        color="primary"
       >
         Круизы Водохода
       </Link>
       <Link
         display="block"
         as={NextLink}
-        fontSize="14px"
+        fontWeight="bold"
+        fontSize="16px"
         p="6px 4px"
         href="/general/infoflot"
+        color="primary"
       >
         Круизы Инфофлота «Созвездие»
       </Link>
       <Link
         display="block"
         as={NextLink}
-        fontSize="14px"
+        fontWeight="bold"
+        fontSize="16px"
         p="6px 4px"
         href="/general/bely-lebed"
+        color="primary"
       >
         Круизы «Белый лебедь»
       </Link>
       <Link
         display="block"
         as={NextLink}
-        fontSize="14px"
+        fontWeight="bold"
+        fontSize="16px"
         p="6px 4px"
         href="/general/cezar"
+        color="primary"
       >
         Речные круизы «Цезарь Трэвел»
       </Link>
       <Link
         display="block"
         as={NextLink}
-        fontSize="14px"
+        fontWeight="bold"
+        fontSize="16px"
         p="6px 4px"
         href="/general/doninturflot"
+        color="primary"
       >
         Круизы от Донинтурфлот
       </Link>
       <Link
         display="block"
         as={NextLink}
-        fontSize="14px"
+        fontWeight="bold"
+        fontSize="16px"
         p="6px 4px"
         href="/general/mosturflot"
+        color="primary"
       >
         Круизы Мостурфлот
       </Link>
