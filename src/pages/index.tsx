@@ -1,6 +1,7 @@
 import {
   CruiseType,
   HeroPrismaType,
+  NewsPrismaType,
   PostsType,
   ShipsType,
 } from '@/shared/types/prismaResponse';
@@ -37,6 +38,7 @@ interface HomeProps {
   session: Session | null;
   heroList: HeroPrismaType[];
   menu?: string;
+  news: NewsPrismaType[];
 }
 
 const Home = ({
@@ -48,6 +50,7 @@ const Home = ({
   session,
   heroList,
   menu,
+  news,
 }: HomeProps) => {
   console.log('menu page', menu);
   return (
@@ -125,7 +128,7 @@ const Home = ({
 
       {/* Популярные напрвления */}
 
-      <NewsPreview posts={posts} />
+      <NewsPreview news={news} />
 
       <BlueBlock />
 
@@ -165,11 +168,22 @@ export const getServerSideProps = (async (context) => {
     take: 3,
   });
 
+  const newsSelect = await prisma.news.findMany({
+    orderBy: {
+      date: 'desc',
+    },
+    where: {
+      publish: 'true',
+    },
+    take: 6,
+  });
+
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));
   const posts: PostsType[] = JSON.parse(JSON.stringify(blogSelect));
   const ships = await getShips();
   const citiesStart = await getCities('cityStart');
   const citiesEnd = await getCities('cityEnd');
+  const news = JSON.parse(JSON.stringify(newsSelect));
 
   const parser = new UAParser();
   const userAgentString = req?.headers['user-agent'] || '';
@@ -187,6 +201,7 @@ export const getServerSideProps = (async (context) => {
       citiesEnd,
       session,
       heroList,
+      news,
     },
   };
 }) satisfies GetServerSideProps<HomeProps>;

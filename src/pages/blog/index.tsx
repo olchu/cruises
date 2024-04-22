@@ -73,8 +73,8 @@ const Blog = ({ posts }: BlogProps) => {
               >
                 {images && (
                   <Box
-                    // bg={`url(${images[0]})`}
-                    bg={`url(/img/hero_bg.png);`}
+                    bg={`url(${images[0]})`}
+                    // bg={`url(/img/hero_bg.png);`}
                     width="300px"
                     height="150px"
                     bgPosition="center"

@@ -58,6 +58,7 @@ model cruises {
   shipImg          String?  @db.VarChar(255)
   offers           Json?
   discounts        Json?
+  rivers           Json?
 }
 
 model blog {
@@ -78,6 +79,7 @@ model news {
   image   String?   @db.Text
   preview String?   @db.Text
   publish String?   @db.VarChar(255)
+  link    String?   @db.VarChar(255)
 }
 
 model pages {

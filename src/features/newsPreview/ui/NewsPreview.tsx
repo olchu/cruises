@@ -8,18 +8,20 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { FC } from 'react';
-import { PostsType } from '@/shared/types/prismaResponse';
+import { NewsPrismaType } from '@/shared/types/prismaResponse';
 import moment from 'moment';
 
 interface IBlogPreview {
-  posts: PostsType[];
+  news: NewsPrismaType[];
 }
 
-export const NewsPreview: FC<IBlogPreview> = ({ posts }) => {
-  console.log(posts);
+export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
+  console.log(news);
 
-  const { id, images, title, date } = posts[0];
+  const { id, image, title, date, link } = news[0];
   const formatedDate = moment(date).format('DD.MM.YYYY');
+
+  const img = JSON.parse(image!);
 
   return (
     <MainContainer
@@ -48,15 +50,15 @@ export const NewsPreview: FC<IBlogPreview> = ({ posts }) => {
           >
             <Box
               as={NextLink}
-              href={`/news/${id}`}
+              href={link|| ''}
               h="80%"
               width="full"
               display="block"
               flex="1"
             >
               <Image
-                src={`/uploads/news/${JSON.parse(images!)[0]}`}
-                alt="blog"
+                src={img[0]}
+                alt={title}
                 width="100%"
                 height="100%"
                 objectFit="cover"
@@ -74,7 +76,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ posts }) => {
               <Text fontSize="12px" mb="12px">
                 {formatedDate}
               </Text>
-              <Text as={NextLink} href={`/news/${id}`} fontSize="18px">
+              <Text as={NextLink} href={link || ''} fontSize="18px">
                 {title}
               </Text>
             </Box>
@@ -82,8 +84,9 @@ export const NewsPreview: FC<IBlogPreview> = ({ posts }) => {
         </Box>
 
         <Flex flexDirection={{ base: 'column' }} w="100%" gap="30px">
-          {posts.map(({ id, title, date }) => {
+          {news.slice(1).map(({ id, title, date, link }) => {
             const formatedDate = moment(date).format('DD.MM.YYYY');
+            console.log('link',link)
             return (
               <VStack
                 gap="12px"
@@ -98,7 +101,13 @@ export const NewsPreview: FC<IBlogPreview> = ({ posts }) => {
                 <Text color="grey" fontSize="12px">
                   {formatedDate}
                 </Text>
-                <Text as={NextLink} href={`/news/${id}`} fontSize="18px">{title}</Text>
+                {link ? (
+                  <Link fontSize="18px" as={NextLink} href={link}>
+                    {title}
+                  </Link>
+                ) : (
+                  <Text fontSize="18px">{title}</Text>
+                )}
               </VStack>
             );
           })}
