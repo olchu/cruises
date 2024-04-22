@@ -12,7 +12,7 @@ export const GoToOldSite = () => {
       >
         <Text mx="auto" textAlign="center" fontSize={{ base: '14px', md: '16px' }}>
           Это новая версия сайта. Прежняя версия сайта продолжает работать
-          здесь: <a href="https://vbp.ru/">vbp.ru</a>.
+          здесь: <a href="https://old.vbp.ru/">old.vbp.ru</a>.
         </Text>
       </MainContainer>
     </Box>
