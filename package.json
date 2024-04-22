@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "preview-email": "email dev --dir src/shared/emails --port 3001"
+    "preview-email": "email dev --dir src/shared/emails --port 3002"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
