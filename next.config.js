@@ -2,7 +2,7 @@ module.exports = {
   reactStrictMode: false,
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['new.vbp.ru'], // Добавляем домен, чтобы использовать для изображений
+    domains: ['vbp.ru'], // Добавляем домен, чтобы использовать для изображений
   },
   async rewrites() {
     return [

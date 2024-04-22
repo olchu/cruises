@@ -56,7 +56,7 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
           const delta = new Delta()
             .retain(range.index)
             .insert(
-              { image: `https://new.vbp.ru${imageUrl}`, alt: altText },
+              { image: `https://vbp.ru${imageUrl}`, alt: altText },
               { alt: altText }
             )
             .retain(value.length - range.index);

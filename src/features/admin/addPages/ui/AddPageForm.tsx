@@ -164,7 +164,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
 
   useEffect(() => {
     if (page) return;
-    setFieldValue('seoCanonicalUrl', `https://new.vbp.ru/${values.slug}`);
+    setFieldValue('seoCanonicalUrl', `https://vbp.ru/${values.slug}`);
   }, [values.slug]);
 
   const image = uploadImages || postImages;

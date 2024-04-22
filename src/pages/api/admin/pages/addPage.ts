@@ -38,7 +38,7 @@ const handler: NextApiHandler = async (req, res) => {
         slug: formFields.slug,
         content: formFields.content,
         active: formFields.active === 'true' ? 1 : 0,
-        images: fileNames[0] ? `https://new.vbp.ru${fileNames[0]}` : '',
+        images: fileNames[0] ? `https://vbp.ru${fileNames[0]}` : '',
         metaTag: JSON.parse(formFields.metaTag), // TODO пока не используется. не знаю нужен ли будет
         query: JSON.parse(formFields.query),
         seoTitle: formFields.seoTitle,

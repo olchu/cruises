@@ -2,4 +2,4 @@ User-agent: *
 
 Disallow: /
 
-Host: new.vbp.ru
+Host: vbp.ru
