@@ -9,7 +9,7 @@ export const pagesLink = {
   sale: '/sale',
   info: '/info',
   about: '/about',
-  russiaRiver: '/russia-river',
+  russiaRiver: '/general/2024',
   sea: '/morskie-kruizy',
   expedition: '/expedition',
   cruise2024: '/cruise2024',

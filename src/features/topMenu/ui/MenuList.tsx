@@ -1,5 +1,3 @@
-'use client';
-
 import {
   aboutLinks,
   cruiseLinks,
@@ -11,24 +9,9 @@ import NextLink from 'next/link';
 import { LinkItem } from './LinkItem';
 import { ShipsList } from '@/entities/shipsList';
 import { RoutesList } from '@/entities/routesList/ui/RoutesList';
-import { GroupedShips } from '@/shared/types/shipList';
-import axios from 'axios';
-import { useState, useLayoutEffect } from 'react';
+import shipList from '../../../../public/ships.json';
 
-const MenuList = () => {
-  const [ships, setShips] = useState<GroupedShips | null>(null);
-
-  const getShipsMenu = async () => {
-    const { data } = await axios.get('/ships.json');
-    console.log('data', data);
-    setShips(data);
-  };
-
-  useLayoutEffect(() => {
-    //TODO ругается. надо сделать как клиент
-    getShipsMenu();
-  }, []);
-
+export const MenuList = () => {
   return (
     <>
       <LinkItem link="/cruises" name="Круизы">
@@ -55,7 +38,7 @@ const MenuList = () => {
       </LinkItem>
 
       <LinkItem link="/ships" name="Теплоходы">
-        <ShipsList ships={ships} />
+        <ShipsList ships={shipList} />
       </LinkItem>
 
       <LinkItem link="/routes" name="Направления">
@@ -130,8 +113,20 @@ const MenuList = () => {
           );
         })}
       </LinkItem>
+      <Link
+        as={NextLink}
+        display="flex"
+        alignItems="center"
+        href="/search"
+        fontSize="20px"
+        color="primary"
+        _hover={{
+          textDecoration: 'none',
+          color: 'blue',
+        }}
+      >
+        Поиск
+      </Link>
     </>
   );
 };
-
-export default MenuList;

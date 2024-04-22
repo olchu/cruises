@@ -13,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import Link from 'next/link';
+import { domainUrl } from '@/shared/constants/constants';
 
 export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
   const [swiper, setSwiper] = useState<any>(null);
@@ -68,7 +69,7 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
                     h={{ base: '200px', md: '400px', lg: '700px' }}
                   >
                     <Image
-                      src={img}
+                      src={`${domainUrl}${img}`}
                       alt={title}
                       fill={true}
                       priority={true}

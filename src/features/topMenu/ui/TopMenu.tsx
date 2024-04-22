@@ -4,13 +4,12 @@ import { MobileMenu } from './MobileMenu';
 import { AiFillPhone } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { Logo } from '@/shared/ui/logo';
-import dynamic from 'next/dynamic';
 
-// import { MenuList } from './MenuList';
+import { MenuList } from './MenuList';
 
-const MenuList = dynamic(() => import('./MenuList'), {
-  ssr: false,
-});
+// const MenuList = dynamic(() => import('./MenuList'), {
+//   ssr: false,
+// });
 
 interface TopMenuProps {
   isMobileDevice?: boolean;

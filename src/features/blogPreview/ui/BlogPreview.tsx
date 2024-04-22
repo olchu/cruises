@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import { FC } from 'react';
 import { PostsType } from '@/shared/types/prismaResponse';
 import moment from 'moment';
+import { domainUrl } from '@/shared/constants/constants';
 
 interface IBlogPreview {
   posts: PostsType[];
@@ -46,7 +47,7 @@ export const BlogPreview: FC<IBlogPreview> = ({ posts }) => {
                 display="block"
               >
                 <Image
-                  src={image}
+                  src={`${domainUrl}${image}`}
                   alt="blog"
                   width="100%"
                   height="100%"
