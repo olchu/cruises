@@ -4,10 +4,12 @@ import Head from 'next/head';
 import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { MainLayout } from '@/layouts/main';
-import { Stack, Text, VStack } from '@chakra-ui/react';
+import { Image, Stack, Text, VStack, Box, Link } from '@chakra-ui/react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Heading } from '@/shared/ui/heading';
-import Image from 'next/image';
+import moment from 'moment';
+import NextLink from 'next/link';
+import { IoIosArrowRoundForward } from 'react-icons/io';
 
 type BlogProps = {
   posts: PostsType[];
@@ -50,26 +52,50 @@ const Blog = ({ posts }: BlogProps) => {
       </Head>
 
       <MainContainer
-      // display={{ base: 'flex'}}
-      // flexDirection="column"
+        px={{ base: 'section.mobile', lg: 'section.desktop' }}
+        py={{ base: 'section.mobile', lg: 'section.desktop' }}
+        h="full"
       >
-        <Heading mb={{ base: '20px' }}>Блог</Heading>
-        <VStack>
+        <Heading textAlign="left" mb={{ base: '20px' }}>
+          Блог
+        </Heading>
+        <VStack w="full" gap="20px">
           {posts.map((post) => {
+            const images = JSON.parse(post.images || '');
+            console.log('type', typeof post.images);
+            console.log('post.images', post.images);
+            const formatedDate = moment(post.date).format('DD.MM.YYYY');
             return (
               <Stack
                 key={post.id}
                 flexDirection={{ base: 'column', md: 'row' }}
+                w="full"
               >
-                {post.images && (
-                  <Image
-                    src={post.images[0]}
-                    width="200"
-                    height="200"
-                    alt={post.title}
+                {images && (
+                  <Box
+                    // bg={`url(${images[0]})`}
+                    bg={`url(/img/hero_bg.png);`}
+                    width="300px"
+                    height="150px"
+                    bgPosition="center"
+                    bgSize="cover"
                   />
                 )}
-                <Text>{post.title}</Text>
+                <VStack alignItems="flex-start" flex="1">
+                  <Text fontSize="18px" fontWeight="bold">
+                    {post.title}
+                  </Text>
+                  <Text color="grey" fontSize="12px">
+                    {formatedDate}
+                  </Text>
+                  <Text>{post.preview}</Text>
+                  <Link as={NextLink} href={`/blog/${post.id}`} display="flex" alignItems="center" gap="6px">
+                    читать{' '}
+                    <span>
+                      <IoIosArrowRoundForward />
+                    </span>
+                  </Link>
+                </VStack>
               </Stack>
             );
           })}

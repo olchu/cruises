@@ -46,7 +46,7 @@ export const BlogPreview: FC<IBlogPreview> = ({ posts }) => {
                 display="block"
               >
                 <Image
-                  src={`/uploads/blog/${image}`}
+                  src={image}
                   alt="blog"
                   width="100%"
                   height="100%"
