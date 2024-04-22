@@ -18,38 +18,7 @@ import { IoClose } from 'react-icons/io5';
 import { phones } from '@/shared/constants/contactsPhone';
 import { MdOutlinePhoneAndroid } from 'react-icons/md';
 import { socials } from '@/shared/constants/socialContacts';
-import { pagesLink } from '@/shared/constants/pagesLink';
-
-const menuList = [
-  {
-    title: 'Круизы',
-    link: pagesLink.contacts,
-  },
-  {
-    title: 'Теплоходы',
-    link: pagesLink.contacts,
-  },
-  {
-    title: 'Направления',
-    link: pagesLink.contacts,
-  },
-  {
-    title: 'Скидки',
-    link: pagesLink.contacts,
-  },
-  {
-    title: 'Полезная информация',
-    link: pagesLink.contacts,
-  },
-  {
-    title: 'О компании',
-    link: pagesLink.contacts,
-  },
-  {
-    title: 'Поиск',
-    link: pagesLink.search,
-  },
-];
+import { MobileMenuList } from './MobileMenuList';
 
 export const MobileMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -107,25 +76,7 @@ export const MobileMenu = () => {
               alignContent="center"
               justifyContent="stretch"
             >
-              {menuList.map((menu) => {
-                // const isActive = router.pathname === menu.link;
-
-                return (
-                  <Link
-                    as={NextLink}
-                    key={menu.title}
-                    href={menu.link}
-                    w="full"
-                    textAlign="center"
-                    p="12px 0"
-                    _hover={{ textDecoration: 'none' }}
-                    // borderBottom={isActive ? '3px solid' : 'none'}
-                    // borderColor="primary"
-                  >
-                    {menu.title}
-                  </Link>
-                );
-              })}
+              <MobileMenuList onClose={onClose} />
               <Spacer />
               <HStack>
                 {socials.map(({ alias, url, Icon }) => {

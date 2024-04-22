@@ -40,28 +40,28 @@ export const LinkItem = ({
       >
         {name}
       </Box>
-      {isShowSub && (
-        <Box
-          position="absolute"
-          width="full"
-          bg="white"
-          left="0"
-          top="65px"
-          zIndex="2"
-          boxShadow="md"
+
+      <Box
+        display={isShowSub ? 'block' : 'none'}
+        position="absolute"
+        width="full"
+        bg="white"
+        left="0"
+        top="65px"
+        zIndex="2"
+        boxShadow="md"
+      >
+        <MainContainer
+          h="full"
+          gap="12px"
+          display="flex"
+          flexDirection="column"
+          py="12px"
+          px="3"
         >
-          <MainContainer
-            h="full"
-            gap="12px"
-            display="flex"
-            flexDirection="column"
-            py="12px"
-            px="3"
-          >
-            {children}
-          </MainContainer>
-        </Box>
-      )}
+          {children}
+        </MainContainer>
+      </Box>
     </Box>
   );
 };
