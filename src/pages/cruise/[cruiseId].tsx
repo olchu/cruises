@@ -49,25 +49,21 @@ const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
 
   const price = cruise?.minDiscountPrice || cruise?.minPrice;
 
-  const title = `${
+  const baseTitle = `${
     cruise?.title || cruise?.cityStart + ' ' + cruise?.cityEnd
   } от ${(price! / 100)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} руб./чел. Даты ${formatedStart} - 
- ${formatedEnd}. Купить билеты на сайте Волгобалтийские Путешествия`;
+ ${formatedEnd}.`;
 
   return (
     <>
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={title} />
+        <title>
+          {baseTitle + ' Купить билеты на сайте Волгобалтийские Путешествия'}
+        </title>
 
-        <meta
-          name="keywords"
-          content={
-            cruise?.title + ' ' + cruise?.shortRoute.replaceAll(' → ', ' ')
-          }
-        />
+        <meta name="description" content={baseTitle + cruise?.shortRoute} />
 
         <link
           rel="apple-touch-icon"

@@ -23,10 +23,11 @@ const ShipDetails = ({ ship }: ShipDetailsPageProps) => {
   return (
     <>
       <Head>
-        <title>{ship?.name || ''}</title>
-        <meta name="description" content={''} />
-
-        <meta name="keywords" content="" />
+        <title>{`Теплоход ${ship?.name} расписание круизов на 2024 год | цены | фото | описание | маршруты `}</title>
+        <meta
+          name="description"
+          content={`Купить круиз на теплоход ${ship?.name} по низкой цене на сайте vbp.ru. Навигация на 2024 год теплохода  ${ship?.name}.  Фото кают, маршруты, расписание, цены и программы экскурсий. Волго-Балтийские путешествия.`}
+        />
 
         <link
           rel="apple-touch-icon"
