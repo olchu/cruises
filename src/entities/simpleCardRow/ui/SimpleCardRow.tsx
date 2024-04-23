@@ -37,6 +37,7 @@ export const SimpleCardRow = ({ cruise }: CreuseCardProps) => {
 
   const img = useMemo(() => image || shipImg || '', []);
 
+  console.log('cruise.shipId', cruise.shipId);
   return (
     <>
       <HStack
@@ -94,7 +95,7 @@ export const SimpleCardRow = ({ cruise }: CreuseCardProps) => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
                 </Text>{' '}
-                руб./чел
+                {cruise.shipId === 101 ? ' EUR/чел ' : 'руб./чел'}
               </Text>
               {minPrice && minPrice !== minDiscountPrice && (
                 <Text fontSize="12px" fontWeight="normal">
@@ -103,7 +104,7 @@ export const SimpleCardRow = ({ cruise }: CreuseCardProps) => {
                     {(minPrice / 100)
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-                    руб./чел
+                    {cruise.shipId === 101 ? ' EUR/чел ' : 'руб./чел'}
                   </Text>
                 </Text>
               )}

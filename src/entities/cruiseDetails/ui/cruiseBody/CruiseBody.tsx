@@ -115,7 +115,7 @@ export const CruiseBody = () => {
         </Button>
       </MainContainer>
 
-      <CruisePrices />
+      <CruisePrices shipId={cruise?.shipId || 1} />
 
       {/* <CruiseRoute route={cruise?.route as DBRouteType} /> */}
     </Box>

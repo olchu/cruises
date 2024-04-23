@@ -140,7 +140,7 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
                 </Text>{' '}
-                руб./чел
+                {cruise.shipId === 101 ? ' EUR/чел ' : 'руб./чел'}
               </Text>
               {minPrice && minPrice !== minDiscountPrice && (
                 <Text fontSize="12px" fontWeight="normal">
@@ -149,7 +149,7 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
                     {(minPrice / 100)
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-                    руб./чел
+                   {cruise.shipId === 101 ? ' EUR/чел ' : 'руб./чел'}
                   </Text>
                 </Text>
               )}

@@ -3,17 +3,18 @@ import { CruiseContext } from '@/pages/cruise/[cruiseId]';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
   HStack,
-  Heading, VStack,
+  Heading,
+  VStack,
   Box,
   Text,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { CabinType, IncomingPrices, PriceType } from '../../type/cruisePrices';
 import { Schema } from '../schema/Schema';
 import { CruiseCabinType } from './CruiseCabinType';
 
-export const CruisePrices = () => {
+export const CruisePrices = ({ shipId }: { shipId: number }) => {
   const [showSchema, setShowSchema] = useState(false);
   const [chooseCabins, setChooseCabins] = useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -125,6 +126,7 @@ export const CruisePrices = () => {
                       <CruiseCabinType
                         key={cabin.name}
                         cabin={cabin}
+                        currency={shipId === 101 ? ' EUR/чел ' : 'руб./чел'}
                         freeCabins={cabins ? cabins[name]?.[cabin?.name] : []}
                         handleChoose={handleChoose}
                         chooseCabins={chooseCabins}

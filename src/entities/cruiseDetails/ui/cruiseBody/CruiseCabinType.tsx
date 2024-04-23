@@ -1,10 +1,4 @@
-import {
-  Text,
-  Box,
-  Stack,
-  VStack,
-  HStack, Button
-} from '@chakra-ui/react';
+import { Text, Box, Stack, VStack, HStack, Button } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CabinType } from '../../type/cruisePrices';
 import './style.css';
@@ -34,12 +28,14 @@ export const CruiseCabinType = ({
   chooseCabins,
   handleChoose,
   openOrder,
+  currency,
 }: {
   cabin: CabinType;
   freeCabins: string[];
   chooseCabins: string[];
   handleChoose: (v: string) => void;
   openOrder: () => void;
+  currency: string;
 }) => {
   const { name, price } = cabin;
   const { annotation, description, thumbnails, dicountedVal, val } = price;
@@ -84,9 +80,7 @@ export const CruiseCabinType = ({
                   key={item}
                   px="4px"
                   py="2px"
-                  background={
-                    chooseCabins.includes(item) ? 'blue' : 'inherit'
-                  }
+                  background={chooseCabins.includes(item) ? 'blue' : 'inherit'}
                   color={chooseCabins.includes(item) ? 'white' : 'inherit'}
                   _hover={{
                     cursor: 'pointer',
@@ -110,7 +104,7 @@ export const CruiseCabinType = ({
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
           </Text>{' '}
-          руб./чел
+          {currency}
         </Text>
 
         {dicountedVal !== val && (
@@ -122,7 +116,7 @@ export const CruiseCabinType = ({
             без скидки{' '}
             <Text as="span">
               {(val / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-              руб./чел
+              {currency}
             </Text>
           </Text>
         )}

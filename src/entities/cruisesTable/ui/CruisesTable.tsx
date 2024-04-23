@@ -1,13 +1,5 @@
 import { CruiseType } from '@/shared/types/prismaResponse';
-import {
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Link
-} from '@chakra-ui/react';
+import { Table, Thead, Tr, Th, Tbody, Td, Link } from '@chakra-ui/react';
 import moment from 'moment';
 import NextLink from 'next/link';
 
@@ -43,7 +35,9 @@ export const CruisesTable = ({ cruises }: { cruises: CruiseType[] }) => {
                 {(cruise.minDiscountPrice / 100)
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-                <span style={{ fontSize: '12px' }}>руб./чел</span>
+                <span style={{ fontSize: '12px' }}>
+                  {cruise.shipId === 101 ? ' EUR/чел ' : 'руб./чел'}
+                </span>
               </Td>
               <Td>
                 <Link

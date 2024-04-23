@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { colors } from './colors';
 import { Roboto } from 'next/font/google';
 import { switchTheme } from './switchTheme';
+import { checkboxTheme } from './checkboxTheme';
 
 const roboto = Roboto({
   weight: ['300', '400', '700', '900'],
@@ -25,5 +26,6 @@ export const theme = extendTheme({
       // TODO add colorSheme
     },
     Switch: switchTheme,
+    Checkbox:checkboxTheme,
   },
 });
