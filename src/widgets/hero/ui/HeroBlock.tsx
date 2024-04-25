@@ -3,10 +3,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Box, Heading, VStack } from '@chakra-ui/react';
-import {
-  HeroPrismaType
-} from '@/shared/types/prismaResponse';
+import { Box, Heading, Text, VStack } from '@chakra-ui/react';
+import { HeroPrismaType } from '@/shared/types/prismaResponse';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -46,16 +44,16 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
         onSwiper={setSwiper}
         simulateTouch={false}
         loop={true}
-        autoplay={{
-          delay: 8000,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 8000,
+        //   disableOnInteraction: false,
+        // }}
       >
-        {heroList.map(({ id, title, img, link }) => {
+        {heroList.map(({ id, title, img, link, description }) => {
           return (
             <SwiperSlide key={id}>
               <Box position="relative">
-                <Link href={link} >
+                <Link href={link}>
                   <Box
                     position="relative"
                     _after={{
@@ -83,16 +81,25 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
                       px={{ base: 'section.mobile', lg: 'section.desktop' }}
                       py={{ base: '30px', md: '70px', lg: '100px' }}
                       whiteSpace="pre-wrap"
+                      color="white"
                     >
                       <Heading
                         as="h2"
                         fontSize={{ base: '30px', md: '50px', lg: '60px' }}
-                        color="white"
                         fontWeight="900"
                         w={{ base: '100%', md: '70%', lg: '70%' }}
                       >
                         {title.replace(/\\n/g, '\n')}
                       </Heading>
+                      {description && (
+                        <Text
+                          mt="30px"
+                          fontSize={{ base: '12px', md: '20px' }}
+                          display={{ base: 'none', md: 'block' }}
+                        >
+                          {description}
+                        </Text>
+                      )}
                     </MainContainer>
                   </Box>
                 </Link>
