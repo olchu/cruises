@@ -44,10 +44,10 @@ export const HeroBlock = ({ heroList }: { heroList: HeroPrismaType[] }) => {
         onSwiper={setSwiper}
         simulateTouch={false}
         loop={true}
-        // autoplay={{
-        //   delay: 8000,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 8000,
+          disableOnInteraction: false,
+        }}
       >
         {heroList.map(({ id, title, img, link, description }) => {
           return (
