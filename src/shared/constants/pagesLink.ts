@@ -14,7 +14,7 @@ export const pagesLink = {
   expedition: '/expedition',
   cruise2024: '/cruise2024',
   cruise2025: '/cruise2025',
-  detiBesplatno: '/deti-besplatno',
+  detiBesplatno: '/general/deti',
   pirogov: '/general/pirogov',
   pensioneram: '/pensioneram',
   ranneeBronirovanie: '/rannee-bronirovanie',

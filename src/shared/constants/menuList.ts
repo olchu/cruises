@@ -27,11 +27,11 @@ export const cruiseLinks = [
   },
   {
     title: 'Круизы эконом',
-    link: '/general/lux',
+    link: '/general/ekonom',
   },
   {
     title: 'Круизы люкс',
-    link: '/general/ekonom',
+    link: '/general/luxe',
   },
 ];
 
