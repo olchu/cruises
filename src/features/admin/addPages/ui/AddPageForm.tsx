@@ -36,14 +36,14 @@ type AddPage = {
 };
 
 type AddPageFrom = {
-  page?: PagesPrismaType | null;
+  page?: (Omit<PagesPrismaType, 'id'> & { id: number | null }) | null;
 };
 
 const ADD_API = '/api/admin/pages/addPage';
 const UPDATE_API = '/api/admin/pages/updatePage';
 
 export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
-  const endpoint = page ? UPDATE_API : ADD_API;
+  const endpoint = page?.id ? UPDATE_API : ADD_API;
   const toast = useToast();
   const [content, setContent] = useState(page?.content || '');
   const [uploadedFiles, setUploadedFiles] = useState<File | null>(null);
@@ -131,11 +131,11 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
 
         const res = await response.json();
 
-        const toatsTitle = page ? 'Страница обновлена' : 'Страница создана';
-        const toatsDescription = page
+        const toatsTitle = page?.id ? 'Страница обновлена' : 'Страница создана';
+        const toatsDescription = page?.id
           ? 'Обновлена страница с url=/'
           : 'Новая страница создана с url=/';
-        const toatsError = page
+        const toatsError = page?.id
           ? 'Ошибка при обновлении страницы'
           : 'Ошибка при создании страницы';
 
@@ -163,7 +163,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
   });
 
   useEffect(() => {
-    if (page) return;
+    if (page?.id) return;
     setFieldValue('seoCanonicalUrl', `https://vbp.ru/${values.slug}`);
   }, [values.slug]);
 
@@ -343,7 +343,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
           {/* <MetaTagsEdit tags={metaTags} setTag={setMetaTags} /> */}
 
           <Button type="submit" isLoading={isSubmitting}>
-            {page ? 'Обновить' : 'Создать'}
+            {page?.id ? 'Обновить' : 'Создать'}
           </Button>
         </VStack>
       </form>

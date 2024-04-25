@@ -30,6 +30,7 @@ import { ReactElement, useRef, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { MdEdit } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
+import { MdContentCopy } from 'react-icons/md';
 
 type PagesProps = {
   pages: PagesPrismaType[];
@@ -43,6 +44,10 @@ const Pages = ({ pages }: PagesProps) => {
 
   const handleEdit = (id: number) => {
     router.push(`/admin/pages/edit/${id}`);
+  };
+
+  const handleCopy = (id: number) => {
+    router.push(`/admin/pages/copy/${id}`);
   };
 
   const handleAdd = () => {
@@ -99,7 +104,12 @@ const Pages = ({ pages }: PagesProps) => {
                   <Tr key={id}>
                     <Td>{id}</Td>
                     <Td>
-                      <Link as={NextLink} color='teal.500' target="_blank" href={`/${slug}`}>
+                      <Link
+                        as={NextLink}
+                        color="teal.500"
+                        target="_blank"
+                        href={`/${slug}`}
+                      >
                         /{slug}
                       </Link>
                     </Td>
@@ -114,6 +124,14 @@ const Pages = ({ pages }: PagesProps) => {
                           onClick={() => handleEdit(id)}
                         >
                           <MdEdit />
+                        </Box>
+                        <Box
+                          color="teal.500"
+                          p="10px"
+                          cursor="pointer"
+                          onClick={() => handleCopy(id)}
+                        >
+                          <MdContentCopy />
                         </Box>
                         <Box
                           color="red.500"
