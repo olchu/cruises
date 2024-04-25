@@ -1,24 +1,80 @@
+import { SearchResultContent } from '@/features/searchResultContent';
 import { MainLayout } from '@/layouts/main';
-import { ShipsType } from '@/shared/types/prismaResponse';
+import { defaultItemsOnPage } from '@/shared/constants/constants';
+import {
+  CompilationQueryType,
+  getCompilation,
+} from '@/shared/lib/utils/getCompilation';
+import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { WhiteTransparent } from '@/shared/ui/whiteTransparent/WhiteTransparent';
 import { Box, Stack, Text, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import prisma from 'prisma/client';
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 export type ShipDetailsPageProps = {
   ship: ShipsType | null;
+  cruises: CruiseType[];
+  totalCount: number;
 };
 
-const ShipDetails = ({ ship }: ShipDetailsPageProps) => {
+const ShipDetails = ({
+  ship,
+  cruises: initialCruises,
+  totalCount,
+}: ShipDetailsPageProps) => {
   const captain = JSON.parse(ship?.captain || '');
+  const [cruises, setCruises] = useState<CruiseType[]>(initialCruises);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [skip, setSkip] = useState(defaultItemsOnPage);
+
+  const queries: CompilationQueryType[] = [{ shipId: [ship?.id] }];
 
   const handleBeforeInjection = (svg: SVGSVGElement) => {
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', 'auto');
+  };
+
+  const getCruises = useCallback(async () => {
+    if (!queries) {
+      setIsLoading(false);
+      return;
+    }
+    setIsFetching(true);
+
+    const response = await fetch(
+      `/api/getCompilation?limit=${defaultItemsOnPage}&skip=${skip}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(queries),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { cruises: cruisesRes, totalCount } = await response.json();
+
+    setCruises([...cruises, ...(cruisesRes || [])]);
+    setSkip((prev) => prev + defaultItemsOnPage);
+
+    setIsLoading(false);
+    setIsFetching(false);
+  }, [queries, cruises, skip]);
+
+  useEffect(() => {
+    setCruises(initialCruises);
+  }, [initialCruises]);
+
+  const cruisesCount = useMemo(() => {
+    return totalCount;
+  }, [totalCount]);
+
+  const handleGetMore = () => {
+    getCruises();
   };
   return (
     <>
@@ -129,6 +185,17 @@ const ShipDetails = ({ ship }: ShipDetailsPageProps) => {
               beforeInjection={handleBeforeInjection}
             />
           </Box>
+          <Text fontSize="22px" fontWeight="bold" mb="12px">
+            Круизы
+          </Text>
+          <SearchResultContent
+            handleGetMore={handleGetMore}
+            isLoading={isLoading}
+            isFetching={isFetching}
+            cruises={cruises}
+            cruisesCount={cruisesCount}
+            itemsOnPage={defaultItemsOnPage}
+          />
         </MainContainer>
       </VStack>
     </>
@@ -151,5 +218,18 @@ export const getServerSideProps = (async (context) => {
   });
   const ship = JSON.parse(JSON.stringify(shipSelect));
 
-  return { props: { ship: ship } };
+  const query: CompilationQueryType[] = [{ shipId: [shipId] }];
+
+  const { cruises, totalCount } = await getCompilation({
+    query,
+    itemsOnPage: defaultItemsOnPage,
+  });
+
+  return {
+    props: {
+      ship,
+      cruises: cruises as CruiseType[],
+      totalCount: totalCount as number,
+    },
+  };
 }) satisfies GetServerSideProps<ShipDetailsPageProps>;

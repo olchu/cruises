@@ -1,3 +1,3 @@
-export const defaultItemsOnPage = 10;
+export const defaultItemsOnPage = 25;
 
 export const domainUrl = 'https://vbp.ru';
