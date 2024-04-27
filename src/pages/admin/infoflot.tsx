@@ -25,7 +25,6 @@ const Infoflot = ({
     ships: ShipsType[];
   };
 }) => {
-  console.log('infoflot ships', data.ships);
   return (
     <ThemeContext.Provider value={{ ships: data.ships }}>
       <Heading mb={8}>Infoflot api</Heading>

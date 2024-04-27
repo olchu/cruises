@@ -46,10 +46,7 @@ export const AddNewsForm = () => {
       publish: false,
     },
     onSubmit: async (values) => {
-      console.log('body', { ...values, content });
-      console.log('file', files);
       if (files) {
-        console.log();
         const formData = new FormData();
         Array.from(files).forEach((file) => formData.append('files', file));
         formData.append('title', values.title);

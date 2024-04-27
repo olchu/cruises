@@ -100,7 +100,6 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
       itemsOnPage: page?.itemsOnPage || defaultItemsOnPage,
     },
     onSubmit: async (values) => {
-      console.log('body', { ...values, content });
       if (true) {
         const formData = new FormData();
         if (uploadedFiles) formData.append('files', uploadedFiles);

@@ -40,9 +40,7 @@ export const MetaTagsEdit = ({
 
   const handleChange = useCallback(
     (tag: TagPrismaType) => {
-      console.log('editableTag', editableTag);
       if (editableTag !== null) {
-        console.log('update');
         setTag((prev) => {
           const newTags = [...prev];
           newTags[editableTag] = tag;
@@ -50,7 +48,6 @@ export const MetaTagsEdit = ({
         });
         setEditableTag(null);
       } else {
-        console.log('add');
         setTag((prev) => {
           return [...prev, tag];
         });

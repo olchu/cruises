@@ -34,8 +34,6 @@ const handler: NextApiHandler = async (req, res) => {
       formFields[key] = fields?.[key]?.[0] || '';
     }
 
-    console.log('formFields.query', formFields.query);
-
     const response = await prisma.pages.update({
       where: { id: parseInt(formFields.id) },
       data: {
@@ -43,7 +41,7 @@ const handler: NextApiHandler = async (req, res) => {
         slug: formFields.slug,
         content: formFields.content,
         active: formFields.active === 'true' ? 1 : 0,
-        images:  fileNames[0] ? `https://vbp.ru${fileNames[0]}` : '',
+        images: fileNames[0] ? `https://vbp.ru${fileNames[0]}` : '',
         metaTag: [], // TODO пока не используется. не знаю нужен ли будет
         query: JSON.parse(formFields.query),
         seoTitle: formFields.seoTitle,

@@ -24,10 +24,6 @@ export const saveFile = (
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
 
-      // console.log('typeof', typeof files.image);
-      // console.log('Array.isArray(files.files)', Array.isArray(files.files));
-      // console.log('files', files);
-
       let fileNames: string[] = [];
 
       if (Array.isArray(files.files)) {

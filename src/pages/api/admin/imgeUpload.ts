@@ -23,8 +23,6 @@ const handler: NextApiHandler = async (req, res) => {
     true
   );
 
-  console.log('!!!!!!! fileNames', fileNames[0]);
-
   try {
     res.json({ status: 'ok', imageUrl: fileNames[0] });
   } catch (error) {

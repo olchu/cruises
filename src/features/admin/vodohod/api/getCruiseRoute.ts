@@ -23,7 +23,7 @@ export const getCruiseRoute = async (
 
     let route: DBRouteType = {};
     const { data }: CruiseRoutesResponce = await res.json();
-    console.log('data', data);
+
     for (let key in data) {
       const day = data[key];
       let excursions: DBExcursionType[] = [];

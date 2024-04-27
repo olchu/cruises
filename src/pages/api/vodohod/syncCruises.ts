@@ -20,7 +20,6 @@ export default async function handler(
       });
 
       if (selectCruise?.id) {
-        console.log('update', selectCruise?.id);
         await prisma.cruises.update({
           where: {
             id: selectCruise.id,
@@ -51,7 +50,6 @@ export default async function handler(
           },
         });
         response.push({ id: cruise.extId, status: 'ok' });
-        console.log(response);
       } else {
         await prisma.cruises.create({
           data: {

@@ -62,8 +62,6 @@ const Blog = ({ posts }: BlogProps) => {
         <VStack w="full" gap="20px">
           {posts.map((post) => {
             const images = JSON.parse(post.images || '');
-            console.log('type', typeof post.images);
-            console.log('post.images', post.images);
             const formatedDate = moment(post.date).format('DD.MM.YYYY');
             return (
               <Stack
@@ -89,7 +87,13 @@ const Blog = ({ posts }: BlogProps) => {
                     {formatedDate}
                   </Text>
                   <Text>{post.preview}</Text>
-                  <Link as={NextLink} href={`/blog/${post.id}`} display="flex" alignItems="center" gap="6px">
+                  <Link
+                    as={NextLink}
+                    href={`/blog/${post.id}`}
+                    display="flex"
+                    alignItems="center"
+                    gap="6px"
+                  >
                     читать{' '}
                     <span>
                       <IoIosArrowRoundForward />

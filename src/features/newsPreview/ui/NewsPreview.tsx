@@ -16,8 +16,6 @@ interface IBlogPreview {
 }
 
 export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
-  console.log(news);
-
   const { id, image, title, date, link } = news[0];
   const formatedDate = moment(date).format('DD.MM.YYYY');
 
@@ -50,7 +48,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
           >
             <Box
               as={NextLink}
-              href={link|| ''}
+              href={link || ''}
               h="80%"
               width="full"
               display="block"
@@ -86,7 +84,6 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
         <Flex flexDirection={{ base: 'column' }} w="100%" gap="30px">
           {news.slice(1).map(({ id, title, date, link }) => {
             const formatedDate = moment(date).format('DD.MM.YYYY');
-            console.log('link',link)
             return (
               <VStack
                 gap="12px"

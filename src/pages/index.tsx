@@ -52,7 +52,6 @@ const Home = ({
   menu,
   news,
 }: HomeProps) => {
-  console.log('menu page', menu);
   return (
     <>
       <Head>

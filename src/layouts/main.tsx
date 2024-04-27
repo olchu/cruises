@@ -8,7 +8,6 @@ import { CookieBanner } from '@/widgets/cookieBanner';
 import { VStack } from '@chakra-ui/react';
 
 export const MainLayout: LayoutProps = (props) => {
-  console.log('props', props);
   return (
     <ThemeProvider>
       <GoToOldSite />

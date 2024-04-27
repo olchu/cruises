@@ -41,8 +41,6 @@ export const getCruisesById = async (
     }
   });
 
-  console.log('offers ', offers);
-  console.log('discounts ', discounts);
 
   return {
     extId: extId,

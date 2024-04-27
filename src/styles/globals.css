@@ -117,6 +117,13 @@ body {
   margin-bottom: 4px;
 }
 
+.compilationContainer ol {
+  margin-left: 15px;
+}
+.compilationContainer ul {
+  margin-left: 15px;
+}
+
 .noWrap {
-   text-wrap: nowrap;
+  text-wrap: nowrap;
 }

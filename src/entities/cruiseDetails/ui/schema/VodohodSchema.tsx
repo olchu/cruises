@@ -27,8 +27,6 @@ export const VodohodSchema = ({
         maxX = 0,
         maxY = 0;
 
-      console.log('freefreeCabins', freeCabins);
-      console.log('chooseCabins', chooseCabins);
       deckElements.forEach((deck) => {
         if (deck instanceof SVGGraphicsElement) {
           deck.setAttribute('style', `fill:#e1f3fd`);
@@ -94,7 +92,6 @@ export const VodohodSchema = ({
         item.classList.add('cabin');
         item.addEventListener('click', () => handleChoose(number));
       }
-     
     });
 
     const cabinsFill = svg.querySelectorAll('[id^="rf-"]');

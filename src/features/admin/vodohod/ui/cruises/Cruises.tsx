@@ -36,8 +36,6 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   const { getToken, token } = useGetToken();
   const toast = useToast();
 
-  console.log('ships', ships);
-
   useEffect(() => {
     if (token) return;
     getToken();
@@ -73,7 +71,6 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   };
 
   const handleSync = async (id: number) => {
-    console.log('cruises', data[id].cruises);
     const { cruises } = data[id];
     syncCruisesDB(cruises);
   };
@@ -122,7 +119,6 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
     for (let key in data) {
       cruises = [...cruises.concat(data[key].cruises)];
     }
-    console.log('cruise fo sync vodohod', cruises);
     syncCruisesDB(cruises);
   };
 

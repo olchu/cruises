@@ -39,7 +39,6 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
   const initDate = post ? moment(post?.date).format('YYYY-MM-DD') : null;
   const [postImages, setPostImages] = useState<string[]>(() => {
     if (post?.images) {
-      console.log('');
       return JSON.parse(post.images)?.map((item: string) => item);
     }
     return [];
@@ -108,9 +107,7 @@ export const AddPostForm: FC<IAddPosrFrom> = ({ post }) => {
       publish: post?.publish === 'true',
     },
     onSubmit: async (values) => {
-      console.log('body', { ...values, content });
       if (true) {
-        console.log();
         const formData = new FormData();
         if (uploadedFiles.length > 0)
           uploadedFiles.forEach((file) => formData.append('files', file));

@@ -88,7 +88,6 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
   };
 
   const handleSync = async (id: number) => {
-    console.log('cruises', data[id].cruises);
     const { cruises } = data[id];
     syncCruisesDB(cruises);
   };

@@ -45,7 +45,6 @@ export const getPricesVodohod = async (id: number | undefined) => {
     let freeCabins: FreeCabinsWithIDType[] = [];
 
     const cabinsRes = result?.data;
-    console.log('cabinsRes', cabinsRes);
     for (const i in cabinsRes) {
       if (cabinsRes[i].availability) {
         const roomNumber = cabinsRes[i].number;

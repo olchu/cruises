@@ -15,7 +15,7 @@ export const getCruiseDetails = async (id: number, token: any) => {
     });
     const responce: CruiseDetailsResponce = await res.json();
     const { result } = responce;
-    console.log('result', result);
+
     const days = moment(result.duration * 1000).format('D');
     const routesCity = result.route.map((i) => i.name);
 

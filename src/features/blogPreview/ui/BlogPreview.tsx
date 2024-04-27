@@ -17,7 +17,6 @@ interface IBlogPreview {
 }
 
 export const BlogPreview: FC<IBlogPreview> = ({ posts }) => {
-  console.log(posts);
   return (
     <MainContainer
       as="section"

@@ -37,7 +37,6 @@ export const SimpleCardRow = ({ cruise }: CreuseCardProps) => {
 
   const img = useMemo(() => image || shipImg || '', []);
 
-  console.log('cruise.shipId', cruise.shipId);
   return (
     <>
       <HStack

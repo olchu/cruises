@@ -16,13 +16,9 @@ type AppPropsWithLayout = AppProps & {
   menu: string;
 };
 
-function MyApp({
-  Component,
-  pageProps,
-}: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
 
-  console.log('APPPP', pageProps);
   return (
     <SessionProvider session={pageProps.session}>
       {getLayout(<Component {...pageProps} />, {

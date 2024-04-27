@@ -15,7 +15,6 @@ export default async function handler(
     let response: { id: number; status: string }[] = [];
 
     const { cruises, loadFrom } = req.body;
-    console.log('loadFrom', loadFrom);
 
     for (let cruise of cruises) {
       const selectCruise = await prisma.cruises.findFirst({
@@ -32,7 +31,6 @@ export default async function handler(
       if (cruiseImgUrl) {
         const imgNameSplit = cruiseImgUrl.split('/');
         const imgName = imgNameSplit.at(-1);
-        console.log('!!!!!!   imgName    !!!! ', imgName);
         imgPath = path.join('uploads', 'cruises', imgName);
 
         const fileExists = await fs.pathExists(imgPath);
@@ -51,7 +49,6 @@ export default async function handler(
       }
 
       if (selectCruise?.id) {
-        console.log('update', selectCruise?.id);
         await prisma.cruises.update({
           where: {
             id: selectCruise.id,
@@ -89,7 +86,6 @@ export default async function handler(
         });
         response.push({ id: cruise.extId, status: 'ok' });
       } else {
-        console.log('!!!!!!! insert   !!!!!');
         const res = await prisma.cruises.create({
           data: {
             extId: cruise.extId,
@@ -127,7 +123,6 @@ export default async function handler(
     }
     return res.status(200).json(response);
   } catch (error) {
-    console.log('******* error  ********', error);
     return res.status(500).json(error);
   }
 }

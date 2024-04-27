@@ -25,8 +25,6 @@ export const CruisePrices = ({ shipId }: { shipId: number }) => {
   const handleChoose = (item: string) => {
     const index = chooseCabins.findIndex((el) => el === item);
 
-    console.log('item', item);
-
     if (index >= 0) {
       setChooseCabins((prev) => {
         const cabins = [...prev];

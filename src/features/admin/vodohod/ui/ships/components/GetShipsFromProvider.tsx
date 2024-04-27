@@ -26,7 +26,6 @@ export const GetShipsFromProvider = () => {
 
   const handlePrepare = async (ships: ShipsData[]) => {
     const prepare = await prepareShips(ships, token);
-    console.log('ships', prepare);
 
     setPrepareData(prepare);
   };
