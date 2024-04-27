@@ -8,6 +8,7 @@ import prisma from 'prisma/client';
 import { ReactElement } from 'react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { PostimagesGallery } from '@/features/postimagesGallery';
 
 export type PostDetailsPageProps = {
   post: PostsType;
@@ -17,6 +18,8 @@ const PostDetails = ({ post }: PostDetailsPageProps) => {
   const formatedDate = format(post?.date!, 'dd MMMM yyyy', {
     locale: ru,
   });
+
+  const images: string[] = JSON.parse(post?.images || '[]');
 
   return (
     <>
@@ -61,7 +64,9 @@ const PostDetails = ({ post }: PostDetailsPageProps) => {
           </Text>
         )}
 
+        <PostimagesGallery images={images} />
         <Box
+          mt="30px"
           whiteSpace="pre-wrap"
           className="compilationContainer"
           dangerouslySetInnerHTML={{
