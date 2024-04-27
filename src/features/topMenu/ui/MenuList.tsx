@@ -4,7 +4,7 @@ import {
   infoLinks,
   saleLinks,
 } from '@/shared/constants/menuList';
-import { Link } from '@chakra-ui/react';
+import { Link, Box } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { LinkItem } from './LinkItem';
 import { ShipsList } from '@/entities/shipsList';
@@ -15,26 +15,35 @@ export const MenuList = () => {
   return (
     <>
       <LinkItem link="/cruises" name="Круизы">
-        {cruiseLinks.map((link) => {
-          return (
-            <Link
-              key={link.title}
-              as={NextLink}
-              h="full"
-              display="flex"
-              alignItems="center"
-              href={link.link}
-              fontSize="20px"
-              color="primary"
-              _hover={{
-                textDecoration: 'none',
-                color: 'blue',
-              }}
-            >
-              {link.title}
-            </Link>
-          );
-        })}
+        <Box
+          flexWrap="wrap"
+          columnGap="20px"
+          width="100%"
+          sx={{
+            columns: { base: 1, md: 2 },
+          }}
+        >
+          {cruiseLinks.map((link) => {
+            return (
+              <Link
+                key={link.title}
+                as={NextLink}
+                h="full"
+                display="flex"
+                alignItems="center"
+                href={link.link}
+                fontSize="20px"
+                color="primary"
+                _hover={{
+                  textDecoration: 'none',
+                  color: 'blue',
+                }}
+              >
+                {link.title}
+              </Link>
+            );
+          })}
+        </Box>
       </LinkItem>
 
       <LinkItem link="/ships" name="Теплоходы">

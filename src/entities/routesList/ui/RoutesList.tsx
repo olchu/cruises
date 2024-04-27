@@ -13,7 +13,7 @@ export const RoutesList = () => {
       h="full"
       width="100%"
       sx={{
-        columns: { base: 1, md: 3 },
+        columns: { base: 1, md: 4 },
       }}
     >
       <Box>

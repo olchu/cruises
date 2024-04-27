@@ -16,73 +16,6 @@ export const ShipsList = ({ ships }: { ships: GroupedShips | null }) => {
         columnWidth: { base: 'inherit', md: '200px' },
       }}
     >
-      <Link
-        as={NextLink}
-        display="block"
-        fontWeight="bold"
-        fontSize="16px"
-        p="6px 4px"
-        href="/general/vodohod2022"
-        color="primary"
-      >
-        Круизы Водохода
-      </Link>
-      <Link
-        display="block"
-        as={NextLink}
-        fontWeight="bold"
-        fontSize="16px"
-        p="6px 4px"
-        href="/general/infoflot"
-        color="primary"
-      >
-        Круизы Инфофлота «Созвездие»
-      </Link>
-      <Link
-        display="block"
-        as={NextLink}
-        fontWeight="bold"
-        fontSize="16px"
-        p="6px 4px"
-        href="/general/bely-lebed"
-        color="primary"
-      >
-        Круизы «Белый лебедь»
-      </Link>
-      <Link
-        display="block"
-        as={NextLink}
-        fontWeight="bold"
-        fontSize="16px"
-        p="6px 4px"
-        href="/general/cezar"
-        color="primary"
-      >
-        Речные круизы «Цезарь Трэвел»
-      </Link>
-      <Link
-        display="block"
-        as={NextLink}
-        fontWeight="bold"
-        fontSize="16px"
-        p="6px 4px"
-        href="/general/doninturflot"
-        color="primary"
-      >
-        Круизы от Донинтурфлот
-      </Link>
-      <Link
-        display="block"
-        as={NextLink}
-        fontWeight="bold"
-        fontSize="16px"
-        p="6px 4px"
-        href="/general/mosturflot"
-        color="primary"
-      >
-        Круизы Мостурфлот
-      </Link>
-
       {ships &&
         Object.entries(ships) // TODO add memo
           .sort()
@@ -108,7 +41,6 @@ export const ShipsList = ({ ships }: { ships: GroupedShips | null }) => {
                           key={`${classType}-${index}`}
                           fontWeight="bold"
                           fontSize="16px"
-                          opacity="0.7"
                           my="6px"
                           color={colorsMaping[type]}
                         >
@@ -123,7 +55,12 @@ export const ShipsList = ({ ships }: { ships: GroupedShips | null }) => {
                               key={ship.id}
                               fontSize="14px"
                               p="6px 4px"
+                              transition="all 0.2s ease-out"
                               color={colorsMaping[type]}
+                              _hover={{
+                                transform: 'translateX(10px)',
+                                transition: 'all 0.4s ease-out',
+                              }}
                             >
                               <Link href={`/ship/${ship.id}`}>{ship.name}</Link>
                             </Text>

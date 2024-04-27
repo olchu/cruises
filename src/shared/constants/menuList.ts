@@ -33,6 +33,26 @@ export const cruiseLinks = [
     title: 'Круизы люкс',
     link: '/general/lux',
   },
+  {
+    title: 'Круизы Водохода',
+    link: '/general/vodohod2022',
+  },
+  {
+    title: 'Круизы Инфофлота «Созвездие»',
+    link: '/general/infoflot',
+  },
+  {
+    title: 'Круизы «Белый лебедь»',
+    link: '/general/bely-lebed',
+  },
+  {
+    title: 'Речные круизы «Цезарь Трэвел»',
+    link: '/general/cezar',
+  },
+  {
+    title: 'Круизы от Донинтурфлот',
+    link: '/general/doninturflot',
+  },
 ];
 
 export const saleLinks = [

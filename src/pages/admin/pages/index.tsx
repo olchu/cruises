@@ -122,6 +122,7 @@ const Pages = ({ pages }: PagesProps) => {
                           p="10px"
                           cursor="pointer"
                           onClick={() => handleEdit(id)}
+                          title="Редактировать"
                         >
                           <MdEdit />
                         </Box>
@@ -130,6 +131,7 @@ const Pages = ({ pages }: PagesProps) => {
                           p="10px"
                           cursor="pointer"
                           onClick={() => handleCopy(id)}
+                          title="Копирование"
                         >
                           <MdContentCopy />
                         </Box>
@@ -138,6 +140,7 @@ const Pages = ({ pages }: PagesProps) => {
                           p="10px"
                           cursor="pointer"
                           onClick={() => handleOpenDelModal(id)}
+                          title="Удалить"
                         >
                           <MdDelete />
                         </Box>
