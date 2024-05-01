@@ -96,46 +96,48 @@ export const CruiseCabinType = ({
         )}
       </VStack>
 
-      <Box>
-        <Text color="accent" fontWeight="bold" fontSize="16px">
-          от{' '}
-          <Text fontSize="18px" as="span">
-            {(dicountedVal / 100)
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-          </Text>{' '}
-          {currency}
-        </Text>
-
-        {dicountedVal !== val && (
-          <Text
-            fontSize="12px"
-            fontWeight="normal"
-            textDecoration="line-through"
-          >
-            без скидки{' '}
-            <Text as="span">
-              {(val / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
-              {currency}
-            </Text>
+      {val && (
+        <Box>
+          <Text color="accent" fontWeight="bold" fontSize="16px">
+            от{' '}
+            <Text fontSize="18px" as="span">
+              {(dicountedVal / 100)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+            </Text>{' '}
+            {currency}
           </Text>
-        )}
 
-        <Button
-          bg="accent"
-          color="white"
-          size="sm"
-          fontWeight="bold"
-          mt="12px"
-          onClick={handleSend}
-          alignItems="center"
-          justifyContent="center"
-          display="flex"
-          _hover={{ textDecoration: 'none' }}
-        >
-          Оформить заявку
-        </Button>
-      </Box>
+          {dicountedVal !== val && (
+            <Text
+              fontSize="12px"
+              fontWeight="normal"
+              textDecoration="line-through"
+            >
+              без скидки{' '}
+              <Text as="span">
+                {(val / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}{' '}
+                {currency}
+              </Text>
+            </Text>
+          )}
+
+          <Button
+            bg="accent"
+            color="white"
+            size="sm"
+            fontWeight="bold"
+            mt="12px"
+            onClick={handleSend}
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            _hover={{ textDecoration: 'none' }}
+          >
+            Оформить заявку
+          </Button>
+        </Box>
+      )}
     </Stack>
   );
 };
