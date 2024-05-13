@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 export const GoToOldSite = () => {
   return (
-    <Box bg="success">
+    <Box>
       <MainContainer
         overflow="hidden"
         p={{ base: '4px', md: '8px' }}
