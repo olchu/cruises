@@ -34,6 +34,7 @@ export const MobileMenu = () => {
         fontSize="30px"
         onClick={onOpen}
         color="primary"
+        bg="lightBlue"
       >
         <GrMenu />
       </Flex>

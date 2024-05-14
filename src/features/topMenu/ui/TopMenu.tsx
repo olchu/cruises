@@ -1,11 +1,20 @@
-import { Box, Flex, HStack, Spacer, useMediaQuery } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  HStack,
+  Spacer,
+  Text,
+  useMediaQuery,
+} from '@chakra-ui/react';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { MobileMenu } from './MobileMenu';
 import { AiFillPhone } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { Logo } from '@/shared/ui/logo';
+import { CiSearch } from 'react-icons/ci';
 
 import { MenuList } from './MenuList';
+import Link from 'next/link';
 
 // const MenuList = dynamic(() => import('./MenuList'), {
 //   ssr: false,
@@ -24,7 +33,17 @@ export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
   }, [isMatchMedia]);
 
   return (
-    <Box as="header" bg="lightBlue" position="relative">
+    <Box
+      as="header"
+      bg="lightBlue"
+      position={{ base: 'sticky', md: 'relative' }}
+      top={{ base: 0, md: 'inherit' }}
+      zIndex={{ base: 1000, md: 'inherit' }}
+      boxShadow={{
+        base: '0px 4px 16px 0px rgba(0, 0, 0, 0.05)',
+        md: 'inherit',
+      }}
+    >
       <MainContainer>
         {!isMobile ? (
           <HStack height="65px" gap="20px" px="3" alignContent="center">
@@ -32,17 +51,25 @@ export const TopMenu = ({ isMobileDevice }: TopMenuProps) => {
             <Spacer />
           </HStack>
         ) : (
-          <HStack
-            bg="white"
-            height="60px"
-            gap="10px"
-            alignContent="center"
-            boxShadow="0px 4px 16px 0px rgba(0, 0, 0, 0.05)"
-          >
+          <HStack bg="white" height="60px" gap="10px" alignContent="center">
             <MobileMenu />
-            <Spacer />
             <Logo />
+
             <Spacer />
+
+            <Spacer />
+            <Flex
+              as={Link}
+              href="/search"
+              height="100%"
+              alignItems="center"
+              justifyContent="center"
+              fontSize="20px"
+              color="primary"
+            >
+              <Text mr="6px">Поиск</Text>
+              <CiSearch />
+            </Flex>
             <Flex
               as="a"
               href="tel:+74955439463"
