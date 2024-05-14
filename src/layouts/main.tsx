@@ -10,7 +10,6 @@ import { VStack } from '@chakra-ui/react';
 export const MainLayout: LayoutProps = (props) => {
   return (
     <ThemeProvider>
-      <GoToOldSite />
       <ContactsTopMenu />
       <TopMenu isMobileDevice={props.isMobileDevice} />
       <VStack as="main" gap="0" flex={1}>
