@@ -196,7 +196,7 @@ export const routeCompileLinks = [
 export const infoLinks = [
   {
     title: 'Оплата',
-    link: pagesLink.contacts,
+    link: '/oplata',
   },
   // {
   //   title: 'Условия возврата',
