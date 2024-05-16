@@ -135,9 +135,14 @@ const Oplata = () => {
           безопасности в сети Интернет.
         </Text>
 
-        <Text my="20px" display="block">
-          <Link mr="6px" href="/Типовой_договор.pdf">
-            Договор оферты 
+        <Text fontWeight="bold" fontSize="20px" my="20px" display="block">
+          <Link
+            borderBottom="1px solid"
+            mr="6px"
+            href="/Типовой_договор.pdf"
+            _hover={{ textDecoration: 'none' }}
+          >
+            Договор оферты
           </Link>
           👈
         </Text>

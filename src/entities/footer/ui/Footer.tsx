@@ -40,11 +40,7 @@ export const Footer = () => {
         </Text>
         <Text align="center">
           Специальная оценка условий труда –{' '}
-          <Link
-            href="https://vbp.ru/sout.pdf"
-            as={NextLink}
-            textDecoration="underline"
-          >
+          <Link href="/sout.pdf" textDecoration="underline">
             СОУТ
           </Link>
         </Text>
