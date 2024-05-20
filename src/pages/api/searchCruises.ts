@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { defaultItemsOnPage } from '@/shared/constants/constants';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from 'prisma/client';
 
@@ -40,7 +41,7 @@ export default async function handler(
       orderBy: {
         dateStart: 'asc',
       },
-      take: parseInt(query?.limit as string) || undefined,
+      take: parseInt(query?.limit as string) || defaultItemsOnPage,
       skip: parseInt(query?.skip as string) || undefined,
     });
     const cruises = await JSON.parse(JSON.stringify(cruiseSelect));

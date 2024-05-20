@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { getCompilation } from '@/shared/lib/utils/getCompilation';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from 'prisma/client';
 
 export type CompilationQueryType = Record<string, any[] | string>;
 
