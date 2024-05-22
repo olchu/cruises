@@ -111,6 +111,7 @@ model hero {
   description String @db.Text
   img         String @db.VarChar(255)
   link        String @db.VarChar(255)
+  order       Int?
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.

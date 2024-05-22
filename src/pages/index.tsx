@@ -151,6 +151,9 @@ export const getServerSideProps = (async (context) => {
   });
 
   const heroSelect = await prisma.hero.findMany({
+    orderBy: {
+      order: 'asc',
+    },
     where: {
       active: 1,
     },
