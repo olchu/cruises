@@ -77,7 +77,7 @@ export const MenuList = () => {
         })}
       </LinkItem>
 
-      <LinkItem link="/info" name="Полезная информация">
+      <LinkItem link="/info" name="Клиентам">
         {infoLinks.map((link) => {
           return (
             <Link

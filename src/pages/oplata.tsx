@@ -56,6 +56,18 @@ const Oplata = () => {
           офисе компании.
         </Text>
 
+        <Text fontWeight="bold" fontSize="20px" my="20px" display="block">
+          <Link
+            borderBottom="1px solid"
+            mr="6px"
+            href="/Типовой_договор.pdf"
+            _hover={{ textDecoration: 'none' }}
+          >
+            Договор оферты
+          </Link>
+          👈
+        </Text>
+
         <Heading fontSize="x-large" my="12px">
           В офисе компании
         </Heading>
@@ -135,17 +147,7 @@ const Oplata = () => {
           безопасности в сети Интернет.
         </Text>
 
-        <Text fontWeight="bold" fontSize="20px" my="20px" display="block">
-          <Link
-            borderBottom="1px solid"
-            mr="6px"
-            href="/Типовой_договор.pdf"
-            _hover={{ textDecoration: 'none' }}
-          >
-            Договор оферты
-          </Link>
-          👈
-        </Text>
+        
       </MainContainer>
     </>
   );
