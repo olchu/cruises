@@ -29,11 +29,12 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
       setIsFetching(true);
       const aditions = window.location.search ? '&' : '?'; //TODO to refactor
 
+      console.log('skip', skip);
       const response = await fetch(
         'api/searchCruises' +
           window.location.search +
           aditions +
-          `limit=${defaultItemsOnPage}&skip=${skip}`
+          `limit=${defaultItemsOnPage}&skip=${newSearch ? 0 : skip}`
       );
 
       const { cruises: cruisesRes, totalCount } = await response.json();
@@ -41,11 +42,10 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
       setCruisesCount(totalCount);
       if (newSearch) {
         setCruises([...cruisesRes]);
-        setSkip(0);
       } else {
         setCruises([...cruises, ...cruisesRes]);
-        setSkip((prev) => prev + defaultItemsOnPage);
       }
+      setSkip((prev) => prev + defaultItemsOnPage);
       setIsLoading(false);
       setIsFetching(false);
     },
@@ -57,13 +57,14 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
   };
 
   const handleSearch = useCallback(() => {
+    setSkip(0);
     setIsLoading(true);
     setCruises([]); //TODO to refactor
     search(true);
-  }, [search]);
+  }, []);
 
   useEffect(() => {
-    search();
+    search(true);
   }, []);
 
   return (
