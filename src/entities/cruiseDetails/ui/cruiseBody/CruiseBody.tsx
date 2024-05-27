@@ -50,69 +50,80 @@ export const CruiseBody = () => {
         p={{ base: 'section.mobile', md: 'section.desktop' }}
         position="relative"
       >
-        <Heading id="about" size="xl" mb="30px">
-          Описание
-        </Heading>
-        <Stack
-          direction={{ base: 'column', lg: 'row' }}
-          gap="20px"
-          overflow="hidden"
-          maxH={!isExpandedInfo ? '320px' : 'inherit'}
-        >
-          {cruise?.restaurants && (
-            <Box>
-              <Heading fontSize="22px" mb="20px">
-                Питание в круизе
-              </Heading>
-              <Box
-                className="cruiseKitchen"
-                dangerouslySetInnerHTML={{
-                  __html: cruise?.restaurants || '',
-                }}
-              />
-            </Box>
-          )}
-          <Box>
-            <Heading fontSize="22px" mb="20px">
-              Что включено в стоимость
+        {(cruise?.included || cruise?.excluded || cruise?.restaurants) && (
+          <>
+            <Heading id="about" size="xl" mb="30px">
+              Описание
             </Heading>
+            <Stack
+              direction={{ base: 'column', lg: 'row' }}
+              gap="20px"
+              overflow="hidden"
+              maxH={!isExpandedInfo ? '320px' : 'inherit'}
+            >
+              {cruise?.restaurants && (
+                <Box>
+                  <Heading fontSize="22px" mb="20px">
+                    Питание в круизе
+                  </Heading>
+                  <Box
+                    className="cruiseKitchen"
+                    dangerouslySetInnerHTML={{
+                      __html: cruise?.restaurants || '',
+                    }}
+                  />
+                </Box>
+              )}
+              <Box>
+                <Heading fontSize="22px" mb="20px">
+                  Что включено в стоимость
+                </Heading>
 
-            <Text fontWeight="400" mb="14px" fontSize="16px">
-              В стоимость тура входит:
-            </Text>
+                <Text fontWeight="400" mb="14px" fontSize="16px">
+                  В стоимость тура входит:
+                </Text>
+                {cruise?.included && (
+                  <Box
+                    className="cruiseAbout"
+                    dangerouslySetInnerHTML={{
+                      __html: cruise?.included || '',
+                    }}
+                  />
+                )}
 
+                {cruise?.excluded && (
+                  <>
+                    <Text fontWeight="400" mt="20px" mb="14px" fontSize="16px">
+                      В стоимость тура не входит:
+                    </Text>
+                    <Box
+                      className="cruiseAbout"
+                      dangerouslySetInnerHTML={{
+                        __html: cruise?.excluded || '',
+                      }}
+                    />
+                  </>
+                )}
+              </Box>
+            </Stack>
             <Box
-              className="cruiseAbout"
-              dangerouslySetInnerHTML={{
-                __html: cruise?.included || '',
-              }}
+              w="full"
+              h={isExpandedInfo ? '0' : '40px'}
+              bg="linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.0046612394957983305) 100%)"
+              position="absolute"
+              bottom={{ base: 10, md: 62 }}
+              left={{ base: 0, md: 0 }}
             />
-
-            <Text fontWeight="400" mt="20px" mb="14px" fontSize="16px">
-              В стоимость тура не входит:
-            </Text>
-            <Box
-              className="cruiseAbout"
-              dangerouslySetInnerHTML={{ __html: cruise?.excluded || '' }}
-            />
-          </Box>
-        </Stack>
-        <Box
-          w="full"
-          h={isExpandedInfo ? '0' : '40px'}
-          bg="linear-gradient(0deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0.0046612394957983305) 100%)"
-          position="absolute"
-          bottom={{ base: 10, md: 62 }}
-          left={{ base: 0, md: 0 }}
-        />
-        <Button
-          size="sm"
-          color="primary"
-          mt="12px"
-          onClick={() => setIsExpandedInfo(!isExpandedInfo)}
-        >
-          Подробнее
-        </Button>
+            <Button
+              size="sm"
+              color="primary"
+              mt="12px"
+              onClick={() => setIsExpandedInfo(!isExpandedInfo)}
+            >
+              Подробнее
+            </Button>
+          </>
+        )}
       </MainContainer>
 
       <CruisePrices shipId={cruise?.shipId || 1} />

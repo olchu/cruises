@@ -29,7 +29,6 @@ const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {
       setIsFetching(true);
       const aditions = window.location.search ? '&' : '?'; //TODO to refactor
 
-      console.log('skip', skip);
       const response = await fetch(
         'api/searchCruises' +
           window.location.search +
