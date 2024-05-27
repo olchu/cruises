@@ -8,8 +8,8 @@ type AsideSearchPanelProps = {
   handleSearch: () => void;
   isLoading: boolean;
   ships: ShipsType[];
-  citiesStart: CruiseType[];
-  citiesEnd: CruiseType[];
+  citiesStart: string[];
+  citiesEnd: string[];
 };
 
 export const AsideSearchPanel = ({

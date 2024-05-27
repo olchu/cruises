@@ -13,8 +13,8 @@ import Head from 'next/head';
 
 export type SearchPageProps = {
   ships: ShipsType[];
-  citiesStart: CruiseType[];
-  citiesEnd: CruiseType[];
+  citiesStart: string[];
+  citiesEnd: string[];
 };
 
 const SearchPage = ({ ships, citiesStart, citiesEnd }: SearchPageProps) => {

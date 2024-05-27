@@ -33,8 +33,8 @@ interface HomeProps {
   isMobileDevice: boolean;
   posts: PostsType[];
   ships: ShipsType[];
-  citiesStart: CruiseType[];
-  citiesEnd: CruiseType[];
+  citiesStart: string[];
+  citiesEnd: string[];
   session: Session | null;
   heroList: HeroPrismaType[];
   menu?: string;

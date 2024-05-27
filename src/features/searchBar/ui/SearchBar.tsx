@@ -12,8 +12,8 @@ import { CruiseType, ShipsType } from '@/shared/types/prismaResponse';
 
 type SearchBarProps = BoxProps & {
   ships: ShipsType[];
-  citiesEnd: CruiseType[];
-  citiesStart: CruiseType[];
+  citiesEnd: string[];
+  citiesStart: string[];
 };
 
 export const SearchBar: FC<SearchBarProps> = (props) => {
@@ -71,8 +71,8 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
         >
           {citiesStart.map((city) => {
             return (
-              <option key={city.cityStart} value={city.cityStart}>
-                {city.cityStart}
+              <option key={city} value={city}>
+                {city}
               </option>
             );
           })}
@@ -84,8 +84,8 @@ export const SearchBar: FC<SearchBarProps> = (props) => {
         >
           {citiesEnd.map((city) => {
             return (
-              <option key={city.cityEnd} value={city.cityEnd}>
-                {city.cityEnd}
+              <option key={city} value={city}>
+                {city}
               </option>
             );
           })}
