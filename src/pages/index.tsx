@@ -56,6 +56,7 @@ const Home = ({
     <>
       <Head>
         <title>Круизная компания - Волгобалтийские Путешествия</title>
+        <meta name="yandex-verification" content="0f21d991a2575655" />
 
         <meta
           name="description"
