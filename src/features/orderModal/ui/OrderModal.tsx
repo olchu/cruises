@@ -92,6 +92,7 @@ export const OrderModal = ({
       });
       const { status } = await resp.json();
       if (status === 'OK') {
+        ym(26505816,'reachGoal','zayavka');
         handleClose();
         setSuccessModal(true);
       }
@@ -128,7 +129,7 @@ export const OrderModal = ({
               display="flex"
               flexDirection="column"
             >
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel>Имя</FormLabel>
                 <Input
                   name="name"
@@ -145,7 +146,7 @@ export const OrderModal = ({
                 )}
               </FormControl>
 
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel>Телефон</FormLabel>
                 <Input
                   name="phone"
@@ -163,7 +164,7 @@ export const OrderModal = ({
                 )}
               </FormControl>
 
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
                   name="email"

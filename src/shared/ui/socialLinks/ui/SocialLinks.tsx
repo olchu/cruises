@@ -13,6 +13,7 @@ export const SocialLinks = ({ color = 'primary' }: { color?: string }) => {
             href={url}
             color={color}
             fontSize="30px"
+            rel='nofollow'
           >
             <Icon />
           </Link>
