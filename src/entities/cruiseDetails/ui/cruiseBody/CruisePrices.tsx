@@ -17,6 +17,7 @@ import { CruiseCabinType } from './CruiseCabinType';
 export const CruisePrices = ({ shipId }: { shipId: number }) => {
   const [showSchema, setShowSchema] = useState(false);
   const [chooseCabins, setChooseCabins] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { cruise, cabins } = useContext(CruiseContext);
 
@@ -36,6 +37,11 @@ export const CruisePrices = ({ shipId }: { shipId: number }) => {
         return [...prev, item];
       });
     }
+  };
+
+  const handleOrder = (cat: string) => {
+    setCategory(cat);
+    onOpen();
   };
 
   const decks: PriceType = Object.keys(incomingPrices).map((deck) => {
@@ -116,7 +122,7 @@ export const CruisePrices = ({ shipId }: { shipId: number }) => {
                   fontWeight="bold"
                   color="white"
                 >
-                  {name} палуба
+                  {name.replace('палуба', '')} палуба
                 </Text>
                 <VStack gap="20px" alignItems="flex-start" w="full">
                   {cabinsType.map((cabin) => {
@@ -128,7 +134,7 @@ export const CruisePrices = ({ shipId }: { shipId: number }) => {
                         freeCabins={cabins ? cabins[name]?.[cabin?.name] : []}
                         handleChoose={handleChoose}
                         chooseCabins={chooseCabins}
-                        openOrder={onOpen}
+                        openOrder={() => handleOrder(`${name} ${cabin.name}`)}
                       />
                     );
                   })}
@@ -141,6 +147,7 @@ export const CruisePrices = ({ shipId }: { shipId: number }) => {
         onOpen={onOpen}
         onClose={onClose}
         chooseCabins={chooseCabins}
+        category={category}
         cruise={cruise}
       />
     </MainContainer>

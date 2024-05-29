@@ -10,10 +10,12 @@ export const OrderEmail = ({
   cruise,
   chooseCabins,
   fields,
+  category,
 }: {
   cruise: CruiseType;
   chooseCabins: string[];
   fields: any;
+  category:string;
 }) => {
   const formatedStart = moment(cruise.dateStart);
   const formatedEnd = moment(cruise.dateEnd);
@@ -33,7 +35,8 @@ export const OrderEmail = ({
           <Text style={paragraph}>Телефон: {fields?.phone}</Text>
           <Text style={paragraph}>Почта: {fields?.email}</Text>
           <Text style={paragraph}>Коментарий: {fields?.message}</Text>
-          <Text style={paragraph}>Выбраны каюты: {chooseCabins.join(',')}</Text>
+          <Text style={paragraph}>Выбрана: {category}</Text>
+          <Text style={paragraph}>Выбраные каюты: {chooseCabins.join(',')}</Text>
         </Container>
       </Section>
     </Html>

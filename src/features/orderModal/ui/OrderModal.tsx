@@ -6,14 +6,15 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  ModalBody, Input,
+  ModalBody,
+  Input,
   Textarea,
   Text,
   FormControl,
   FormHelperText,
   FormLabel,
   HStack,
-  Box
+  Box,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { useState } from 'react';
@@ -25,6 +26,7 @@ type OrderModalProp = {
   onOpen: () => void;
   chooseCabins: string[];
   cruise: CruiseType | null;
+  category: string;
 };
 
 type FormType = {
@@ -58,6 +60,7 @@ export const OrderModal = ({
   onOpen,
   chooseCabins,
   cruise,
+  category,
 }: OrderModalProp) => {
   const [successModal, setSuccessModal] = useState(false);
 
@@ -80,7 +83,12 @@ export const OrderModal = ({
     onSubmit: async (values) => {
       const resp = await fetch('/api/order', {
         method: 'POST',
-        body: JSON.stringify({ fields: values, cruise, chooseCabins }),
+        body: JSON.stringify({
+          fields: values,
+          cruise,
+          chooseCabins,
+          category,
+        }),
       });
       const { status } = await resp.json();
       if (status === 'OK') {
@@ -182,11 +190,14 @@ export const OrderModal = ({
                 />
               </FormControl>
 
+              <Text color="grey">Вы выбрали каюты - {category}</Text>
               <Text color="grey">
                 Вы выбрали каюты - {chooseCabins.join(', ')}
               </Text>
               <HStack justifyContent="stretch" gap="12px" my="12px">
-                <Button onClick={handleClose} w="full">Отменить</Button>
+                <Button onClick={handleClose} w="full">
+                  Отменить
+                </Button>
                 <Button
                   w="full"
                   bg="primary"
