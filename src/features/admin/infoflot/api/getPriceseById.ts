@@ -1,3 +1,4 @@
+import { priceLevel } from '@/shared/constants/priceLevel';
 import { InfoflotPricesResponse } from '@/shared/types/infoflot/infoflotPrice';
 import { ShipsType } from '@/shared/types/prismaResponse';
 
@@ -12,21 +13,24 @@ export const getPriceseById = async (extId: number, ship: ShipsType) => {
   const cabinsKeys = Object.keys(data.cabins);
   const deks: Record<string, {}> = {};
   const cabinsPhoto = JSON.parse(ship.cabinsPhoto as string) || {};
-  let minPrice = 1000000000;
-  let minPriceDiscount = 10000000000;
+  let minPrice = 10000000000000;
+  let minPriceDiscount = 10000000000000;
   // console.log('cabinsPhoto', cabinsPhoto);
+
+  const level = priceLevel[ship.extId] || 100;
 
   for (const key in cabinsKeys) {
     const i = cabinsKeys[key];
     const cabin = data.cabins[i];
-    const dekName = cabin?.deck.replaceAll(' палуба','');
+    const dekName = cabin?.deck.replaceAll(' палуба', '');
 
     // console.log('PHOTO     ', cabinsPhoto[dekName]?.[cabin.type_id])
     const dicountedVal =
-      data.prices[cabin.type_id].prices.main_bottom.adult * 100;
-    const val = data.prices[cabin.type_id].prices.default===0
-      ? dicountedVal
-      : data.prices[cabin.type_id].prices.default * 100;
+      data.prices[cabin.type_id].prices.main_bottom.adult * level;
+    const val =
+      data.prices[cabin.type_id].prices.default === 0
+        ? dicountedVal
+        : data.prices[cabin.type_id].prices.default * level;
 
     minPrice = minPrice >= val ? val : minPrice;
     minPriceDiscount =

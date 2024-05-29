@@ -37,7 +37,7 @@ export const getCruisesByShip = async (
 
   return {
     preparedData: prepareCruises,
-    count: cruises.data.length,
+    count: cruises.data?.length,
   };
 };
 

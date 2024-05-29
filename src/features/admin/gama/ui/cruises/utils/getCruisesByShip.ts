@@ -18,8 +18,6 @@ export const getCruisesByShip = async (ship: ShipsType) => {
     const shipList = await shipsRes.json();
     const routesGamma = routeList.elements[1].elements;
 
-    console.log('shipList', shipList);
-
     let count = 0;
 
     for (const i in routesGamma) {
@@ -27,6 +25,7 @@ export const getCruisesByShip = async (ship: ShipsType) => {
       // if (count < 1) {
       const data = item.attributes;
       const dateS = new Date(data.s);
+      if (dateS.getTime() < Date.now()) continue;
       const dateF = new Date(data.f);
       const { days } = intervalToDuration({
         start: dateS,
