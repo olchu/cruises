@@ -122,7 +122,7 @@ export const CruisePrices = ({ shipId }: { shipId: number }) => {
                   fontWeight="bold"
                   color="white"
                 >
-                  {name.replace('палуба', '')} палуба
+                  {name}
                 </Text>
                 <VStack gap="20px" alignItems="flex-start" w="full">
                   {cabinsType.map((cabin) => {
