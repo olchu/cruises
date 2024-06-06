@@ -17,7 +17,7 @@ export const ContactsTopMenu = () => {
     if (router.pathname === pagesLink.home) return {};
 
     return { href: pagesLink.home };
-  }, []);
+  }, [isLogoAsLink]);
 
   return (
     <HStack
