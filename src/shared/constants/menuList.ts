@@ -214,10 +214,6 @@ export const infoLinks = [
 
 export const aboutLinks = [
   {
-    title: 'Контактная информация',
-    link: pagesLink.contacts,
-  },
-  {
     title: 'Партнеры',
     link: pagesLink.partners,
   },

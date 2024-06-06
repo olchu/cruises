@@ -126,6 +126,20 @@ export const MenuList = () => {
         as={NextLink}
         display="flex"
         alignItems="center"
+        href="/contacts"
+        fontSize="20px"
+        color="primary"
+        _hover={{
+          textDecoration: 'none',
+          color: 'blue',
+        }}
+      >
+        Контактная информация
+      </Link>
+      <Link
+        as={NextLink}
+        display="flex"
+        alignItems="center"
         href="/search"
         fontSize="20px"
         color="primary"
