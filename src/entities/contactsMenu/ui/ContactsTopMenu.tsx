@@ -6,19 +6,18 @@ import { MainContainer } from '../../../shared/ui/mainContainer/MainContainer';
 import NextLink from 'next/link';
 import Image from 'next/image';
 import { pagesLink } from '@/shared/constants/pagesLink';
-import { domainUrl } from '@/shared/constants/constants';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
+import { useMemo } from 'react';
 
 export const ContactsTopMenu = () => {
-  const [urlForHomeButton, setUrlForHomeButton] = useState('')
   const router = useRouter();
+  const isLogoAsLink = router.pathname !== pagesLink.home;
 
-  useEffect(() => {
-    const isLogoAsLink = router.pathname !== pagesLink.home;
-    setUrlForHomeButton(isLogoAsLink ? pagesLink.home : '');
-  });
+  const logoProps = useMemo(() => {
+    if (router.pathname === pagesLink.home) return {};
+
+    return { href: pagesLink.home };
+  }, []);
 
   return (
     <HStack
@@ -33,7 +32,7 @@ export const ContactsTopMenu = () => {
         py="12px"
         px="3"
       >
-        <Box as={urlForHomeButton ? Link : "section"} href={urlForHomeButton} mr={4}>
+        <Box as={isLogoAsLink ? Link : 'section'} mr={4} {...logoProps}>
           <Image
             priority
             src="/logoWhite.svg"

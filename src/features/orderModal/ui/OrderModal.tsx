@@ -92,6 +92,7 @@ export const OrderModal = ({
       });
       const { status } = await resp.json();
       if (status === 'OK') {
+        // @ts-ignore
         ym(26505816,'reachGoal','zayavka');
         handleClose();
         setSuccessModal(true);
