@@ -21,6 +21,8 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
 
   const img = JSON.parse(image!);
 
+  const firstNewsUrl = link || `/news/${id}`;
+
   return (
     <MainContainer
       as="section"
@@ -48,7 +50,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
           >
             <Box
               as={NextLink}
-              href={link || ''}
+              href={firstNewsUrl}
               h="80%"
               width="full"
               display="block"
@@ -74,7 +76,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
               <Text fontSize="12px" mb="12px">
                 {formatedDate}
               </Text>
-              <Text as={NextLink} href={link || ''} fontSize="18px">
+              <Text as={NextLink} href={firstNewsUrl} fontSize="18px">
                 {title}
               </Text>
             </Box>
@@ -84,6 +86,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
         <Flex flexDirection={{ base: 'column' }} w="100%" gap="30px">
           {news.slice(1).map(({ id, title, date, link }) => {
             const formatedDate = moment(date).format('DD.MM.YYYY');
+            const newsurl = link || `/news/${id}`;
             return (
               <VStack
                 gap="12px"
@@ -98,24 +101,21 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
                 <Text color="grey" fontSize="12px">
                   {formatedDate}
                 </Text>
-                {link ? (
-                  <Link fontSize="18px" as={NextLink} href={link}>
-                    {title}
-                  </Link>
-                ) : (
-                  <Text fontSize="18px">{title}</Text>
-                )}
+
+                <Link fontSize="18px" as={NextLink} href={newsurl}>
+                  {title}
+                </Link>
               </VStack>
             );
           })}
         </Flex>
       </Flex>
 
-      <HStack justifyContent={{ base: 'center', md: 'flex-start' }} mt="18px">
+      {/* <HStack justifyContent={{ base: 'center', md: 'flex-start' }} mt="18px">
         <Link
           as={NextLink}
           color="primary"
-          href={`/blog`}
+          href={`/news`}
           mb="22px"
           display="flex"
           alignItems="center"
@@ -126,7 +126,7 @@ export const NewsPreview: FC<IBlogPreview> = ({ news }) => {
           Все новости
           <IoIosArrowRoundForward />
         </Link>
-      </HStack>
+      </HStack> */}
     </MainContainer>
   );
 };
