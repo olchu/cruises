@@ -137,17 +137,19 @@ const ShipDetails = ({
             justifyContent="space-between"
             alignItems="flex-start"
           >
-            <Box>
-              <Text fontSize="22px" fontWeight="bold" mb="12px">
-                Сервисы на борту
-              </Text>
-              <Box
-                whiteSpace="pre-wrap"
-                dangerouslySetInnerHTML={{
-                  __html: ship?.services || '',
-                }}
-              />
-            </Box>
+            {ship?.services && (
+              <Box>
+                <Text fontSize="22px" fontWeight="bold" mb="12px">
+                  Сервисы на борту
+                </Text>
+                <Box
+                  whiteSpace="pre-wrap"
+                  dangerouslySetInnerHTML={{
+                    __html: ship?.services || '',
+                  }}
+                />
+              </Box>
+            )}
             {captain?.name && captain?.image && (
               <Box>
                 <Text fontSize="22px" fontWeight="bold" textAlign="center">
