@@ -119,4 +119,10 @@ const menulist = [
     url: '/about',
     goToUrl: false,
   },
+  {
+    title: 'Контакты',
+    links: [],
+    url: '/contacts',
+    goToUrl: true,
+  },
 ];
