@@ -15,7 +15,7 @@ import { Providers } from '@/shared/constants/providers';
 
 export const CruiseRoute = ({
   route,
-  provider
+  provider,
 }: {
   route: DBRouteType;
   provider: Providers;
@@ -32,7 +32,7 @@ export const CruiseRoute = ({
           const dateIn = days[0].dateIn;
           console.log('dateIn', new Date(dateIn));
 
-          const startDate = format(dateIn, 'dd MMMM', {
+          const startDate = format(dateIn, 'dd.MM.yyyy', {
             locale: ru,
           });
 
@@ -44,10 +44,9 @@ export const CruiseRoute = ({
           return (
             <AccordionItem key={index}>
               <AccordionButton>
-                <Box flex="1" textAlign="left">
+                <Box flex="1" textAlign="left" display="flex" gap="20px">
                   <Text
                     as="span"
-                    mr="12px"
                     fontSize="18px"
                     fontWeight="bold"
                     color="primary"
@@ -55,7 +54,7 @@ export const CruiseRoute = ({
                     День {index + 1}{' '}
                   </Text>
                   <span>
-                    {startDate} ({dayOfWeekStart}) {startTime}
+                    {startDate}, {dayOfWeekStart}
                   </span>
                 </Box>
                 <AccordionIcon />
