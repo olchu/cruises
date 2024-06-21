@@ -58,8 +58,8 @@ export const getCruiseRoute = async (
 
       const program: DBInfoRouteType = {
         city: rowDay?.name || day.city,
-        dateIn: day.dateIn * 1000,
-        dateOut: day.dateOut * 1000,
+        dateIn: day.dateIn * 1000 - 3 * 60 * 60 * 1000,
+        dateOut: day.dateOut * 1000 - 3 * 60 * 60 * 1000,
         annotation: day.annotation,
         excursions: [...excursions],
         extraExcursions: [],
