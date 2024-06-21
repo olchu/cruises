@@ -22,7 +22,7 @@ export const CruiseRoute = ({
 }) => {
   const routes = Object.values(route);
   return (
-    <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
+    <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }} id="route">
       <Heading id="price" size="xl" mb="30px">
         Маршрут
       </Heading>
@@ -44,7 +44,7 @@ export const CruiseRoute = ({
           return (
             <AccordionItem key={index}>
               <AccordionButton>
-                <Box flex="1" textAlign="left" display="flex" gap="20px">
+                <Box flex="1" textAlign="left" display="flex" gap="20px" alignItems="center">
                   <Text
                     as="span"
                     fontSize="18px"
