@@ -1,4 +1,6 @@
 import { CruiseContext } from '@/pages/cruise/[cruiseId]';
+import { Providers } from '@/shared/constants/providers';
+import { DBRouteType } from '@/shared/types/dbCruisesType';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import {
   HStack,
@@ -11,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { CruisePrices } from './CruisePrices';
+import { CruiseRoute } from './CruiseRoute';
 
 const menu = [
   { title: 'Описание', link: '#about' },
@@ -22,6 +25,8 @@ const menu = [
 export const CruiseBody = () => {
   const { cruise } = useContext(CruiseContext);
   const [isExpandedInfo, setIsExpandedInfo] = useState(false);
+
+  console.log('creuise', cruise);
 
   return (
     <Box position="relative" w="full">
@@ -128,7 +133,12 @@ export const CruiseBody = () => {
 
       <CruisePrices shipId={cruise?.shipId || 1} />
 
-      {/* <CruiseRoute route={cruise?.route as DBRouteType} /> */}
+      {cruise?.route && (
+        <CruiseRoute
+          route={cruise?.route as DBRouteType}
+          provider={cruise?.provider as Providers}
+        />
+      )}
     </Box>
   );
 };

@@ -1,11 +1,25 @@
 import { DBRouteType } from '@/shared/types/dbCruisesType';
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading, Text } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { CruiseRouteDay } from './CruiseRouteDay';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from '@chakra-ui/react';
+import { Providers } from '@/shared/constants/providers';
 
-export const CruiseRoute = ({ route }: { route: DBRouteType }) => {
+export const CruiseRoute = ({
+  route,
+  provider
+}: {
+  route: DBRouteType;
+  provider: Providers;
+}) => {
   const routes = Object.values(route);
   return (
     <MainContainer p={{ base: 'section.mobile', md: 'section.desktop' }}>
@@ -13,28 +27,48 @@ export const CruiseRoute = ({ route }: { route: DBRouteType }) => {
         Маршрут
       </Heading>
 
-      {routes?.map((days, index) => {
-        const startDate = format(days[0].dateIn * 1000, 'dd MMMM yyyy', {
-          locale: ru,
-        });
-        const dayOfWeekStart = format(days[0].dateIn * 1000, 'EEEE', {
-          locale: ru,
-        });
+      <Accordion defaultIndex={[0]} allowMultiple>
+        {routes?.map((days, index) => {
+          const dateIn = days[0].dateIn;
+          console.log('dateIn', new Date(dateIn));
 
-        return (
-          <div key={index}>
-            День {index + 1}{' '}
-            <span>
-              {startDate} {dayOfWeekStart}
-            </span>
-            <div>
-              {days.map((day, index) => {
-                return <CruiseRouteDay key={index} day={day} />;
-              })}
-            </div>
-          </div>
-        );
-      })}
+          const startDate = format(dateIn, 'dd MMMM', {
+            locale: ru,
+          });
+
+          const startTime = format(dateIn, 'HH:mm');
+          const dayOfWeekStart = format(dateIn, 'EEEE', {
+            locale: ru,
+          });
+
+          return (
+            <AccordionItem key={index}>
+              <AccordionButton>
+                <Box flex="1" textAlign="left">
+                  <Text
+                    as="span"
+                    mr="12px"
+                    fontSize="18px"
+                    fontWeight="bold"
+                    color="primary"
+                  >
+                    День {index + 1}{' '}
+                  </Text>
+                  <span>
+                    {startDate} ({dayOfWeekStart}) {startTime}
+                  </span>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel pb={4}>
+                {days.map((day, index) => {
+                  return <CruiseRouteDay key={index} day={day} />;
+                })}
+              </AccordionPanel>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
     </MainContainer>
   );
 };
