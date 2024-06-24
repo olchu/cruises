@@ -36,14 +36,16 @@ export const CruiseShortAbout = () => {
     locale: ru,
   });
 
-  const { route } = cruise;
+  const route = cruise?.route || {};
 
   const routeKeys = Object.keys(route);
-
+  //@ts-ignore
   const timeOut = format(route?.[routeKeys[0]]?.[0]?.dateOut, 'HH:mm', {
     locale: ru,
   });
 
+  // TODO add types
+  //@ts-ignore
   const timeIn = format(route?.[routeKeys.slice(-1)[0]]?.[0]?.dateIn, 'HH:mm', {
     locale: ru,
   });
