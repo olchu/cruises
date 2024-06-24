@@ -143,7 +143,7 @@ export const getServerSideProps = (async (context) => {
 
     const shipSelect = await prisma.ships.findUnique({
       where: {
-        id: cruise.shipId,
+        id: cruise?.shipId,
       },
     });
     const ship = JSON.parse(JSON.stringify(shipSelect));

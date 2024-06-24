@@ -36,6 +36,18 @@ export const CruiseShortAbout = () => {
     locale: ru,
   });
 
+  const { route } = cruise;
+
+  const routeKeys = Object.keys(route);
+
+  const timeOut = format(route?.[routeKeys[0]]?.[0]?.dateOut, 'HH:mm', {
+    locale: ru,
+  });
+
+  const timeIn = format(route?.[routeKeys.slice(-1)[0]]?.[0]?.dateIn, 'HH:mm', {
+    locale: ru,
+  });
+
   return (
     <Box
       bg="white"
@@ -56,12 +68,12 @@ export const CruiseShortAbout = () => {
           <Box>
             <Title>Даты</Title>
             <Description>
-              {formatedStart} ({dayOfWeekStart}){' '}
+              {formatedStart} ({timeOut}){' '}
               <Text as="span" fontSize="sm" fontWeight="normal">
                 {' — '}
                 {cruise?.days} дней {' — '}
               </Text>{' '}
-              {formatedEnd} ({dayOfWeekEnd})
+              {formatedEnd} ({timeIn})
             </Description>
           </Box>
           <Box>
