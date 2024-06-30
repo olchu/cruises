@@ -1,18 +1,25 @@
 import { MainContainer } from '@/shared/ui/mainContainer/MainContainer';
 import { Box, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 export const GoToOldSite = () => {
   return (
     <Box bg="accent" color="white">
       <MainContainer
         overflow="hidden"
-        p={{ base: '4px', md: '8px' }}
+        p={{ base: '6px', md: '10px' }}
         maxW={'1400px'}
         h="full"
       >
-        <Text mx="auto" textAlign="center" fontSize={{ base: '15px', md: '18px' }}>
-          Это новая версия сайта. Прежняя версия сайта продолжает работать
-          здесь: <a href="https://old.vbp.ru/">old.vbp.ru</a>.
+        <Text
+          mx="auto"
+          textAlign="center"
+          fontSize={{ base: '16px', md: '20px' }}
+        >
+          <Link href="/close">
+            С 01.07.2024 ООО «Круизная компания «Волго-Балтийские путешествия»
+            приостанавливает свою деятельность.
+          </Link>
         </Text>
       </MainContainer>
     </Box>
