@@ -178,7 +178,7 @@ export const getServerSideProps = (async (context) => {
     where: {
       publish: 'true',
     },
-    take: 6,
+    take: 4,
   });
 
   const cruises: CruiseType[] = JSON.parse(JSON.stringify(cruisesSelect));

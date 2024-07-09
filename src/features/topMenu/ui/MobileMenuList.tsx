@@ -120,6 +120,12 @@ const menulist = [
     goToUrl: false,
   },
   {
+    title: 'Клиентам',
+    links: aboutLinks,
+    url: '/oplata',
+    goToUrl: true,
+  },
+  {
     title: 'Контакты',
     links: [],
     url: '/contacts',
