@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { TextEditor } from '@/features/textEditor';
-import { defaultItemsOnPage } from '@/shared/constants/constants';
+import { defaultItemsOnPage, domainUrl } from '@/shared/constants/constants';
 import { PagesPrismaType, TagPrismaType } from '@/shared/types/prismaResponse';
 import {
   VStack,
@@ -163,7 +163,7 @@ export const AddPageForm: FC<AddPageFrom> = ({ page }) => {
 
   useEffect(() => {
     if (page?.id) return;
-    setFieldValue('seoCanonicalUrl', `https://vbp.ru/${values.slug}`);
+    setFieldValue('seoCanonicalUrl', `${domainUrl}/${values.slug}`);
   }, [values.slug]);
 
   const image = uploadImages || postImages;

@@ -51,11 +51,11 @@ export default async function handler(
           where: {
             id: selectShip?.id,
           },
-          data: { ...ship, img: `https://vbp.ru/${imgPath}` },
+          data: { ...ship, img: `/${imgPath}` },
         });
       } else {
         const createRes = await prisma.ships.create({
-          data: { ...ship, img: `https://vbp.ru/${imgPath}` },
+          data: { ...ship, img: `/${imgPath}` },
         });
       }
 

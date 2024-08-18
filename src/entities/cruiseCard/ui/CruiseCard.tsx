@@ -1,3 +1,4 @@
+import { domainUrl } from '@/shared/constants/constants';
 import { CruiseType } from '@/shared/types/prismaResponse';
 import {
   Box,
@@ -48,7 +49,7 @@ export const CruiseCard = ({ cruise }: CreuseCardProps) => {
       bg="white"
     >
       <Box w="full" h="190px" position="relative">
-        <Image boxSize="100%" objectFit="cover" src={image} alt={title} style={{ objectFit: 'cover' }}/>
+        <Image boxSize="100%" objectFit="cover" src={`${domainUrl}${image}`} alt={title} style={{ objectFit: 'cover' }}/>
       </Box>
 
       <VStack w="full" gap="10px" alignItems="flex-start" p="12px">

@@ -11,7 +11,6 @@ import {
 import moment from 'moment';
 import NextLink from 'next/link';
 import { FaShip, FaRoute, FaCalendarDays, FaSun } from 'react-icons/fa6';
-import { useMemo } from 'react';
 
 interface CreuseCardProps {
   cruise: CruiseType;
@@ -34,8 +33,6 @@ export const SimpleCardRow = ({ cruise }: CreuseCardProps) => {
   } = cruise;
   const formatedStart = moment(dateStart);
   const formatedEnd = moment(dateEnd);
-
-  const img = useMemo(() => image || shipImg || '', []);
 
   return (
     <>

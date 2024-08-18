@@ -17,6 +17,7 @@ import prisma from 'prisma/client';
 import React, { ReactElement } from 'react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { domainUrl } from '@/shared/constants/constants';
 
 const initialState: CruiseDetailsPageProps = {
   cruise: null,
@@ -89,7 +90,7 @@ const CtuiseDetails = ({ cruise, ship }: CruiseDetailsPageProps) => {
           <Box
             w="full"
             h="200px"
-            bgImage={cruise?.image || cruise?.shipImg || ''}
+            bgImage={`${domainUrl}${cruise?.image || cruise?.shipImg || ''}`}
             bgPosition="center"
             bgSize="cover"
           >
