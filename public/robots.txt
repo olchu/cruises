@@ -1,16 +1,2 @@
 User-agent: *
-Disallow: */?utm_source=*
-Disallow: /admin/
-Disallow: /search?*
-Disallow: */?yhid=
-Allow: */upload/
-Allow: */uploads/
-Allow: /*.css
-Allow: /*.js
-Allow: /*.jpg
-Allow: /*.jpeg
-Allow: /*.png
-Allow: /*.gif
-Allow: /*.webp
-
-Sitemap: https://vbp.ru/sitemap.xml
+Disallow: /
