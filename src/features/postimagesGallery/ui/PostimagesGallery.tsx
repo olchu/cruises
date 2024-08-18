@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Box, Image, VStack } from '@chakra-ui/react';
+import { domainUrl } from '@/shared/constants/constants';
 
 export const PostimagesGallery = ({ images }: { images: string[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
@@ -35,7 +36,7 @@ export const PostimagesGallery = ({ images }: { images: string[] }) => {
                 mx="auto"
                 width={{ base: 'full', md: 'auto' }}
                 height={{ base: 'auto', md: '400px' }}
-                src={`https://vbp.ru/${image}`}
+                src={`${domainUrl}${image}`}
                 alt=""
               />
             </SwiperSlide>
@@ -56,7 +57,7 @@ export const PostimagesGallery = ({ images }: { images: string[] }) => {
           {images.map((image, id) => {
             return (
               <SwiperSlide key={id}>
-                <Image width="50px" src={`https://vbp.ru/${image}`} alt="" />
+                <Image width="50px" src={`${domainUrl}${image}`} alt="" />
               </SwiperSlide>
             );
           })}

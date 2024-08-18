@@ -16,6 +16,7 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 // import Image from 'next/image';
 import { useMemo } from 'react';
+import { domainUrl } from '@/shared/constants/constants';
 
 interface CreuseCardProps {
   cruise: CruiseType;
@@ -65,7 +66,7 @@ export const CruiseCardRow = ({ cruise }: CreuseCardProps) => {
             <Image
               w="full"
               h="full"
-              src={img}
+              src={`${domainUrl}${img}`}
               alt={title}
               style={{ objectFit: 'cover' }}
             />

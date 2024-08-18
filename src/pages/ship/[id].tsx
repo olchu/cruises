@@ -1,6 +1,6 @@
 import { SearchResultContent } from '@/features/searchResultContent';
 import { MainLayout } from '@/layouts/main';
-import { defaultItemsOnPage } from '@/shared/constants/constants';
+import { defaultItemsOnPage, domainUrl } from '@/shared/constants/constants';
 import {
   CompilationQueryType,
   getCompilation,
@@ -109,7 +109,7 @@ const ShipDetails = ({
         <Box
           w="full"
           h="200px"
-          bgImage={ship?.img!}
+          bgImage={`${domainUrl}${ship?.img!}`}
           bgPosition="center"
           bgSize="cover"
         >

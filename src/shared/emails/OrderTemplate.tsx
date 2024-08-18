@@ -5,6 +5,7 @@ import { Container } from '@react-email/container';
 import { CruiseType } from '../types/prismaResponse';
 import { Link } from '@react-email/components';
 import moment from 'moment';
+import { domainUrl } from '../constants/constants';
 
 export const OrderEmail = ({
   cruise,
@@ -25,7 +26,7 @@ export const OrderEmail = ({
         <Container style={container}>
           <Text style={heading}>Поступила новая заявка!</Text>
           <Text style={paragraph}>Заявка по круизу</Text>
-          <Link href={`https://vbp.ru/cruise/${cruise.id}.`}>
+          <Link href={`${domainUrl}/cruise/${cruise.id}.`}>
             {cruise.cityStart} - {cruise.cityEnd}
           </Link>
           <Text>{`${formatedStart.format('DD.MM.YYYY')} - ${formatedEnd.format(
