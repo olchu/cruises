@@ -28,7 +28,7 @@ export const StockWidget = () => {
             <InfoBox
               w={{ base: '100%', md: '60%' }}
               h={infoBlockHeight}
-              img="/img/pensioner.webp"
+              img="/img/2.webp"
               title="Скидка 5%"
               description="Круизы для пенсионеров"
               url={pagesLink.pensioneram}
@@ -36,7 +36,7 @@ export const StockWidget = () => {
             <InfoBox
               w={{ base: '100%', md: '40%' }}
               h={infoBlockHeight}
-              img="/img/1.jpeg"
+              img="/img/2.jpeg"
               title="Семейный отдых"
               description='Акция "Дети бесплатно"'
               url={pagesLink.detiBesplatno}
@@ -51,7 +51,7 @@ export const StockWidget = () => {
             <InfoBox
               w={{ base: '100%', md: '40%' }}
               h={infoBlockHeight}
-              img="/img/expedition.jpg"
+              img="/img/2.jpg"
               title="Уникальные маршруты"
               description="Экспедиционные круизы"
               url={pagesLink.expedition}
@@ -59,7 +59,7 @@ export const StockWidget = () => {
             <InfoBox
               w={{ base: '100%', md: '60%' }}
               h={infoBlockHeight}
-              img="/img/astoria.webp"
+              img="/img/2.webp"
               title="Морские круизы"
               description="лайнер Astoria Grande"
               url="#"
@@ -69,7 +69,7 @@ export const StockWidget = () => {
         <InfoBox
           h={{ base: '220px', lg: 'inherit' }}
           w={{ base: '100%', lg: '35%' }}
-          img="/img/pirogov.jpg"
+          img="/img/2.jpg"
           title="т/х Григорий Пирогов"
           description="Еще дешевле"
           url={pagesLink.pirogov}

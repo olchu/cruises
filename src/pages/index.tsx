@@ -134,7 +134,7 @@ const Home = ({
 
       <BlogPreview posts={posts} />
 
-      <ProviderLogos />
+      {/* <ProviderLogos /> */}
     </>
   );
 };
