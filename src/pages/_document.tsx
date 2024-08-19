@@ -9,7 +9,7 @@ export default function Document() {
         <Main />
         <NextScript />
 
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
               (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -26,8 +26,8 @@ export default function Document() {
               });
               `,
           }}
-        />
-        <noscript>
+        /> */}
+        {/* <noscript>
           <div>
             <img
               src="https://mc.yandex.ru/watch/26505816"
@@ -35,7 +35,7 @@ export default function Document() {
               alt=""
             />
           </div>
-        </noscript>
+        </noscript> */}
       </body>
     </Html>
   );
