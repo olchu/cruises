@@ -25,7 +25,7 @@ export const getCruisesByShip = async (
 
   for (let i in cruises.data) {
     if (cruises.data[i]?.id) {
-      // await timeout(2000);
+      await timeout(2000);
       const details = await getCruisesById(cruises.data[i].id, id, ship);
       if (details) {
         prepareCruises.push(details);
