@@ -25,6 +25,7 @@ type DataTypeItem = {
   isLoaded: boolean;
   cruises: DBCruiseData[];
   cruisesCount: number;
+  successCount: number;
 };
 
 type DataType = Record<number, DataTypeItem>;
@@ -52,6 +53,7 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
           isLoaded: true,
           cruises: cruises?.preparedData || [],
           cruisesCount: cruises?.count || 0,
+          successCount: cruises?.success || 0,
         },
       };
     });
@@ -146,6 +148,11 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
             </Thead>
             <Tbody>
               {ships.map((ship) => {
+                const count = data[ship.extId]?.cruisesCount
+                  ? `${data[ship.extId]?.successCount}/${
+                      data[ship.extId]?.cruisesCount
+                    }`
+                  : null;
                 return (
                   <Tr key={ship.id}>
                     <Td>{ship.id}</Td>
@@ -153,7 +160,7 @@ export const Cruises = ({ ships }: { ships: ShipsType[] }) => {
                     <Td>{ship.name}</Td>
                     <Td>
                       <Center alignItems="center">
-                        {data[ship.extId]?.cruisesCount || 'не загружено'}
+                        {count || 'не загружено'}
                       </Center>
                     </Td>
                     <Td>

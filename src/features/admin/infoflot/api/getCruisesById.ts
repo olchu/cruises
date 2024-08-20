@@ -10,70 +10,81 @@ export const getCruisesById = async (
   shipId: number,
   ship: ShipsType
 ) => {
-  const infoRes = await fetch(
-    ` https://restapi.infoflot.com/cruises/${extId}?key=${infoflotKey}`
-  );
-  const info: InfoflotCruiseResponse = await infoRes.json();
+  try {
+    const infoRes = await fetch(
+      ` https://restapi.infoflot.com/cruises/${extId}?key=${infoflotKey}`
+    );
 
-  const { prices, minPriceDiscount, minPrice } = await getPriceseById(
-    extId,
-    ship
-  );
-
-  const route = getRoutes(info.timetable);
-
-  const shortRoute = info.routeShort.split(' – ');
-
-  const regex = /Акция\s*«([^»]+)»|([^«]+)$/;
-
-  let offers: string[] = [];
-  let discounts: string[] = [];
-
-  info.sug.map(({ title }) => {
-    const matches = title.match(regex);
-    if (matches) {
-      // Если найдено слово "Акция"
-      if (matches[1]) {
-        offers.push(matches[1]);
-      } else {
-        discounts.push(title);
-      }
+    if (!infoRes.ok) {
+      throw new Error(`Failed to fetch cruise with id ${extId}`);
     }
-  });
+    
+    const info: InfoflotCruiseResponse = await infoRes.json();
 
+    const { prices, minPriceDiscount, minPrice } = await getPriceseById(
+      extId,
+      ship
+    );
 
-  return {
-    extId: extId,
-    title: info.beautifulName || '',
-    dateStart: new Date(info.dateStartTimestamp * 1000),
-    dateEnd: new Date(info.dateEndTimestamp * 1000),
-    cityStart: info.startCityName,
-    cityEnd: shortRoute.at(-1) || '',
-    days: info.days,
-    shortRoute: info.route.split(' – ').join(' → '),
-    shipId: shipId,
-    extShipId: info.ship.id,
-    shipName: info.ship.name,
-    loadFrom: Providers.infoflot,
-    description: info.description || '',
-    included: info.include,
-    excluded: info.additional,
-    restaurants: '',
-    image: Array.isArray(info.photos)
-      ? info.photos[0].filename
-      : info.photos || '',
-    shipImg: ship.img || '',
-    minPrice: minPrice,
-    minDiscountPrice: minPriceDiscount,
-    citiesInRoute: info.route.split(' – '),
-    route: route,
-    prices,
-    class: ship.class || '',
-    type: ship.type || '',
-    provider: ship.provider || '',
-    offers,
-    discounts,
-  };
+    const route = getRoutes(info.timetable);
+
+    const shortRoute = info.routeShort.split(' – ');
+
+    const regex = /Акция\s*«([^»]+)»|([^«]+)$/;
+
+    let offers: string[] = [];
+    let discounts: string[] = [];
+
+    info.sug.map(({ title }) => {
+      const matches = title.match(regex);
+      if (matches) {
+        // Если найдено слово "Акция"
+        if (matches[1]) {
+          offers.push(matches[1]);
+        } else {
+          discounts.push(title);
+        }
+      }
+    });
+
+    return {
+      extId: extId,
+      title: info.beautifulName || '',
+      dateStart: new Date(info.dateStartTimestamp * 1000),
+      dateEnd: new Date(info.dateEndTimestamp * 1000),
+      cityStart: info.startCityName,
+      cityEnd: shortRoute.at(-1) || '',
+      days: info.days,
+      shortRoute: info.route.split(' – ').join(' → '),
+      shipId: shipId,
+      extShipId: info.ship.id,
+      shipName: info.ship.name,
+      loadFrom: Providers.infoflot,
+      description: info.description || '',
+      included: info.include,
+      excluded: info.additional,
+      restaurants: '',
+      image: Array.isArray(info.photos)
+        ? info.photos[0].filename
+        : info.photos || '',
+      shipImg: ship.img || '',
+      minPrice: minPrice,
+      minDiscountPrice: minPriceDiscount,
+      citiesInRoute: info.route.split(' – '),
+      route: route,
+      prices,
+      class: ship.class || '',
+      type: ship.type || '',
+      provider: ship.provider || '',
+      offers,
+      discounts,
+    };
+  } catch (error) {
+    console.error(`Error fetching cruise data for extId ${extId}:`, error);
+
+    // Возвращаем null или пустой объект, чтобы обозначить, что данный круиз не удалось получить
+    return null;
+  }
 };
 
 interface InfoflotCruiseResponse {

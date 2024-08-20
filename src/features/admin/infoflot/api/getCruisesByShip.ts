@@ -27,7 +27,9 @@ export const getCruisesByShip = async (
     if (cruises.data[i]?.id) {
       // await timeout(2000);
       const details = await getCruisesById(cruises.data[i].id, id, ship);
-      prepareCruises.push(details);
+      if (details) {
+        prepareCruises.push(details);
+      }
     } else {
       console.log('i', i, cruises.data[i]);
     }
@@ -38,6 +40,7 @@ export const getCruisesByShip = async (
   return {
     preparedData: prepareCruises,
     count: cruises.data?.length,
+    success: prepareCruises.length,
   };
 };
 
