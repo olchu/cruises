@@ -6,25 +6,7 @@ import { ReactElement } from 'react';
 
 const News = () => {
   return (
-    <Tabs variant="soft-rounded">
-      <TabList>
-        <Tab>Блог</Tab>
-        <Tab>Новости</Tab>
-        <Tab>Страница</Tab>
-      </TabList>
-
-      <TabPanels>
-        <TabPanel>
-          <AddPostForm />
-        </TabPanel>
-
-        <TabPanel>
-          <AddNewsForm />
-        </TabPanel>
-
-        <TabPanel>типы кают</TabPanel>
-      </TabPanels>
-    </Tabs>
+    <AddNewsForm />
   );
 };
 

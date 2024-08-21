@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { data, error } = await resend.emails.send({
     from: 'Заявка с сайта <onboarding@resend.dev>',
-    to: ['vbp@vbp.ru'],
+    to: ['booking@ap-travel.ru'],
     subject: `Заявка с сайта по круизу ${cruise?.id}`,
     react: OrderEmail({ cruise, chooseCabins, fields, category }),
   });
