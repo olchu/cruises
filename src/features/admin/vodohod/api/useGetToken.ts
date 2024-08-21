@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const LOGIN = 'vbp+vodohodapi@vbp.ru';
-const PWD = 'huiP8o43uaaekMAMn';
+const LOGIN = process.env.NEXT_PUBLIC_VODOHOD_LOGIN;
+const PWD = "pCvJ}CDD?&1EylCV$*0!t?C.9";
 const URL = 'https://api-crs.vodohod.com/security/authorise';
 
 export const useGetToken = () => {
