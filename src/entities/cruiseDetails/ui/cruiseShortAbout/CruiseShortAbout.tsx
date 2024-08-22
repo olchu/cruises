@@ -38,18 +38,22 @@ export const CruiseShortAbout = () => {
 
   const route = cruise?.route || {};
 
+  console.log('route', route);
   const routeKeys = Object.keys(route);
   //@ts-ignore
-  const timeOut = format(route?.[routeKeys[0]]?.[0]?.dateOut, 'HH:mm', {
-    locale: ru,
-  });
-
-  // TODO add types
+  const timeOut = route?.[routeKeys[0]]?.[0]?.dateOut
   //@ts-ignore
-  const timeIn = format(route?.[routeKeys.slice(-1)[0]]?.[0]?.dateIn, 'HH:mm', {
-    locale: ru,
-  });
-
+    ? `(${format(route?.[routeKeys[0]]?.[0]?.dateOut, 'HH:mm', {
+        locale: ru,
+      })}) `
+    : '';
+  //@ts-ignore
+  const timeIn = route?.[routeKeys.slice(-1)[0]]?.[0]?.dateIn
+  //@ts-ignore
+    ? `(${format(route?.[routeKeys.slice(-1)[0]]?.[0]?.dateIn, 'HH:mm', {
+        locale: ru,
+      })})`
+    : '';
   return (
     <Box
       bg="white"
@@ -70,12 +74,12 @@ export const CruiseShortAbout = () => {
           <Box>
             <Title>Даты</Title>
             <Description>
-              {formatedStart} ({timeOut}){' '}
+              {formatedStart} {timeOut}
               <Text as="span" fontSize="sm" fontWeight="normal">
                 {' — '}
                 {cruise?.days} дней {' — '}
               </Text>{' '}
-              {formatedEnd} ({timeIn})
+              {formatedEnd} {timeIn}
             </Description>
           </Box>
           <Box>
