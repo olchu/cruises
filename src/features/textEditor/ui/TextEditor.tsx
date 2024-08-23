@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { FC, forwardRef, useCallback, useMemo, useRef } from 'react';
 import 'react-quill/dist/quill.snow.css'; // импортируй стили
 import Delta from 'quill-delta';
+import { domainUrl } from '@/shared/constants/constants';
 
 interface TextEditorProps {
   value: string;
@@ -56,7 +57,7 @@ export const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
           const delta = new Delta()
             .retain(range.index)
             .insert(
-              { image: `https://vbp.ru${imageUrl}`, alt: altText },
+              { image: `${domainUrl}${imageUrl}`, alt: altText },
               { alt: altText }
             )
             .retain(value.length - range.index);
